@@ -21,8 +21,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setDelegate()
         setAttributes()
-        
+    }
+    
+    private func setDelegate() {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         nicknameTextField.delegate = self
@@ -31,12 +34,15 @@ class ViewController: UIViewController {
     }
     
     private func setAttributes() {
+        self.view.backgroundColor = .black
+        
         logoLabel.text = "JACKFLIX"
         logoLabel.textColor = .red
         logoLabel.font = .systemFont(ofSize: 30, weight: .bold)
         
         emailTextField.setUI(placeholder: "이메일 주소 또는 전화번호", keyboardType: .emailAddress)
-        passwordTextField.setUI(placeholder: "비밀번호")
+        // TODO: - 에러 수정하기
+        passwordTextField.setUI(placeholder: "비밀번호", isSecure: true)
         nicknameTextField.setUI(placeholder: "닉네임")
         locationTextField.setUI(placeholder: "위치")
         referralCodeTextField.setUI(placeholder: "추천 코드 입력")
