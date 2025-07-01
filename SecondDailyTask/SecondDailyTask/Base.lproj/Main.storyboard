@@ -23,35 +23,80 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qwa-BL-QDk">
-                                <rect key="frame" x="20" y="289.66666666666669" width="353" height="323.00000000000006"/>
+                                <rect key="frame" x="20" y="208.66666666666666" width="353" height="484.66666666666674"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3q5-uI-FGt">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="emailTextFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="nJl-un-B2f"/>
+                                        </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTx-UO-Q0f">
-                                        <rect key="frame" x="0.0" y="46" width="353" height="34"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJd-va-lfc">
+                                        <rect key="frame" x="0.0" y="46" width="353" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTx-UO-Q0f">
+                                        <rect key="frame" x="0.0" y="78.333333333333343" width="353" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="passwordTextFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="yEi-2o-Lle"/>
+                                        </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h2s-tc-Sdd">
-                                        <rect key="frame" x="0.0" y="92" width="353" height="34"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0m-PV-LSB">
+                                        <rect key="frame" x="0.0" y="124.33333333333333" width="353" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h2s-tc-Sdd">
+                                        <rect key="frame" x="0.0" y="156.66666666666666" width="353" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="nicknameTextFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="7Cr-3K-fv8"/>
+                                        </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZgA-58-eKo">
-                                        <rect key="frame" x="0.0" y="138" width="353" height="34"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7JG-S5-UOf">
+                                        <rect key="frame" x="0.0" y="202.66666666666666" width="353" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZgA-58-eKo">
+                                        <rect key="frame" x="0.0" y="235.00000000000003" width="353" height="33.999999999999972"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="locationTextFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="5ta-Jg-PfJ"/>
+                                        </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qhk-4A-Y0l">
-                                        <rect key="frame" x="0.0" y="184" width="353" height="34"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6g7-WR-KKo">
+                                        <rect key="frame" x="0.0" y="281" width="353" height="20.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qhk-4A-Y0l">
+                                        <rect key="frame" x="0.0" y="313.33333333333337" width="353" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="referralTextFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="dEv-Qm-Imz"/>
+                                        </connections>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHl-j6-TVd">
+                                        <rect key="frame" x="0.0" y="359.33333333333337" width="353" height="20.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPd-ZC-dyT">
-                                        <rect key="frame" x="0.0" y="229.99999999999994" width="353" height="50"/>
+                                        <rect key="frame" x="0.0" y="391.66666666666674" width="353" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="1EJ-Wg-4lq"/>
                                         </constraints>
@@ -62,7 +107,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="105" translatesAutoresizingMaskIntoConstraints="NO" id="hR5-Z7-dTP">
-                                        <rect key="frame" x="0.0" y="291.99999999999994" width="353" height="31"/>
+                                        <rect key="frame" x="0.0" y="453.66666666666674" width="353" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pI9-JL-8AQ">
                                                 <rect key="frame" x="0.0" y="0.0" width="199" height="31"/>
@@ -93,11 +138,16 @@
                         <outlet property="additionInformationSwitch" destination="lOA-6D-fmY" id="rxE-j5-TXx"/>
                         <outlet property="additionalInformationLabel" destination="pI9-JL-8AQ" id="IUz-Wh-svA"/>
                         <outlet property="emailTextField" destination="3q5-uI-FGt" id="loF-pI-8d2"/>
+                        <outlet property="emailValidationLabel" destination="ZJd-va-lfc" id="7Id-Bb-bvJ"/>
                         <outlet property="locationTextField" destination="ZgA-58-eKo" id="dZk-Yp-fVM"/>
+                        <outlet property="locationValidationLabel" destination="6g7-WR-KKo" id="v7n-M3-F2t"/>
                         <outlet property="logoLabel" destination="DD0-UX-eOP" id="HEv-ky-bLr"/>
                         <outlet property="nicknameTextField" destination="h2s-tc-Sdd" id="Zzc-Kc-lrr"/>
+                        <outlet property="nicknameValidationLabel" destination="7JG-S5-UOf" id="Rg7-tR-T8Z"/>
                         <outlet property="passwordTextField" destination="PTx-UO-Q0f" id="ncE-uD-z1X"/>
+                        <outlet property="passwordValidationLabel" destination="j0m-PV-LSB" id="H25-mb-Prh"/>
                         <outlet property="referralCodeTextField" destination="Qhk-4A-Y0l" id="d4b-9l-API"/>
+                        <outlet property="referralCodeValidationLabel" destination="fHl-j6-TVd" id="srf-Vt-mSP"/>
                         <outlet property="signUpButton" destination="hPd-ZC-dyT" id="ihV-0p-5eS"/>
                     </connections>
                 </viewController>

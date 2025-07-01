@@ -9,9 +9,8 @@ import UIKit
 
 class EmotionDiaryViewController: UIViewController {
     
-    
-    var emojiLabelText: [Int] = Array(repeating: 0, count: 9)
-    
+    private var emojiLabelText: [Int] = Array(repeating: 0, count: 9)
+    lazy var emojiLabels: [UILabel] = [emojiCountLabel1, emojiCountLabel2, emojiCountLabel3, emojiCountLabel4, emojiCountLabel5, emojiCountLabel6, emojiCountLabel7, emojiCountLabel8, emojiCountLabel9]
     
     @IBOutlet var emojiCountLabel1: UILabel!
     @IBOutlet var emojiCountLabel2: UILabel!
@@ -22,8 +21,6 @@ class EmotionDiaryViewController: UIViewController {
     @IBOutlet var emojiCountLabel7: UILabel!
     @IBOutlet var emojiCountLabel8: UILabel!
     @IBOutlet var emojiCountLabel9: UILabel!
-    
-    lazy var emojiLabels: [UILabel] = [emojiCountLabel1, emojiCountLabel2, emojiCountLabel3, emojiCountLabel4, emojiCountLabel5, emojiCountLabel6, emojiCountLabel7, emojiCountLabel8, emojiCountLabel9]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +36,4 @@ class EmotionDiaryViewController: UIViewController {
         emojiLabelText[sender.tag] += 1
         emojiLabels[sender.tag].text = "\(emojiLabelText[sender.tag])"
     }
-    
-    
-    
 }
