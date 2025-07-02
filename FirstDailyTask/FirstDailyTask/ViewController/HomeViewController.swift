@@ -27,6 +27,7 @@ class HomeViewController: UIViewController {
     }
     
     private func setUI() {
+        self.view.backgroundColor = .black
         designImageView()
         designButton()
         setRandomView()

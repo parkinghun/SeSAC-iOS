@@ -26,6 +26,7 @@ class NewAndHotViewController: UIViewController {
     }
     
     private func setUI() {
+        self.view.backgroundColor = .black
         resultLabel.text = (buttonsItem[buttonTag] ?? (UIImage.blue, "")).title
         textFieldStackView.layer.cornerRadius = 8
         textFieldStackView.clipsToBounds = true
