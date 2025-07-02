@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         additionInformationSwitch.onTintColor = .red
         additionInformationSwitch.thumbTintColor = .gray
         
-        emailValidationLabel.setUI(text: "올바른 이메일 혹은 전화번호를 입력해주세요..")
+        emailValidationLabel.setUI(text: "올바른 이메일 혹은 전화번호를 입력해주세요.")
         passwordValidationLabel.setUI(text: "비밀번호는 8자리~13자리 영어+숫자+특수문자를 포함하세요.")
         nicknameValidationLabel.setUI(text: "닉네임은 2자 이상 입력해주세요.")
         locationValidationLabel.setUI(text: "위치를 입력해주세요.")
