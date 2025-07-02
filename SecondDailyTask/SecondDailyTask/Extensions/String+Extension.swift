@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String{
+extension String {
     var isValidEmail: Bool {
         let regExp = "^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$" //"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         

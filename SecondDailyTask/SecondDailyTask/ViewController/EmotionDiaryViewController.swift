@@ -8,19 +8,23 @@
 import UIKit
 
 class EmotionDiaryViewController: UIViewController {
+
+    var items: [Int: (emotion: String, emoji: UIImage?, count: Int)] = [
+        0: ("행복해", UIImage.mono_slime1, 0),
+        1: ("사랑해", UIImage.mono_slime2, 0),
+        2: ("좋아해", UIImage.mono_slime3, 0),
+        3: ("당황해", UIImage.mono_slime4, 0),
+        4: ("속상해", UIImage.mono_slime5, 0),
+        5: ("우울해", UIImage.mono_slime6, 0),
+        6: ("심심해", UIImage.mono_slime7, 0),
+        7: ("싫어해", UIImage.mono_slime8, 0),
+        8: ("슬퍼해", UIImage.mono_slime9, 0),
+    ]
     
-    private var emojiLabelText: [Int] = Array(repeating: 0, count: 9)
-    lazy var emojiLabels: [UILabel] = [emojiCountLabel1, emojiCountLabel2, emojiCountLabel3, emojiCountLabel4, emojiCountLabel5, emojiCountLabel6, emojiCountLabel7, emojiCountLabel8, emojiCountLabel9]
-    
-    @IBOutlet var emojiCountLabel1: UILabel!
-    @IBOutlet var emojiCountLabel2: UILabel!
-    @IBOutlet var emojiCountLabel3: UILabel!
-    @IBOutlet var emojiCountLabel4: UILabel!
-    @IBOutlet var emojiCountLabel5: UILabel!
-    @IBOutlet var emojiCountLabel6: UILabel!
-    @IBOutlet var emojiCountLabel7: UILabel!
-    @IBOutlet var emojiCountLabel8: UILabel!
-    @IBOutlet var emojiCountLabel9: UILabel!
+    @IBOutlet var emojiButtons: [UIButton]!
+    @IBOutlet var emojiLabels: [UILabel]!
+    @IBOutlet var stackViews: [UIStackView]!
+    @IBOutlet var buttonOuterView: [UIView]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +33,32 @@ class EmotionDiaryViewController: UIViewController {
     
     private func setUI() {
         self.view.backgroundColor = UIColor(red: 199/255, green: 177/255, blue: 153/255, alpha: 1)
+        
+        stackViews.forEach {
+            $0.spacing = 12
+            $0.distribution = .fillEqually
+            $0.alignment = .center
+            $0.backgroundColor = .clear
+        }
+        
+        for index in emojiButtons.indices {
+            emojiButtons[index].setImage(items[index]?.emoji, for: .normal)
+            emojiButtons[index].imageView?.contentMode = .scaleAspectFit
+            emojiButtons[index].tag = index
+            
+            emojiLabels[index].text = "\(items[index]!.emotion) \(items[index]!.count)"
+            emojiLabels[index].textAlignment = .center
+            
+            buttonOuterView[index].backgroundColor = .clear
+        }
     }
     
     @IBAction func emojiButtonTapped(_ sender: UIButton) {
         print("\(sender.tag) Tapped")
-        emojiLabelText[sender.tag] += 1
-        emojiLabels[sender.tag].text = "\(emojiLabelText[sender.tag])"
+        items[sender.tag]!.count += 1
+
+        let item = items[sender.tag]
+        emojiLabels[sender.tag].text = "\(item!.emotion) \(item!.count)"
     }
+    
 }
