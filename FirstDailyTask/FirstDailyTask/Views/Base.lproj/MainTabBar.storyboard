@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="1330" y="577"/>
         </scene>
-        <!--Main Tab Bar Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="fZt-fS-mVs">
             <objects>
-                <tabBarController id="GU4-07-Ozp" customClass="MainTabBarController" customModule="FirstDailyTask" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="GU4-07-Ozp" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gai-uW-C0P">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
