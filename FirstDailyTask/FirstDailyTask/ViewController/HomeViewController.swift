@@ -60,6 +60,8 @@ class HomeViewController: UIViewController {
     private func designImageView(_ imageView: UIImageView, cornerRaius: CGFloat = 12) {
         imageView.layer.cornerRadius = cornerRaius
         imageView.clipsToBounds = true
+        imageView.layer.borderColor = UIColor.gray.cgColor
+        imageView.layer.borderWidth = 1
         
         playButtonImageView.image = .playNormal
         playButtonImageView.contentMode = .scaleAspectFit
