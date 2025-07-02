@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--NEW & HOT-->
+        <!--NEW & HOT 검색-->
         <scene sceneID="YKY-Gt-qpa">
             <objects>
                 <viewController storyboardIdentifier="NewAndHotViewController" id="sQ4-zW-e0a" customClass="NewAndHotViewController" customModule="FirstDailyTask" customModuleProvider="target" sceneMemberID="viewController">
@@ -140,6 +140,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="NEW &amp; HOT" image="play.rectangle.on.rectangle" catalog="system" selectedImage="play.rectangle.on.rectangle.fill" id="ZAB-bS-ehs"/>
+                    <navigationItem key="navigationItem" title="NEW &amp; HOT 검색" id="K9z-1n-eBO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8p6-zQ-xwq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

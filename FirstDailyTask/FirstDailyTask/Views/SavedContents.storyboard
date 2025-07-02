@@ -78,6 +78,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="저장한 콘텐츠 목록" image="arrowshape.down.circle" catalog="system" selectedImage="arrow.down.circle.fill" id="neB-Nc-KQf"/>
+                    <navigationItem key="navigationItem" title="저장한 콘텐츠 목록" id="TxT-7T-OzX"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N9N-a8-ME4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

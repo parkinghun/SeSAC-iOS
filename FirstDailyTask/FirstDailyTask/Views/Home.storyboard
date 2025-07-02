@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--홈-->
+        <!--고래밥님-->
         <scene sceneID="lXu-kV-NZz">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" id="tjS-S1-R92" customClass="HomeViewController" customModule="FirstDailyTask" customModuleProvider="target" sceneMemberID="viewController">
@@ -112,6 +112,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="홈" image="house" catalog="system" selectedImage="house.fill" id="TYB-Id-7nj"/>
+                    <navigationItem key="navigationItem" title="고래밥님" id="IxK-C9-cHb"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvi-NV-JMV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
