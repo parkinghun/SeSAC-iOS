@@ -53,6 +53,7 @@ class EmotionDiaryViewController: UIViewController {
         }
     }
     
+    // 옵셔널 바인딩
     @IBAction func emojiButtonTapped(_ sender: UIButton) {
         print("\(sender.tag) Tapped")
         items[sender.tag]!.count += 1

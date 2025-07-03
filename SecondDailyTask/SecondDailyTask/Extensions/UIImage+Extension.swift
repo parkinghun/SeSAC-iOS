@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIImage {
+    // enum, 에셋 리소스
     static let mono_slime1 = UIImage(named: "mono_slime1")
     static let mono_slime2 = UIImage(named: "mono_slime2")
     static let mono_slime3 = UIImage(named: "mono_slime3")
