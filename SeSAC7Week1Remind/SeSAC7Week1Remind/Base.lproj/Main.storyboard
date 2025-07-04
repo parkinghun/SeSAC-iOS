@@ -56,7 +56,7 @@
                                     <action selector="countFruits:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GxV-MF-gW9"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-Ks-jc1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-Ks-jc1">
                                 <rect key="frame" x="20" y="182" width="353" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="XKH-61-om8"/>
@@ -143,6 +143,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="zlW-cr-Iuj" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3bF-G9-Y3o">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
