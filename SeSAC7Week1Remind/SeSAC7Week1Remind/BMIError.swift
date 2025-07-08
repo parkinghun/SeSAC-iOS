@@ -23,7 +23,6 @@ enum BMIInputError {
             return "숫자만 입력해주세요."
         case .emptyInput:
             return "공백 혹은 빈칸이 아닌 숫자를 입력해주세요."
-
         }
     }
     

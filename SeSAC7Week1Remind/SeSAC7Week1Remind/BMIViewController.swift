@@ -102,7 +102,7 @@ class BMIViewController: UIViewController {
     }
     
     private func calculateBMI(height: Double, weight: Double) {
-        let bmi = weight / (height * height / 10000)
+        let bmi = weight / (height * height / 10000) // 의미단위, 변수
         resultLabel.text = "BMI: \((bmi * 10).rounded() / 10)"
         
         let state = BMIState.getState(for: bmi)
