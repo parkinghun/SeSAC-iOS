@@ -19,11 +19,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdM-jV-F5p">
                                 <rect key="frame" x="96.666666666666686" y="184" width="200" height="142"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble" translatesAutoresizingMaskIntoConstraints="NO" id="du0-R8-3i0">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble" translatesAutoresizingMaskIntoConstraints="NO" id="du0-R8-3i0">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="142"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43f-Wf-H8e">
-                                        <rect key="frame" x="20" y="61.000000000000007" width="160" height="20.333333333333336"/>
+                                        <rect key="frame" x="20" y="55.000000000000007" width="160" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                                     <constraint firstAttribute="trailing" secondItem="43f-Wf-H8e" secondAttribute="trailing" constant="20" id="SOz-Uz-BRs"/>
                                     <constraint firstItem="du0-R8-3i0" firstAttribute="top" secondItem="rdM-jV-F5p" secondAttribute="top" id="kRT-gB-J7n"/>
                                     <constraint firstItem="du0-R8-3i0" firstAttribute="leading" secondItem="rdM-jV-F5p" secondAttribute="leading" id="n3b-Rl-gWl"/>
-                                    <constraint firstItem="43f-Wf-H8e" firstAttribute="centerY" secondItem="rdM-jV-F5p" secondAttribute="centerY" id="svE-4U-he9"/>
+                                    <constraint firstItem="43f-Wf-H8e" firstAttribute="centerY" secondItem="rdM-jV-F5p" secondAttribute="centerY" constant="-6" id="svE-4U-he9"/>
                                     <constraint firstAttribute="bottom" secondItem="du0-R8-3i0" secondAttribute="bottom" id="sw4-dH-UnV"/>
                                 </constraints>
                             </view>
@@ -100,6 +100,9 @@
                                                 <rect key="frame" x="194" y="0.0" width="119" height="44"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                <connections>
+                                                    <action selector="riceButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wsb-LT-tXQ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -143,6 +146,9 @@
                                                 <rect key="frame" x="194" y="0.0" width="119" height="44"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                <connections>
+                                                    <action selector="waterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rMj-Gt-oFU"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -182,7 +188,14 @@
                             <outletCollection property="gestureRecognizers" destination="P31-Mb-1ie" appends="YES" id="9Q2-Zv-lqQ"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="2ku-65-EKW"/>
+                    <navigationItem key="navigationItem" title="Title" id="QYe-SY-nOY">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="PPX-sb-zud">
+                            <connections>
+                                <segue destination="TKt-kM-TUO" kind="show" id="iwW-cl-Ift"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="characterImageView" destination="QP9-Ue-cSP" id="7Kj-Nx-1uJ"/>
                         <outlet property="characterNameLabel" destination="kcn-bF-ZK6" id="202-Fa-5oG"/>
@@ -190,6 +203,7 @@
                         <outlet property="messageView" destination="rdM-jV-F5p" id="br6-er-b9P"/>
                         <outlet property="riceButton" destination="5Hd-mu-EsQ" id="FS6-1u-kX3"/>
                         <outlet property="riceTextField" destination="gyM-h8-VHa" id="her-ca-C7p"/>
+                        <outlet property="settingButton" destination="PPX-sb-zud" id="KSf-xW-FxX"/>
                         <outlet property="statusLabel" destination="JI0-x5-3Ye" id="rHj-8p-Gcm"/>
                         <outlet property="waterButton" destination="fzl-VM-GtD" id="N4l-y2-Pvj"/>
                         <outlet property="waterTextField" destination="D7A-oI-uc4" id="tq2-E1-IQ4"/>
@@ -203,6 +217,16 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1052.6717557251909" y="-34.507042253521128"/>
+        </scene>
+        <!--SettingViewController-->
+        <scene sceneID="1k0-8X-Kch">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="SettingViewController" storyboardName="Setting" referencedIdentifier="SettingViewController" id="TKt-kM-TUO" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="rQD-6F-cZr"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Snd-ta-3Eu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1700" y="-244"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bc3-5N-5fm">
