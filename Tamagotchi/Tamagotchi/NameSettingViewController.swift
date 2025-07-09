@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+class NameSettingViewController: UIViewController {
 
     let tamagochi = TamagochiManager.shared.tamagochi
 

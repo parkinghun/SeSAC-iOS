@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DBF-gq-CJl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hUn-ad-8CM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
@@ -216,22 +216,23 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1052.6717557251909" y="-34.507042253521128"/>
+            <point key="canvasLocation" x="1979.3893129770991" y="-34.507042253521128"/>
         </scene>
         <!--SettingViewController-->
         <scene sceneID="1k0-8X-Kch">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="SettingViewController" storyboardName="Setting" referencedIdentifier="SettingViewController" id="TKt-kM-TUO" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="SettingViewController" storyboardName="NameSetting" referencedIdentifier="SettingViewController" id="TKt-kM-TUO" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="rQD-6F-cZr"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Snd-ta-3Eu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1700" y="-244"/>
+            <point key="canvasLocation" x="2625.9541984732823" y="-244.36619718309859"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Home-->
         <scene sceneID="bc3-5N-5fm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DBF-gq-CJl" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" selectedImage="house.fill" id="MU3-2h-UGL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d9X-Bz-aaY">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -244,12 +245,54 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laE-Uo-tE8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1052.6717557251909" y="-34.507042253521128"/>
+        </scene>
+        <!--FocusMode-->
+        <scene sceneID="zvh-9d-Tz4">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FocusMode" referencedIdentifier="FocusMode" id="vyG-nE-vXf" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Ejm-cZ-Gcj"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iAK-VJ-F2L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-241" y="487"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="JVA-91-Bt5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="Settings" id="wey-A1-WBq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="VoD-Hn-3As"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pQs-Io-wgt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="480" y="487"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="zug-Ft-Mi0">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="hUn-ad-8CM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bQL-zf-2ih">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="DBF-gq-CJl" kind="relationship" relationship="viewControllers" id="7k7-VU-YaV"/>
+                        <segue destination="vyG-nE-vXf" kind="relationship" relationship="viewControllers" id="hU8-MX-MZV"/>
+                        <segue destination="wey-A1-WBq" kind="relationship" relationship="viewControllers" id="2LU-00-JgK"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y2R-Ve-efq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="125.95419847328243" y="-34.507042253521128"/>
         </scene>
     </scenes>
     <resources>
         <image name="2-1" width="152" height="151"/>
         <image name="bubble" width="222" height="142"/>
+        <image name="house" catalog="system" width="128" height="104"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

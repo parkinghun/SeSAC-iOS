@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: - PropertyWrapper를 이용해 리팩토링하기
 final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
     private let defaults = UserDefaults.standard

@@ -34,6 +34,8 @@ class HomeViewController: UIViewController {
     }
     
     override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        
         self.navigationItem.title = "\(tamagochi.name)님의 다마고치"
         statusLabel.text = statusDescription
         messageLabel.text = tamagochi.randomMessage
@@ -115,7 +117,6 @@ class HomeViewController: UIViewController {
         
         statusLabel.text = statusDescription
         messageLabel.text = tamagochi.randomMessage
-
         levelCheck()
         TamagochiManager.shared.save()
     }
@@ -138,12 +139,17 @@ class HomeViewController: UIViewController {
         return number
     }
     
+    // TODO: - 최고 레벨 제한
     private func levelCheck() {
+        let max = 10
         let sum = (Double(tamagochi.rice) / 5) + (Double(tamagochi.water) / 2)
-        let level = (sum * 10).rounded() / 100
-        tamagochi.level = Int(level)
+        let level = Int((sum * 10).rounded() / 100)
         
-        characterImageView.image = UIImage(named: "2-\(level)")
+        if level <= max {
+            tamagochi.level = level
+            // 매번 변경할 필요는 없겠지만, 같은 값을 대입했을 때 공수가 드나?
+            characterImageView.image = UIImage(named: "2-\(level)")
+        }
     }
     
     private func showAlert(message: String) {
