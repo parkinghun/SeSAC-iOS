@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+// TODO: - 키보드 올렸을 때 - TF 올리기
+// TODO: - 프로퍼티 래퍼 사용하기
 class HomeViewController: UIViewController {
     
     @IBOutlet var messageView: UIView!
@@ -19,6 +20,7 @@ class HomeViewController: UIViewController {
     @IBOutlet var waterTextField: UITextField!
     @IBOutlet var waterButton: UIButton!
     @IBOutlet var settingButton: UIBarButtonItem!
+    @IBOutlet var characterNameView: UIView!
     
     let tamagochi = TamagochiManager.shared.tamagochi
     
@@ -45,9 +47,7 @@ class HomeViewController: UIViewController {
         settingButton.image = UIImage(systemName: "person.circle")
         let backBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: nil)
         self.navigationItem.backBarButtonItem = backBarButtonItem
-//        self.navigationController?.navigationBar.barTintColor = .gray
     }
-    
     
     private func setUI() {
         messageView.backgroundColor = .clear
@@ -58,10 +58,10 @@ class HomeViewController: UIViewController {
         characterImageView.image = UIImage(named: "2-\(tamagochi.level)")
         
         characterNameLabel.text = tamagochi.type.title
-        characterNameLabel.layer.borderColor = UIColor.blue.cgColor
-        characterNameLabel.layer.borderWidth = 1
-        characterNameLabel.layer.cornerRadius = 8
-        characterNameLabel.clipsToBounds = true
+        characterNameView.layer.borderColor = UIColor.blue.cgColor
+        characterNameView.layer.borderWidth = 1
+        characterNameView.layer.cornerRadius = 8
+        characterNameView.clipsToBounds = true
         
         setTextField(riceTextField, placeholder: "밥주세용")
         setTextField(waterTextField, placeholder: "물주세용")
@@ -102,7 +102,7 @@ class HomeViewController: UIViewController {
         print(#function)
         guard let text = waterTextField.text else { return }
         eatSomething(isRice: false, text: text)
-
+        
     }
     
     private func eatSomething(isRice: Bool = true, text: String) {
@@ -139,18 +139,32 @@ class HomeViewController: UIViewController {
         return number
     }
     
-    // TODO: - 최고 레벨 제한
     private func levelCheck() {
-        let max = 10
-        let sum = (Double(tamagochi.rice) / 5) + (Double(tamagochi.water) / 2)
-        let level = Int((sum * 10).rounded() / 100)
-        
-        if level <= max {
-            tamagochi.level = level
-            // 매번 변경할 필요는 없겠지만, 같은 값을 대입했을 때 공수가 드나?
-            characterImageView.image = UIImage(named: "2-\(level)")
-        }
+        let level = calculateLevel(rice: tamagochi.rice, water: tamagochi.water)
+        guard level != tamagochi.level else { return }
+        tamagochi.level = level
+        updateCharacterImage(level: level)
     }
+    
+    private func calculateLevel(rice: Int, water: Int) -> Int {
+        let riceScore = Double(rice) / 5
+        let waterScore = Double(water) / 2
+        let totalScore = riceScore + waterScore
+        
+        var level = Int((totalScore / 10).rounded())
+        if level < 1 {
+            level = 1
+        } else if level > 10 {
+            level = 10
+        }
+        return level
+    }
+    
+    private func updateCharacterImage(level: Int) {
+        let imageName = level == 10 ? "2-9" : "2-\(level)"
+        characterImageView.image = UIImage(named: imageName)
+    }
+    
     
     private func showAlert(message: String) {
         let alert = UIAlertController(title: "먹는거 에러", message: message, preferredStyle: .alert)
