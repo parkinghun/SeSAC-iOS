@@ -7,20 +7,47 @@
 
 import UIKit
 
-class ShoppingTableViewController: UITableViewController {
+enum SectionType {
+    case purchased
+    case unPurchased
     
+    var title: String {
+        switch self {
+        case .purchased:
+            return "구매 완료"
+        case .unPurchased:
+            return "구매 예정"
+        }
+    }
+}
+
+final class ShoppingTableViewController: UITableViewController {
     
     @IBOutlet var headerView: UIView!
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var addButton: UIButton!
-
     
+    private var shoppingList: [ShoppingData] = [ShoppingData(todo: "그립톡 구매하기"),
+                                                ShoppingData(todo: "사이다 구매"),
+                                                ShoppingData(todo: "아이패드 케이스 최저가 알아보기"),
+                                                ShoppingData(todo: "양말")]
     
-    //TODO: -
-    // 1. 텍스트필드 베젤 x, placeholder - 무엇을 구매하실 건가요?
-    // 2. 버튼 타이틀: 추가, 코너레디우스, 백그라운드 컬러
-    // 3. 헤더뷰 코너 및 백그라운드컬러
-    var list = ["그립톡 구매하기", "사이다 구매", "아이패드 케이스 최조가 알아보기", "양말"]
+    private var sections: [SectionType] {
+        var result = [SectionType]()
+        
+        if !unPurchasedList.isEmpty { result.append(.unPurchased) }
+        if !purchasedList.isEmpty { result.append(.purchased) }
+        
+        return result
+    }
+    
+    private var purchasedList: [ShoppingData] {
+        return shoppingList.filter { $0.isPurchased }
+    }
+    
+    private var unPurchasedList: [ShoppingData] {
+        return shoppingList.filter { !$0.isPurchased }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,27 +67,93 @@ class ShoppingTableViewController: UITableViewController {
         addButton.backgroundColor = .systemGray2
         addButton.layer.cornerRadius = 8
         addButton.clipsToBounds = true
-        
-//        cellBackgroundView.backgroundColor = .lightGray
-//        cellBackgroundView.layer.cornerRadius = 10
-//        cellBackgroundView.clipsToBounds = true
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        switch sections[section] {
+        case .unPurchased:
+            return unPurchasedList.count
+        case .purchased:
+            return purchasedList.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ShoppingTableViewCell.id, for: indexPath)
+        print(#function)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ShoppingTableViewCell.id, for: indexPath) as? ShoppingTableViewCell else {
+            return UITableViewCell()
+        }
         
-        cell.textLabel?.text = list[indexPath.row]
-        cell.imageView?.image = UIImage(systemName: "checkmark.square")
+        let tempShoppingData: ShoppingData
+        
+        switch sections[indexPath.section] {
+        case .unPurchased:
+            tempShoppingData = unPurchasedList[indexPath.row]
+        case .purchased:
+            tempShoppingData = purchasedList[indexPath.row]
+        }
+        
+        cell.checkButton.setImage(tempShoppingData.pushasedImage, for: .normal)
+        cell.todoabel.text = tempShoppingData.todo
+        cell.favoriteButton.setImage(tempShoppingData.favoriteImage, for: .normal)
+        
+        cell.checkButtonAction = { [weak self] in
+            guard let self else { return }
+            self.checkButtonClicked(at: indexPath)
+        }
+        
+        cell.favoriteButtonAction = { [weak self] in
+            guard let self else { return }
+            self.favoriteButtonClicked(at: indexPath)
+        }
         
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].title
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = getItem(indexPath: indexPath)
+        print(#function, indexPath, item)
+        let removeItem = getItem(indexPath: indexPath)
+        if let index = shoppingList.firstIndex(where: { $0.id == removeItem.id }) {
+            shoppingList.remove(at: index)
+            tableView.reloadData()
+        }
+    }
+    
+    private func getItem(indexPath: IndexPath) -> ShoppingData {
+        switch sections[indexPath.section] {
+        case .unPurchased:
+            return unPurchasedList[indexPath.row]
+        case .purchased:
+            return purchasedList[indexPath.row]
+        }
+    }
+    
+    // 스와이프를 통한 삭제 기능
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "") { [weak self] _, _, success in
+            guard let self else { return }
+            let removeItem = self.getItem(indexPath: indexPath)
+            if let index = self.shoppingList.firstIndex(where: { $0.id == removeItem.id }) {
+                self.shoppingList.remove(at: index)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        return UISwipeActionsConfiguration(actions: [delete])
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
@@ -75,8 +168,27 @@ class ShoppingTableViewController: UITableViewController {
             print("빈문자열 -")
             return
         }
-        list.append(text)
+        
+        let item = ShoppingData(todo: text, isPurchased: false, isFavorite: false)
+        shoppingList.append(item)
     }
     
+    func checkButtonClicked(at indexPath: IndexPath) {
+        print(#function)
+        let item = getItem(indexPath: indexPath)
+        if let index = shoppingList.firstIndex(where: { $0.id == item.id }) {
+            shoppingList[index].isPurchased.toggle()
+            tableView.reloadData()
+        }
+    }
     
+    func favoriteButtonClicked(at indexPath: IndexPath) {
+        print(#function)
+
+        let item = getItem(indexPath: indexPath)
+        if let index = shoppingList.firstIndex(where: { $0.id == item.id }) {
+            shoppingList[index].isFavorite.toggle()
+            tableView.reloadData()
+        }
+    }
 }

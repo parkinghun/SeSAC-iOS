@@ -61,30 +61,73 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShoppingTableViewCell" textLabel="ao5-Bq-O6V" detailTextLabel="dSD-AV-3sZ" style="IBUITableViewCellStyleValue1" id="wPy-PJ-ZV2">
-                                <rect key="frame" x="20" y="153.33333206176758" width="353" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShoppingTableViewCell" rowHeight="83" id="wPy-PJ-ZV2" customClass="ShoppingTableViewCell" customModule="Tamagotchi" customModuleProvider="target">
+                                <rect key="frame" x="20" y="153.33333206176758" width="353" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wPy-PJ-ZV2" id="5hf-g7-utk">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="353" height="83"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ao5-Bq-O6V">
-                                            <rect key="frame" x="20" y="15" width="25" height="14.333333333333334"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dSD-AV-3sZ">
-                                            <rect key="frame" x="300.33333333333331" y="15" width="32.666666666666664" height="14.333333333333334"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qeL-Rl-ch0">
+                                            <rect key="frame" x="0.0" y="2" width="353" height="79"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cL1-37-RDw">
+                                                    <rect key="frame" x="80" y="29" width="193" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lM-Wy-OFY">
+                                                    <rect key="frame" x="16" y="17.666666666666671" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="WkK-mj-45b"/>
+                                                        <constraint firstAttribute="width" secondItem="6lM-Wy-OFY" secondAttribute="height" multiplier="1:1" id="yrk-dW-HhC"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                    <connections>
+                                                        <action selector="checkButtonTapped:" destination="wPy-PJ-ZV2" eventType="touchUpInside" id="Dpf-v1-wUy"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpb-kh-HiK">
+                                                    <rect key="frame" x="293" y="17.666666666666671" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="FsW-XG-pdZ"/>
+                                                        <constraint firstAttribute="width" secondItem="bpb-kh-HiK" secondAttribute="height" multiplier="1:1" id="dCG-QR-BEU"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                    <connections>
+                                                        <action selector="favoriteButtonTapped:" destination="wPy-PJ-ZV2" eventType="touchUpInside" id="lsu-45-fAt"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstItem="cL1-37-RDw" firstAttribute="centerY" secondItem="qeL-Rl-ch0" secondAttribute="centerY" id="E2e-W6-9xN"/>
+                                                <constraint firstItem="6lM-Wy-OFY" firstAttribute="leading" secondItem="qeL-Rl-ch0" secondAttribute="leading" constant="16" id="IDP-HI-cxu"/>
+                                                <constraint firstAttribute="trailing" secondItem="bpb-kh-HiK" secondAttribute="trailing" constant="16" id="TiR-OG-17n"/>
+                                                <constraint firstItem="bpb-kh-HiK" firstAttribute="centerY" secondItem="qeL-Rl-ch0" secondAttribute="centerY" id="YBR-YZ-lBg"/>
+                                                <constraint firstItem="6lM-Wy-OFY" firstAttribute="centerY" secondItem="qeL-Rl-ch0" secondAttribute="centerY" id="rh6-YN-E8W"/>
+                                                <constraint firstItem="bpb-kh-HiK" firstAttribute="leading" secondItem="cL1-37-RDw" secondAttribute="trailing" constant="20" id="t65-eJ-UY8"/>
+                                                <constraint firstItem="cL1-37-RDw" firstAttribute="leading" secondItem="6lM-Wy-OFY" secondAttribute="trailing" constant="20" id="zu5-v3-3UM"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="qeL-Rl-ch0" firstAttribute="leading" secondItem="5hf-g7-utk" secondAttribute="leading" id="N1f-pM-oWp"/>
+                                        <constraint firstAttribute="trailing" secondItem="qeL-Rl-ch0" secondAttribute="trailing" id="QZ5-jK-KTu"/>
+                                        <constraint firstItem="qeL-Rl-ch0" firstAttribute="top" secondItem="5hf-g7-utk" secondAttribute="top" constant="2" id="Slw-H4-QU5"/>
+                                        <constraint firstAttribute="bottom" secondItem="qeL-Rl-ch0" secondAttribute="bottom" constant="2" id="fLJ-cl-sfk"/>
+                                    </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="checkButton" destination="6lM-Wy-OFY" id="lY5-cN-STs"/>
+                                    <outlet property="favoriteButton" destination="bpb-kh-HiK" id="oqK-Z9-pFL"/>
+                                    <outlet property="outerView" destination="qeL-Rl-ch0" id="63Q-I3-avP"/>
+                                    <outlet property="todoabel" destination="cL1-37-RDw" id="fKK-ZY-9Vy"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -112,9 +155,6 @@
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
