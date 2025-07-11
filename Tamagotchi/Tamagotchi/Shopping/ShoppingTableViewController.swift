@@ -23,10 +23,12 @@ enum SectionType {
 
 final class ShoppingTableViewController: UITableViewController {
     
+    // MARK: - UI Components
     @IBOutlet var headerView: UIView!
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var addButton: UIButton!
     
+    // MARK: - Property
     private var shoppingList: [ShoppingData] = [ShoppingData(todo: "그립톡 구매하기"),
                                                 ShoppingData(todo: "사이다 구매"),
                                                 ShoppingData(todo: "아이패드 케이스 최저가 알아보기"),
@@ -49,6 +51,7 @@ final class ShoppingTableViewController: UITableViewController {
         return shoppingList.filter { !$0.isPurchased }
     }
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -69,6 +72,7 @@ final class ShoppingTableViewController: UITableViewController {
         addButton.clipsToBounds = true
     }
     
+    // MARK: - TableView DataSource
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -118,6 +122,7 @@ final class ShoppingTableViewController: UITableViewController {
         return sections[section].title
     }
     
+    // MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
@@ -132,6 +137,7 @@ final class ShoppingTableViewController: UITableViewController {
         }
     }
     
+    //MARK: - Methods
     private func getItem(indexPath: IndexPath) -> ShoppingData {
         switch sections[indexPath.section] {
         case .unPurchased:
