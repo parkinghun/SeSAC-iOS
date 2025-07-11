@@ -69,6 +69,12 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Magazine" image="book" catalog="system" selectedImage="book.fill" id="OYk-Qk-0q6"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="MainImageView" destination="adk-6a-UfC" id="sgU-x6-nGC"/>
+                        <outlet property="dateLabel" destination="nze-HO-dv3" id="t32-65-0ON"/>
+                        <outlet property="subTitleLabel" destination="gRw-qf-rT3" id="qPA-5K-h3p"/>
+                        <outlet property="titleLabel" destination="9Mz-nR-1YM" id="o3h-NP-NDV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZP5-92-moL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
