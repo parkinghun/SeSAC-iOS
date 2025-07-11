@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 섹션 관리 caseIterable
 enum SectionType {
     case purchased
     case unPurchased
@@ -43,6 +44,7 @@ final class ShoppingTableViewController: UITableViewController {
         return result
     }
     
+    // 2개 하나 관리 고미
     private var purchasedList: [ShoppingData] {
         return shoppingList.filter { $0.isPurchased }
     }
@@ -105,6 +107,7 @@ final class ShoppingTableViewController: UITableViewController {
         cell.todoabel.text = tempShoppingData.todo
         cell.favoriteButton.setImage(tempShoppingData.favoriteImage, for: .normal)
         
+        // 클래스 + 약한참조 (순환)
         cell.checkButtonAction = { [weak self] in
             guard let self else { return }
             self.checkButtonClicked(at: indexPath)
@@ -133,7 +136,7 @@ final class ShoppingTableViewController: UITableViewController {
         let removeItem = getItem(indexPath: indexPath)
         if let index = shoppingList.firstIndex(where: { $0.id == removeItem.id }) {
             shoppingList.remove(at: index)
-            tableView.reloadData()
+            tableView.reloadData()  // 프로퍼티 옵저버
         }
     }
     
