@@ -40,18 +40,35 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="D6u-4K-gXR">
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="D6u-4K-gXR">
                                             <rect key="frame" x="20" y="86.666666666666671" width="258" height="21"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZB7-4d-IdU">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dWd-cZ-mxD">
                                                     <rect key="frame" x="0.0" y="0.0" width="80" height="21"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZB7-4d-IdU">
+                                                            <rect key="frame" x="0.0" y="0.0" width="16" height="21"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D2O-Yl-rMD">
+                                                            <rect key="frame" x="16" y="0.0" width="16" height="21"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2aA-zL-3HT">
+                                                            <rect key="frame" x="32" y="0.0" width="16" height="21"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y5g-GP-fdJ">
+                                                            <rect key="frame" x="48" y="0.0" width="16" height="21"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K5t-hQ-Js3">
+                                                            <rect key="frame" x="64" y="0.0" width="16" height="21"/>
+                                                        </imageView>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="17c-9G-azV"/>
-                                                        <constraint firstAttribute="width" constant="80" id="PWF-ap-cjd"/>
+                                                        <constraint firstAttribute="width" constant="80" id="g8r-61-9Lh"/>
+                                                        <constraint firstAttribute="height" constant="21" id="prQ-pW-muA"/>
                                                     </constraints>
-                                                </imageView>
+                                                </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzO-o0-Fkb">
-                                                    <rect key="frame" x="88" y="0.0" width="170" height="21"/>
+                                                    <rect key="frame" x="85" y="0.0" width="173" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -105,9 +122,13 @@
                                     <outlet property="imageOuterView" destination="DbL-E8-fNK" id="4hq-MM-nkc"/>
                                     <outlet property="likeButton" destination="DML-u8-hQY" id="I7p-AF-cDm"/>
                                     <outlet property="saveLabel" destination="GzO-o0-Fkb" id="ZvQ-PG-TcR"/>
-                                    <outlet property="starImageView" destination="ZB7-4d-IdU" id="7P0-CT-haM"/>
                                     <outlet property="titleLabel" destination="ApB-Bn-Lps" id="OSY-xz-X2i"/>
                                     <outlet property="travelImageView" destination="CGh-BI-Ghk" id="3Lb-ed-Kr0"/>
+                                    <outletCollection property="starImageView" destination="ZB7-4d-IdU" collectionClass="NSMutableArray" id="22I-01-emE"/>
+                                    <outletCollection property="starImageView" destination="D2O-Yl-rMD" collectionClass="NSMutableArray" id="LYF-xW-mF0"/>
+                                    <outletCollection property="starImageView" destination="2aA-zL-3HT" collectionClass="NSMutableArray" id="HaR-8M-vzV"/>
+                                    <outletCollection property="starImageView" destination="Y5g-GP-fdJ" collectionClass="NSMutableArray" id="Yke-4e-e2Z"/>
+                                    <outletCollection property="starImageView" destination="K5t-hQ-Js3" collectionClass="NSMutableArray" id="5wh-D9-btc"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdTableViewCell" rowHeight="179" id="vm2-HJ-cOo" customClass="AdTableViewCell" customModule="TravelProject" customModuleProvider="target">

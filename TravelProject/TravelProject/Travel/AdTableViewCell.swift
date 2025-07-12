@@ -23,7 +23,7 @@ class AdTableViewCell: UITableViewCell {
         messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
         adBgView.backgroundColor = .white
-        adBgView.layer.cornerRadius = 8
+        adBgView.layer.cornerRadius = 4
         adBgView.clipsToBounds = true
         adLabel.text = "AD"
         adLabel.font = .systemFont(ofSize: 8)

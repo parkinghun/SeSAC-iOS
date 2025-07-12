@@ -11,7 +11,7 @@ class TravelTableViewCell: UITableViewCell {
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var starImageView: UIImageView!
+    @IBOutlet var starImageView: [UIImageView]!
     @IBOutlet var saveLabel: UILabel!
     @IBOutlet var imageOuterView: UIView!
     @IBOutlet var travelImageView: UIImageView!
@@ -24,8 +24,10 @@ class TravelTableViewCell: UITableViewCell {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = .systemFont(ofSize: 20)
         descriptionLabel.textColor = .gray
-        starImageView.image = UIImage(systemName: "star")
+        
+        starImageView.forEach { $0.tintColor = .orange }
         saveLabel.textColor = .lightGray
+        saveLabel.font = .systemFont(ofSize: 12)
         
         imageOuterView.layer.cornerRadius = 12
         imageOuterView.clipsToBounds = true

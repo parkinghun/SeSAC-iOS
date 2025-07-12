@@ -10,7 +10,6 @@ import Kingfisher
 class TravelTableViewController: UITableViewController {
     
     var travelInfo = TravelInfo()
-    let adsInfo = AdInfo()
     let adBgColor: [UIColor] = [.systemPink, .green, .orange, .cyan]
 
     override func viewDidLoad() {
@@ -45,28 +44,27 @@ class TravelTableViewController: UITableViewController {
             guard let travelCell = tableView.dequeueReusableCell(withIdentifier: travelCellId, for: indexPath) as? TravelTableViewCell else {
                 return UITableViewCell()
             }
-            
-            // 0 1 2 3 (-0)
-            // 5(4) 6(5) 7(6) (-1)
-            // 9(7) 10(8) 11(9) (-2)
-            // 13(10) 14 15 (-3)
-            
-//            let index = indexPath.row - (indexPath.row / 4)
+
             let travel = travelInfo.travel[indexPath.row]
             
             travelCell.titleLabel.text = travel.title
             travelCell.descriptionLabel.text = travel.description
-            travelCell.saveLabel.text = "(3) ∙ 저장 \(travel.save ?? 0)"
+            travelCell.saveLabel.text = "(\(travel.likeCount)) ∙ 저장 \(travel.save ?? 0)"
             travelCell.travelImageView.kf.setImage(with: travel.imageURL)
             travelCell.likeButton.setImage(travel.likeImage, for: .normal)
             travelCell.likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
             travelCell.likeButton.tag = indexPath.row
+            
+            let grade = Int(travel.grade ?? 0)
+            for index in 0..<travelCell.starImageView.count {
+                travelCell.starImageView[index].image = UIImage(systemName: grade >= (index + 1) ? "star.fill" : "star")
+            }
+            
             return travelCell
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         if indexPath.row > 0,
            indexPath.row % 4 == 0 {
             return 120
@@ -77,9 +75,7 @@ class TravelTableViewController: UITableViewController {
     
     @objc private func likeButtonTapped(_ sender: UIButton) {
         print(sender.tag)
-        // 버튼을 누르면 하트가 바뀌어야 함.
         travelInfo.travel[sender.tag].like?.toggle()
         tableView.reloadData()
     }
-    
 }

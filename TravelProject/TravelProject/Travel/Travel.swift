@@ -14,6 +14,7 @@ struct Travel {
     var grade: Double?
     var save: Int?
     var like: Bool?
+    var likeCount = Int.random(in: 1...3000)
     var ad: Bool?
     
     var likeImage: UIImage? {
