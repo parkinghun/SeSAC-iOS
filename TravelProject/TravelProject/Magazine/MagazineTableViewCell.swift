@@ -43,4 +43,5 @@ final class MagazineTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
     }
+    
 }

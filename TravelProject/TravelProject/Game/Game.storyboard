@@ -16,17 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vVl-Nd-0hC">
-                                <rect key="frame" x="20" y="282" width="353" height="200"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="a3j-fq-gMo"/>
-                                </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ssb-1G-ks9">
                                 <rect key="frame" x="20" y="138" width="353" height="44"/>
                                 <subviews>
@@ -34,6 +23,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="numberTextFieldDidEndOnExit:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="vaF-Qg-Czb"/>
+                                            <action selector="numberTextFieldEditingChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="1Iq-sm-7JL"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIp-FK-jVc">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="44"/>
@@ -55,6 +48,17 @@
                                     <constraint firstAttribute="trailing" secondItem="eIp-FK-jVc" secondAttribute="trailing" id="ynU-gF-gzH"/>
                                 </constraints>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vVl-Nd-0hC">
+                                <rect key="frame" x="20" y="282" width="353" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="a3j-fq-gMo"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uv8-Nz-lMi">
                                 <rect key="frame" x="20" y="512" width="353" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -63,6 +67,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Uv8-Nz-lMi" firstAttribute="top" secondItem="vVl-Nd-0hC" secondAttribute="bottom" constant="30" id="6gr-C3-j0h"/>
                             <constraint firstItem="vVl-Nd-0hC" firstAttribute="top" secondItem="Ssb-1G-ks9" secondAttribute="bottom" constant="100" id="9vl-2a-Ygn"/>
@@ -74,11 +79,25 @@
                             <constraint firstItem="Uv8-Nz-lMi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="lvl-bx-cmg"/>
                             <constraint firstItem="vVl-Nd-0hC" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="rtr-jC-x3x"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ius-qN-ipt" appends="YES" id="u2t-y2-32W"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Game" image="gamecontroller" catalog="system" selectedImage="gamecontroller.fill" id="m8u-Op-mMm"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="numberTextField" destination="K29-3A-vtk" id="wNq-tM-HP8"/>
+                        <outlet property="placeholderLabel" destination="eIp-FK-jVc" id="YHz-3q-Npm"/>
+                        <outlet property="resultLabel" destination="Uv8-Nz-lMi" id="LYG-f4-LGZ"/>
+                        <outlet property="resultTextView" destination="vVl-Nd-0hC" id="4NY-QH-nCv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ius-qN-ipt">
+                    <connections>
+                        <action selector="viewTapped:" destination="Y6W-OH-hqX" id="aEZ-re-MZ5"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="71" y="1"/>
         </scene>
