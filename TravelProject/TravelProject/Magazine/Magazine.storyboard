@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Magazine-->
+        <!--SeSAC TRAVEL-->
         <scene sceneID="2QQ-TD-DKI">
             <objects>
                 <tableViewController storyboardIdentifier="MagazineTableViewController" id="KkV-oq-fQc" customClass="MagazineTableViewController" customModule="TravelProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -78,12 +78,13 @@
                             <outlet property="delegate" destination="KkV-oq-fQc" id="EG3-rH-RUY"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Magazine" image="book" catalog="system" selectedImage="book.fill" id="OYk-Qk-0q6"/>
+                    <tabBarItem key="tabBarItem" title="Magazine" image="book" catalog="system" selectedImage="book.fill" id="kvD-BW-e6V"/>
+                    <navigationItem key="navigationItem" title="SeSAC TRAVEL" id="Zzf-ft-dil"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZP5-92-moL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="901.52671755725191" y="-7.042253521126761"/>
+            <point key="canvasLocation" x="1828.2442748091603" y="-7.042253521126761"/>
         </scene>
     </scenes>
     <resources>

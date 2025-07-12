@@ -15,8 +15,12 @@ final class MagazineTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#function)
-        
+        configureNavigatoinTitle()
         configureTableView()
+    }
+    
+    private func configureNavigatoinTitle() {
+        self.navigationItem.title = "SeSAC TRAVEL"
     }
     
     private func configureTableView() {
