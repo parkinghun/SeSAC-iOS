@@ -15,8 +15,65 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vVl-Nd-0hC">
+                                <rect key="frame" x="20" y="282" width="353" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="a3j-fq-gMo"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ssb-1G-ks9">
+                                <rect key="frame" x="20" y="138" width="353" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K29-3A-vtk">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIp-FK-jVc">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="K29-3A-vtk" firstAttribute="leading" secondItem="Ssb-1G-ks9" secondAttribute="leading" id="Efn-Bl-dJ4"/>
+                                    <constraint firstAttribute="height" constant="44" id="PUA-ze-pFe"/>
+                                    <constraint firstAttribute="bottom" secondItem="eIp-FK-jVc" secondAttribute="bottom" id="Pdc-eD-BV5"/>
+                                    <constraint firstItem="eIp-FK-jVc" firstAttribute="top" secondItem="Ssb-1G-ks9" secondAttribute="top" id="VW9-lm-3tW"/>
+                                    <constraint firstItem="K29-3A-vtk" firstAttribute="top" secondItem="Ssb-1G-ks9" secondAttribute="top" id="XVR-hN-sTW"/>
+                                    <constraint firstItem="eIp-FK-jVc" firstAttribute="leading" secondItem="Ssb-1G-ks9" secondAttribute="leading" id="emB-0B-Txk"/>
+                                    <constraint firstAttribute="bottom" secondItem="K29-3A-vtk" secondAttribute="bottom" id="lWA-Ez-wbA"/>
+                                    <constraint firstAttribute="trailing" secondItem="K29-3A-vtk" secondAttribute="trailing" id="piK-Q1-JXk"/>
+                                    <constraint firstAttribute="trailing" secondItem="eIp-FK-jVc" secondAttribute="trailing" id="ynU-gF-gzH"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uv8-Nz-lMi">
+                                <rect key="frame" x="20" y="512" width="353" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemCyanColor"/>
+                        <constraints>
+                            <constraint firstItem="Uv8-Nz-lMi" firstAttribute="top" secondItem="vVl-Nd-0hC" secondAttribute="bottom" constant="30" id="6gr-C3-j0h"/>
+                            <constraint firstItem="vVl-Nd-0hC" firstAttribute="top" secondItem="Ssb-1G-ks9" secondAttribute="bottom" constant="100" id="9vl-2a-Ygn"/>
+                            <constraint firstItem="Ssb-1G-ks9" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="SFx-BD-DAH"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="vVl-Nd-0hC" secondAttribute="trailing" constant="20" id="ddj-4r-L82"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ssb-1G-ks9" secondAttribute="trailing" constant="20" id="e8F-uB-B3V"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Uv8-Nz-lMi" secondAttribute="trailing" constant="20" id="eKI-8F-hBy"/>
+                            <constraint firstItem="Ssb-1G-ks9" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="h9z-4t-ZEy"/>
+                            <constraint firstItem="Uv8-Nz-lMi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="lvl-bx-cmg"/>
+                            <constraint firstItem="vVl-Nd-0hC" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="rtr-jC-x3x"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Game" image="gamecontroller" catalog="system" selectedImage="gamecontroller.fill" id="m8u-Op-mMm"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -29,8 +86,11 @@
     <resources>
         <image name="gamecontroller" catalog="system" width="128" height="79"/>
         <image name="gamecontroller.fill" catalog="system" width="128" height="79"/>
-        <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
