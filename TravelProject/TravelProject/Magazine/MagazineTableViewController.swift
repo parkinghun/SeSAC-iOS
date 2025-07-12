@@ -15,6 +15,12 @@ final class MagazineTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#function)
+        
+        configureTableView()
+    }
+    
+    private func configureTableView() {
+        self.tableView.separatorStyle = .none
     }
     
     // MARK: - TableViewDataSource

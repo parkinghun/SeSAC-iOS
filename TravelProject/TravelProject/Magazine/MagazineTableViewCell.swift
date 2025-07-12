@@ -33,7 +33,7 @@ final class MagazineTableViewCell: UITableViewCell {
     }
     
     private func configureLabel() {
-        titleLabel.font = .boldSystemFont(ofSize: 20)
+        titleLabel.font = .boldSystemFont(ofSize: 24)
         titleLabel.numberOfLines = 0
         subtitleLabel.textColor = .gray
         dateLabel.textColor = .gray
