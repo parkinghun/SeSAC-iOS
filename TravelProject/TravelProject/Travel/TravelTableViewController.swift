@@ -8,46 +8,73 @@
 import UIKit
 import Kingfisher
 class TravelTableViewController: UITableViewController {
-
-    var travelInfo = TravelInfo() 
     
+    var travelInfo = TravelInfo()
+    let adsInfo = AdInfo()
+    let adBgColor: [UIColor] = [.systemPink, .green, .orange, .cyan]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "도시 상세 정보"
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return travelInfo.travel.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellId = String(describing: TravelTableViewCell.self)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TravelTableViewCell else {
-            return UITableViewCell()
-        }
-        
         let travel = travelInfo.travel[indexPath.row]
-        
-        cell.titleLabel.text = travel.title
-        cell.descriptionLabel.text = travel.description
-        cell.saveLabel.text = "(3) ∙ 저장 \(travel.save ?? 0)"
-        cell.travelImageView.kf.setImage(with: travel.imageURL)
-        cell.likeButton.setImage(travel.likeImage, for: .normal)
-        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
-        cell.likeButton.tag = indexPath.row
-        return cell
+
+        if indexPath.row > 0,
+           indexPath.row % 4 == 0 {
+            let adCellId = String(describing: AdTableViewCell.self)
+            guard let adCell = tableView.dequeueReusableCell(withIdentifier: adCellId, for: indexPath) as? AdTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            let isValid = indexPath.row / 4 <= adBgColor.count
+            let adIndex = indexPath.row / 4 - 1
+            adCell.bgView.backgroundColor = isValid ? adBgColor[adIndex] : .magenta
+            adCell.messageLabel.text = travel.title
+            
+            return adCell
+        }  else {
+            let travelCellId = String(describing: TravelTableViewCell.self)
+            guard let travelCell = tableView.dequeueReusableCell(withIdentifier: travelCellId, for: indexPath) as? TravelTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            // 0 1 2 3 (-0)
+            // 5(4) 6(5) 7(6) (-1)
+            // 9(7) 10(8) 11(9) (-2)
+            // 13(10) 14 15 (-3)
+            
+//            let index = indexPath.row - (indexPath.row / 4)
+            let travel = travelInfo.travel[indexPath.row]
+            
+            travelCell.titleLabel.text = travel.title
+            travelCell.descriptionLabel.text = travel.description
+            travelCell.saveLabel.text = "(3) ∙ 저장 \(travel.save ?? 0)"
+            travelCell.travelImageView.kf.setImage(with: travel.imageURL)
+            travelCell.likeButton.setImage(travel.likeImage, for: .normal)
+            travelCell.likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
+            travelCell.likeButton.tag = indexPath.row
+            return travelCell
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        
+        if indexPath.row > 0,
+           indexPath.row % 4 == 0 {
+            return 120
+        } else {
+            return 200
+        }
     }
-//    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 120
-//    }
- 
+    
     @objc private func likeButtonTapped(_ sender: UIButton) {
         print(sender.tag)
         // 버튼을 누르면 하트가 바뀌어야 함.
@@ -55,5 +82,4 @@ class TravelTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-
 }

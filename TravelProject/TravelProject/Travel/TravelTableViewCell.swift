@@ -9,14 +9,6 @@ import UIKit
 
 class TravelTableViewCell: UITableViewCell {
 
-    // title
-    // description
-    // travel_image
-    // grade
-    // save
-    // like
-    // ad
-    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var starImageView: UIImageView!
@@ -24,7 +16,6 @@ class TravelTableViewCell: UITableViewCell {
     @IBOutlet var imageOuterView: UIView!
     @IBOutlet var travelImageView: UIImageView!
     @IBOutlet var likeButton: UIButton!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,9 +32,7 @@ class TravelTableViewCell: UITableViewCell {
         travelImageView.contentMode = .scaleAspectFill
         
         likeButton.setTitle("", for: .normal)
-//        likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         likeButton.tintColor = .red
-        
     }
 
     override func prepareForReuse() {
