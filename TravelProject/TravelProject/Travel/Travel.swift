@@ -5,7 +5,7 @@
 //  Created by 박성훈 on 7/11/25.
 //
 
-import Foundation
+import UIKit
 
 struct Travel {
     var title: String
@@ -15,4 +15,12 @@ struct Travel {
     var save: Int?
     var like: Bool?
     var ad: Bool?
+    
+    var likeImage: UIImage? {
+        return UIImage(systemName: (like ?? false) ? "heart" : "heart.fill")
+    }
+    
+    var imageURL: URL? {
+        return URL(string: travel_image ?? "")
+    }
 }
