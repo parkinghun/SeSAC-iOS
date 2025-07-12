@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 class TravelTableViewController: UITableViewController {
 
-    let travelInfo = TravelInfo()
+    var travelInfo = TravelInfo() 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,9 @@ class TravelTableViewController: UITableViewController {
         cell.descriptionLabel.text = travel.description
         cell.saveLabel.text = "(3) ∙ 저장 \(travel.save ?? 0)"
         cell.travelImageView.kf.setImage(with: travel.imageURL)
+        cell.likeButton.setImage(travel.likeImage, for: .normal)
+        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
+        cell.likeButton.tag = indexPath.row
         return cell
     }
     
@@ -45,5 +48,12 @@ class TravelTableViewController: UITableViewController {
 //        return 120
 //    }
  
+    @objc private func likeButtonTapped(_ sender: UIButton) {
+        print(sender.tag)
+        // 버튼을 누르면 하트가 바뀌어야 함.
+        travelInfo.travel[sender.tag].like?.toggle()
+        tableView.reloadData()
+    }
+    
 
 }

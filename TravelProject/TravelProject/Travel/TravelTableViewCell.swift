@@ -41,8 +41,8 @@ class TravelTableViewCell: UITableViewCell {
         travelImageView.contentMode = .scaleAspectFill
         
         likeButton.setTitle("", for: .normal)
-        likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        likeButton.tintColor = .white
+//        likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        likeButton.tintColor = .red
         
     }
 
