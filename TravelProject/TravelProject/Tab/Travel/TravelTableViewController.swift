@@ -46,10 +46,12 @@ class TravelTableViewController: UITableViewController {
             }
 
             let travel = travelInfo.travel[indexPath.row]
+            let formattedLikie = travel.formattedNumber(travel.likeCount)
+            let formattedSave = travel.formattedNumber(travel.save)
             
             travelCell.titleLabel.text = travel.title
             travelCell.descriptionLabel.text = travel.description
-            travelCell.saveLabel.text = "(\(travel.likeCount)) ∙ 저장 \(travel.save ?? 0)"
+            travelCell.saveLabel.text = "(\(formattedLikie)) ∙ 저장 \(formattedSave)"
             travelCell.travelImageView.kf.setImage(with: travel.imageURL)
             travelCell.likeButton.setImage(travel.likeImage, for: .normal)
             travelCell.likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)

@@ -24,4 +24,12 @@ struct Travel {
     var imageURL: URL? {
         return URL(string: travel_image ?? "")
     }
+    
+    func formattedNumber(_ number: Int?) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        guard let number else { return "0" }
+        return numberFormatter.string(for: number) ?? "0"
+    }
 }
