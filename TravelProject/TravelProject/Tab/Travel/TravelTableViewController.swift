@@ -11,7 +11,7 @@ class TravelTableViewController: UITableViewController {
     
     var travelInfo = TravelInfo()
     let adBgColor: [UIColor] = [.systemPink, .green, .orange, .cyan]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,26 +25,17 @@ class TravelTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let travel = travelInfo.travel[indexPath.row]
-
-        if indexPath.row > 0,
-           indexPath.row % 4 == 0 {
-            let adCellId = String(describing: AdTableViewCell.self)
-            guard let adCell = tableView.dequeueReusableCell(withIdentifier: adCellId, for: indexPath) as? AdTableViewCell else {
-                return UITableViewCell()
-            }
-            
-            let isValid = indexPath.row / 4 <= adBgColor.count
-            let adIndex = indexPath.row / 4 - 1
-            adCell.bgView.backgroundColor = isValid ? adBgColor[adIndex] : .magenta
-            adCell.messageLabel.text = travel.title
-            
-            return adCell
-        }  else {
+        
+        guard let ad = travel.ad else {
+            return UITableViewCell()
+        }
+        
+        if !ad  {
             let travelCellId = String(describing: TravelTableViewCell.self)
             guard let travelCell = tableView.dequeueReusableCell(withIdentifier: travelCellId, for: indexPath) as? TravelTableViewCell else {
                 return UITableViewCell()
             }
-
+            
             let travel = travelInfo.travel[indexPath.row]
             let formattedLikie = travel.formattedNumber(travel.likeCount)
             let formattedSave = travel.formattedNumber(travel.save)
@@ -63,12 +54,26 @@ class TravelTableViewController: UITableViewController {
             }
             
             return travelCell
+        } else {
+            let adCellId = String(describing: AdTableViewCell.self)
+            guard let adCell = tableView.dequeueReusableCell(withIdentifier: adCellId, for: indexPath) as? AdTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            let isValid = indexPath.row / 4 <= adBgColor.count
+            let adIndex = indexPath.row / 4 - 1
+            adCell.bgView.backgroundColor = isValid ? adBgColor[adIndex] : .magenta
+            adCell.messageLabel.text = travel.title
+            
+            return adCell
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row > 0,
-           indexPath.row % 4 == 0 {
+        let travel = travelInfo.travel[indexPath.row]
+        guard let ad = travel.ad else { return 200 }
+        
+        if ad {
             return 120
         } else {
             return 200
