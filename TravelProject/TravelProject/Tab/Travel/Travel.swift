@@ -25,6 +25,11 @@ struct Travel {
         return URL(string: travel_image ?? "")
     }
     
+    var adBgColor: UIColor? {
+        let color: [UIColor] = [.systemPink, .green, .orange, .cyan, .magenta]
+        return color.randomElement()
+    }
+    
     func formattedNumber(_ number: Int?) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal

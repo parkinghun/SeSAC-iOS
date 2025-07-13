@@ -7,18 +7,20 @@
 
 import UIKit
 import Kingfisher
-class TravelTableViewController: UITableViewController {
+
+final class TravelTableViewController: UITableViewController {
     
-    var travelInfo = TravelInfo()
-    let adBgColor: [UIColor] = [.systemPink, .green, .orange, .cyan]
+    private var travelInfo = TravelInfo()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureNavigationTitle()
+    }
+    
+    private func configureNavigationTitle() {
         navigationItem.title = "도시 상세 정보"
     }
     
-    // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return travelInfo.travel.count
     }
@@ -30,42 +32,24 @@ class TravelTableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        if !ad  {
+        if ad  {
+            let adCellId = String(describing: AdTableViewCell.self)
+            guard let adCell = tableView.dequeueReusableCell(withIdentifier: adCellId, for: indexPath) as? AdTableViewCell else {
+                return UITableViewCell()
+            }
+       
+            configureAdCell(adCell, data: travel)
+            return adCell
+        } else {
             let travelCellId = String(describing: TravelTableViewCell.self)
             guard let travelCell = tableView.dequeueReusableCell(withIdentifier: travelCellId, for: indexPath) as? TravelTableViewCell else {
                 return UITableViewCell()
             }
             
             let travel = travelInfo.travel[indexPath.row]
-            let formattedLikie = travel.formattedNumber(travel.likeCount)
-            let formattedSave = travel.formattedNumber(travel.save)
-            
-            travelCell.titleLabel.text = travel.title
-            travelCell.descriptionLabel.text = travel.description
-            travelCell.saveLabel.text = "(\(formattedLikie)) ∙ 저장 \(formattedSave)"
-            travelCell.travelImageView.kf.setImage(with: travel.imageURL)
-            travelCell.likeButton.setImage(travel.likeImage, for: .normal)
-            travelCell.likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
-            travelCell.likeButton.tag = indexPath.row
-            
-            let grade = Int(travel.grade ?? 0)
-            for index in 0..<travelCell.starImageView.count {
-                travelCell.starImageView[index].image = UIImage(systemName: grade >= (index + 1) ? "star.fill" : "star")
-            }
+            configureTravelCell(travelCell, data: travel, index: indexPath.row)
             
             return travelCell
-        } else {
-            let adCellId = String(describing: AdTableViewCell.self)
-            guard let adCell = tableView.dequeueReusableCell(withIdentifier: adCellId, for: indexPath) as? AdTableViewCell else {
-                return UITableViewCell()
-            }
-            
-            let isValid = indexPath.row / 4 <= adBgColor.count
-            let adIndex = indexPath.row / 4 - 1
-            adCell.bgView.backgroundColor = isValid ? adBgColor[adIndex] : .magenta
-            adCell.messageLabel.text = travel.title
-            
-            return adCell
         }
     }
     
@@ -81,8 +65,30 @@ class TravelTableViewController: UITableViewController {
     }
     
     @objc private func likeButtonTapped(_ sender: UIButton) {
-        print(sender.tag)
         travelInfo.travel[sender.tag].like?.toggle()
         tableView.reloadData()
+    }
+    
+    private func configureTravelCell(_ cell: TravelTableViewCell, data travel: Travel, index: Int) {
+        let formattedLikie = travel.formattedNumber(travel.likeCount)
+        let formattedSave = travel.formattedNumber(travel.save)
+        
+        cell.titleLabel.text = travel.title
+        cell.descriptionLabel.text = travel.description
+        cell.saveLabel.text = "(\(formattedLikie)) ∙ 저장 \(formattedSave)"
+        cell.travelImageView.kf.setImage(with: travel.imageURL)
+        cell.likeButton.setImage(travel.likeImage, for: .normal)
+        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
+        cell.likeButton.tag = index
+        
+        let grade = Int(travel.grade ?? 0)
+        for index in 0..<cell.starImageView.count {
+            cell.starImageView[index].image = UIImage(systemName: grade >= (index + 1) ? "star.fill" : "star")
+        }
+    }
+    
+    private func configureAdCell(_ cell: AdTableViewCell, data travel: Travel) {
+        cell.bgView.backgroundColor = travel.adBgColor
+        cell.messageLabel.text = travel.title
     }
 }
