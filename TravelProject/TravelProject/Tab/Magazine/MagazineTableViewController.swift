@@ -42,12 +42,12 @@ final class MagazineTableViewController: UITableViewController {
         }
         
         let magazine = magazineInfo.magazine[indexPath.row]
-        configureCell(cell, magazine: magazine)
+        configureCell(cell, data: magazine)
         
         return cell
     }
     
-    private func configureCell(_ cell: MagazineTableViewCell, magazine: Magazine) {
+    private func configureCell(_ cell: MagazineTableViewCell, data magazine: Magazine) {
         let imageUrl = URL(string: magazine.photo_image)
         cell.mainImageView.kf.setImage(with: imageUrl)
         cell.titleLabel.text = magazine.title

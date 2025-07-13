@@ -20,7 +20,11 @@ final class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
+        
+        configureUI()
+    }
+    
+    private func configureUI() {
         configureLabel()
         configureTextField()
     }
@@ -44,7 +48,6 @@ final class GameViewController: UIViewController {
         resultTextView.textAlignment = .center
     }
     
-    // TODO: - 리팩토링하기
     @IBAction func numberTextFieldDidEndOnExit(_ sender: UITextField) {
         print(#function)
         
@@ -54,8 +57,8 @@ final class GameViewController: UIViewController {
             return
         }
         
-        guard inputNumber > 0 else {
-            showAlert(message: "0보다 큰 숫자를 입력해주세요.")
+        guard inputNumber > 0, inputNumber < 1000 else {
+            showAlert(message: "입력 가능한 숫자는 1부터 999까지 입니다.")
             return
         }
         
@@ -64,25 +67,25 @@ final class GameViewController: UIViewController {
             print(number)
         }
         
-        isValid()
+        replaceWithClappingEmoji()
         print(results)
         resultTextView.text = results.joined(separator: ", ")
         resultLabel.text = "숫자\(numberTextField.text ?? "")까지 총 박수는 \(count)번 입니다."
     }
     
-    //TODO: - 리팩토링하기
-    private func isValid() {
-        for ind in results.indices {
+    
+    private func replaceWithClappingEmoji() {
+        for index in results.indices {
             var tempNumber: String = ""
-            for index in results[ind].indices {
-                var temp = results[ind][index]
+            for stringIndex in results[index].indices {
+                var temp = results[index][stringIndex]
                 if temp == "3" || temp == "6" || temp == "9" {
                     temp = "👏"
                     count += 1
                 }
                 tempNumber.append(temp)
             }
-            results[ind] = tempNumber
+            results[index] = tempNumber
         }
     }
     

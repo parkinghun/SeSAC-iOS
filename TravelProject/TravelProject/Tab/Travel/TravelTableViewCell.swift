@@ -8,7 +8,7 @@
 import UIKit
 
 final class TravelTableViewCell: UITableViewCell {
-
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var starImageView: [UIImageView]!
@@ -20,15 +20,19 @@ final class TravelTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        configureUI()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
+    private func configureUI() {
         configureLabel()
         configureView()
         configureButton()
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-
+    
     private func configureLabel() {
         titleLabel.font = .boldSystemFont(ofSize: 25)
         
@@ -43,9 +47,9 @@ final class TravelTableViewCell: UITableViewCell {
     private func configureView() {
         starImageView.forEach { $0.tintColor = .orange }
         travelImageView.contentMode = .scaleAspectFill
-
+        
         imageOuterView.layer.cornerRadius = 12
-        imageOuterView.clipsToBounds = true   
+        imageOuterView.clipsToBounds = true
     }
     
     private func configureButton() {
