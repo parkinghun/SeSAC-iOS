@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdTableViewCell: UITableViewCell {
+final class AdTableViewCell: UITableViewCell {
 
     @IBOutlet var bgView: UIView!
     @IBOutlet var messageLabel: UILabel!
@@ -17,14 +17,28 @@ class AdTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        configureUI()
+    }
+    
+    private func configureUI() {
+        configureBgView()
+        configureLabel()
+    }
+    
+    private func configureBgView() {
         bgView.layer.cornerRadius = 12
         bgView.clipsToBounds = true
-        messageLabel.font = .boldSystemFont(ofSize: 18)
-        messageLabel.textAlignment = .center
-        messageLabel.numberOfLines = 0
+        
         adBgView.backgroundColor = .white
         adBgView.layer.cornerRadius = 4
         adBgView.clipsToBounds = true
+    }
+    
+    private func configureLabel() {
+        messageLabel.font = .boldSystemFont(ofSize: 18)
+        messageLabel.textAlignment = .center
+        messageLabel.numberOfLines = 0
+        
         adLabel.text = "AD"
         adLabel.font = .systemFont(ofSize: 8)
         adLabel.textAlignment = .center
