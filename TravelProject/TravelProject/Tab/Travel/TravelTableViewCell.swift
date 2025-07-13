@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TravelTableViewCell: UITableViewCell {
+final class TravelTableViewCell: UITableViewCell {
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
@@ -20,25 +20,36 @@ class TravelTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        titleLabel.font = .boldSystemFont(ofSize: 25)
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.font = .systemFont(ofSize: 20)
-        descriptionLabel.textColor = .gray
-        
-        starImageView.forEach { $0.tintColor = .orange }
-        saveLabel.textColor = .lightGray
-        saveLabel.font = .systemFont(ofSize: 12)
-        
-        imageOuterView.layer.cornerRadius = 12
-        imageOuterView.clipsToBounds = true
-        travelImageView.contentMode = .scaleAspectFill
-        
-        likeButton.setTitle("", for: .normal)
-        likeButton.tintColor = .red
+        configureLabel()
+        configureView()
+        configureButton()
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
     }
 
+    private func configureLabel() {
+        titleLabel.font = .boldSystemFont(ofSize: 25)
+        
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.font = .systemFont(ofSize: 20)
+        descriptionLabel.textColor = .gray
+        
+        saveLabel.textColor = .lightGray
+        saveLabel.font = .systemFont(ofSize: 12)
+    }
+    
+    private func configureView() {
+        starImageView.forEach { $0.tintColor = .orange }
+        travelImageView.contentMode = .scaleAspectFill
+
+        imageOuterView.layer.cornerRadius = 12
+        imageOuterView.clipsToBounds = true   
+    }
+    
+    private func configureButton() {
+        likeButton.setTitle("", for: .normal)
+        likeButton.tintColor = .red
+    }
 }
