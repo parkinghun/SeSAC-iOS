@@ -42,14 +42,17 @@ final class MagazineTableViewController: UITableViewController {
         }
         
         let magazine = magazineInfo.magazine[indexPath.row]
+        configureCell(cell, magazine: magazine)
         
+        return cell
+    }
+    
+    private func configureCell(_ cell: MagazineTableViewCell, magazine: Magazine) {
         let imageUrl = URL(string: magazine.photo_image)
         cell.mainImageView.kf.setImage(with: imageUrl)
         cell.titleLabel.text = magazine.title
         cell.subtitleLabel.text = magazine.subtitle
         cell.dateLabel.text = dateFormat(magazine.date)
-        
-        return cell
     }
     
     private func dateFormat(_ dateString: String) -> String {
