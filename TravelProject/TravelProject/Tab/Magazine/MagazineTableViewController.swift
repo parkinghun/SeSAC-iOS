@@ -11,12 +11,19 @@ import Kingfisher
 final class MagazineTableViewController: UITableViewController {
     
     private let magazineInfo = MagazineInfo()
+    var heightCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configure()
         registerNib()
+        applyDynamicRowHeightConfiguration()
+    }
+    
+    private func applyDynamicRowHeightConfiguration() {
+        tableView.estimatedRowHeight = 500
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     private func configure() {
