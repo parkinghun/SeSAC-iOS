@@ -14,7 +14,12 @@ final class MagazineTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
+
+        configure()
+        registerNib()
+    }
+    
+    private func configure() {
         configureNavigatoinTitle()
         configureTableView()
     }
@@ -27,17 +32,20 @@ final class MagazineTableViewController: UITableViewController {
         self.tableView.separatorStyle = .none
     }
     
+    private func registerNib() {
+        let nib = UINib(nibName: MagazineTableViewCell.id, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: MagazineTableViewCell.id)
+    }
+    
+    
+    
     // MARK: - TableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(#function)
         return magazineInfo.magazine.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(#function)
-        let identifier = String(describing: MagazineTableViewCell.self)
-        print(identifier)
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? MagazineTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MagazineTableViewCell.id, for: indexPath) as? MagazineTableViewCell else {
             return UITableViewCell()
         }
         

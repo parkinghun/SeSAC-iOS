@@ -2,15 +2,16 @@
 //  MagazineTableViewCell.swift
 //  TravelProject
 //
-//  Created by 박성훈 on 7/12/25.
+//  Created by 박성훈 on 7/14/25.
 //
 
 import UIKit
 
-final class MagazineTableViewCell: UITableViewCell {
+class MagazineTableViewCell: UITableViewCell {
+    
+    static let id = "MagazineTableViewCell"
     
     @IBOutlet var mainImageView: UIImageView!
-    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
@@ -39,9 +40,4 @@ final class MagazineTableViewCell: UITableViewCell {
         dateLabel.textColor = .gray
         dateLabel.textAlignment = .right
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-    
 }
