@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import Toast
 
 final class TravelTableViewController: UITableViewController {
     
@@ -75,6 +76,16 @@ final class TravelTableViewController: UITableViewController {
             return 120
         } else {
             return 200
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let travel = travelInfo.travel[indexPath.row]
+        guard let ad = travel.ad else { return }
+        
+        if ad {
+            // toast 띄우기 - 스크롤뷰 위치를 고정해야함.(CGPoint 문제인듯 ,xy 고정)
+            view.makeToast("광고 셀입니다.", position: .bottom)
         }
     }
     

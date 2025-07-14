@@ -21,7 +21,7 @@ class TravelAdTableViewCell: UITableViewCell {
         
         configureUI()
     }
-    
+
     func configure(data travel: Travel) {
         bgView.backgroundColor = travel.adBgColor
         messageLabel.text = travel.title
@@ -50,9 +50,4 @@ class TravelAdTableViewCell: UITableViewCell {
         adLabel.font = .systemFont(ofSize: 8)
         adLabel.textAlignment = .center
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-    
 }
