@@ -2,12 +2,14 @@
 //  TravelTableViewCell.swift
 //  TravelProject
 //
-//  Created by 박성훈 on 7/12/25.
+//  Created by 박성훈 on 7/14/25.
 //
 
 import UIKit
 
-final class TravelTableViewCell: UITableViewCell {
+class TravelTableViewCell: UITableViewCell {
+    
+    static let id = "TravelTableViewCell"
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
@@ -56,4 +58,5 @@ final class TravelTableViewCell: UITableViewCell {
         likeButton.setTitle("", for: .normal)
         likeButton.tintColor = .red
     }
+    
 }

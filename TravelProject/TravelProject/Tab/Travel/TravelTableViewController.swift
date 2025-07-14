@@ -15,10 +15,16 @@ final class TravelTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationTitle()
+        registerNib()
     }
     
     private func configureNavigationTitle() {
         navigationItem.title = "도시 상세 정보"
+    }
+    
+    private func registerNib() {
+        let travelNib = UINib(nibName: TravelTableViewCell.id, bundle: nil)
+        tableView.register(travelNib, forCellReuseIdentifier: TravelTableViewCell.id)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
