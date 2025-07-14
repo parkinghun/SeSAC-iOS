@@ -53,12 +53,12 @@ final class GameViewController: UIViewController {
         
         guard let inputText = numberTextField.text,
               let inputNumber = Int(inputText) else {
-            showAlert(message: "숫자를 입력해주세요.")
+            self.showAlert(title: "입력 에러", message: "숫자를 입력해주세요.")
             return
         }
         
         guard inputNumber > 0, inputNumber < 1000 else {
-            showAlert(message: "입력 가능한 숫자는 1부터 999까지 입니다.")
+            self.showAlert(title: "입력 에러", message: "입력 가능한 숫자는 1부터 999까지 입니다.")
             return
         }
         
@@ -87,14 +87,6 @@ final class GameViewController: UIViewController {
             }
             results[index] = tempNumber
         }
-    }
-    
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "입력 에러", message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(ok)
-        
-        present(alert, animated: true)
     }
     
     @IBAction func numberTextFieldEditingChanged(_ sender: UITextField) {
