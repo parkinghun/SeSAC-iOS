@@ -13,4 +13,8 @@ struct Magazine {
     let photo_image: String
     let date: String
     let link: String
+    
+    var imageUrl: URL? {
+        return URL(string: photo_image)
+    }
 }
