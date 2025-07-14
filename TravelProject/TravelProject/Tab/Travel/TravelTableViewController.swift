@@ -47,7 +47,8 @@ final class TravelTableViewController: UITableViewController {
                 return UITableViewCell()
             }
        
-            configureAdCell(adCell, data: travel)
+            adCell.configure(data: travel)
+            
             return adCell
         } else {
             let travelCellId = String(describing: TravelTableViewCell.self)
@@ -55,8 +56,12 @@ final class TravelTableViewController: UITableViewController {
                 return UITableViewCell()
             }
             
-            let travel = travelInfo.travel[indexPath.row]
-            configureTravelCell(travelCell, data: travel, index: indexPath.row)
+            travelCell.configure(data: travelInfo.travel[indexPath.row], index: indexPath.row)
+            
+            travelCell.completionHandler = { [weak self] index in
+                guard let self else { return }
+                self.likeButtonTapped(index: index)
+            }
             
             return travelCell
         }
@@ -73,32 +78,9 @@ final class TravelTableViewController: UITableViewController {
         }
     }
     
-    @objc private func likeButtonTapped(_ sender: UIButton) {
-        travelInfo.travel[sender.tag].like?.toggle()
+    private func likeButtonTapped(index: Int) {
+        travelInfo.travel[index].like?.toggle()
         tableView.reloadData()
-//        tableView.reloadRows(at: sender.tag, with: .automatic)  //
-    }
-    
-    private func configureTravelCell(_ cell: TravelTableViewCell, data travel: Travel, index: Int) {
-        let formattedLikie = travel.formattedNumber(travel.likeCount)
-        let formattedSave = travel.formattedNumber(travel.save)
-        
-        cell.titleLabel.text = travel.title
-        cell.descriptionLabel.text = travel.description
-        cell.saveLabel.text = "(\(formattedLikie)) ∙ 저장 \(formattedSave)"
-        cell.travelImageView.kf.setImage(with: travel.imageURL)
-        cell.likeButton.setImage(travel.likeImage, for: .normal)
-        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
-        cell.likeButton.tag = index
-        
-        let grade = Int(travel.grade ?? 0)
-        for index in 0..<cell.starImageView.count {
-            cell.starImageView[index].image = UIImage(systemName: grade >= (index + 1) ? "star.fill" : "star")
-        }
-    }
-    
-    private func configureAdCell(_ cell: TravelAdTableViewCell, data travel: Travel) {
-        cell.bgView.backgroundColor = travel.adBgColor
-        cell.messageLabel.text = travel.title
+        //        tableView.reloadRows(at: sender.tag, with: .automatic)  //
     }
 }

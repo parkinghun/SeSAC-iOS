@@ -30,6 +30,10 @@ struct Travel {
         return color.randomElement()
     }
     
+    var saveText: String {
+        return "(\(formattedNumber(likeCount))) ∙ 저장 \(formattedNumber(save))"
+    }
+    
     func formattedNumber(_ number: Int?) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
@@ -37,4 +41,6 @@ struct Travel {
         guard let number else { return "0" }
         return numberFormatter.string(for: number) ?? "0"
     }
+    
+
 }

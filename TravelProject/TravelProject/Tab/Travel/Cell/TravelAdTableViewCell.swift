@@ -22,6 +22,11 @@ class TravelAdTableViewCell: UITableViewCell {
         configureUI()
     }
     
+    func configure(data travel: Travel) {
+        bgView.backgroundColor = travel.adBgColor
+        messageLabel.text = travel.title
+    }
+    
     private func configureUI() {
         configureBgView()
         configureLabel()
