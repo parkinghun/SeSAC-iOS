@@ -1,14 +1,16 @@
 //
-//  AdTableViewCell.swift
+//  TravelAdTableViewCell.swift
 //  TravelProject
 //
-//  Created by 박성훈 on 7/12/25.
+//  Created by 박성훈 on 7/14/25.
 //
 
 import UIKit
 
-final class AdTableViewCell: UITableViewCell {
+class TravelAdTableViewCell: UITableViewCell {
 
+    static let id = "TravelAdTableViewCell"
+    
     @IBOutlet var bgView: UIView!
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var adBgView: UIView!
@@ -47,5 +49,5 @@ final class AdTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
     }
-
+    
 }

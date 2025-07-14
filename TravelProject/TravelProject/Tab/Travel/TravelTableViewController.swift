@@ -24,7 +24,10 @@ final class TravelTableViewController: UITableViewController {
     
     private func registerNib() {
         let travelNib = UINib(nibName: TravelTableViewCell.id, bundle: nil)
+        let adNib = UINib(nibName: TravelAdTableViewCell.id, bundle: nil)
+        
         tableView.register(travelNib, forCellReuseIdentifier: TravelTableViewCell.id)
+        tableView.register(adNib, forCellReuseIdentifier: TravelAdTableViewCell.id)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,8 +42,8 @@ final class TravelTableViewController: UITableViewController {
         }
         
         if ad  {
-            let adCellId = String(describing: AdTableViewCell.self)
-            guard let adCell = tableView.dequeueReusableCell(withIdentifier: adCellId, for: indexPath) as? AdTableViewCell else {
+            let adCellId = String(describing: TravelAdTableViewCell.self)
+            guard let adCell = tableView.dequeueReusableCell(withIdentifier: adCellId, for: indexPath) as? TravelAdTableViewCell else {
                 return UITableViewCell()
             }
        
@@ -94,7 +97,7 @@ final class TravelTableViewController: UITableViewController {
         }
     }
     
-    private func configureAdCell(_ cell: AdTableViewCell, data travel: Travel) {
+    private func configureAdCell(_ cell: TravelAdTableViewCell, data travel: Travel) {
         cell.bgView.backgroundColor = travel.adBgColor
         cell.messageLabel.text = travel.title
     }
