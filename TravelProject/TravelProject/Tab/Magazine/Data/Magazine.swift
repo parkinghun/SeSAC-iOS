@@ -17,4 +17,8 @@ struct Magazine {
     var imageUrl: URL? {
         return URL(string: photo_image)
     }
+    
+    var formattedDate: String? {
+        return date.toFormattedDate()
+    }
 }

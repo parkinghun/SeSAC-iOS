@@ -67,6 +67,7 @@ final class TravelTableViewController: UITableViewController {
     @objc private func likeButtonTapped(_ sender: UIButton) {
         travelInfo.travel[sender.tag].like?.toggle()
         tableView.reloadData()
+//        tableView.reloadRows(at: sender.tag, with: .automatic)  //
     }
     
     private func configureTravelCell(_ cell: TravelTableViewCell, data travel: Travel, index: Int) {

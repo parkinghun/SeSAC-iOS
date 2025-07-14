@@ -42,22 +42,8 @@ class MagazineTableViewCell: UITableViewCell {
     }
     
     private func configureDateLabel(magazine: Magazine) {
-        dateLabel.text = dateFormat(magazine.date)  // 리팩토링 필요
+        dateLabel.text = magazine.formattedDate
 
-    }
-    
-    private func dateFormat(_ dateString: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyMMdd"
-        
-        if let date = dateFormatter.date(from: dateString) {  // 데이터 객체
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yy년 MM월 dd일"
-            let formattedDate = dateFormatter.string(from: date)  // String
-            return formattedDate
-        } else {
-            return ""
-        }
     }
     
     private func configureDefault() {
