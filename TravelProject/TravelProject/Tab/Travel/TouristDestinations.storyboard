@@ -59,7 +59,9 @@
                             <constraint firstItem="ogw-md-t22" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="16" id="izd-Ic-2SB"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="tse-o0-ukw"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="xcn-jt-rze" id="rXO-pa-lxD"/>
                         <outlet property="nameLabel" destination="9UJ-vQ-S9v" id="TF1-jd-6rz"/>

@@ -12,7 +12,7 @@ import Toast
 final class TravelTableViewController: UITableViewController {
     
     private var travelInfo = TravelInfo()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
@@ -50,7 +50,7 @@ final class TravelTableViewController: UITableViewController {
             guard let adCell = tableView.dequeueReusableCell(withIdentifier: adCellId, for: indexPath) as? TravelAdTableViewCell else {
                 return UITableViewCell()
             }
-       
+            
             adCell.configure(data: travel)
             
             return adCell
@@ -88,10 +88,21 @@ final class TravelTableViewController: UITableViewController {
         
         if ad {
             // navigationController - fullscreen 방식으로 present(모달)
+            let storyboard = UIStoryboard(name: "AdDetail", bundle: nil)
+            let id = String(describing: AdDetailViewController.self)
+            guard let nextVC = storyboard.instantiateViewController(withIdentifier: id) as? AdDetailViewController else { return }
+            nextVC.adTitle = travel.title
+            
+            let nav = UINavigationController(rootViewController: nextVC)
+            nav.modalPresentationStyle = .fullScreen
+            
+            nav.isNavigationBarHidden = false
+            present(nav, animated: true)
         } else {
             // push
             let storyboard = UIStoryboard(name: "TouristDestinations", bundle: nil)
-            guard let nextVC = storyboard.instantiateViewController(withIdentifier: "TouristDestinationsViewController") as? TouristDestinationsViewController else { return }
+            let id = String(describing: TouristDestinationsViewController.self)
+            guard let nextVC = storyboard.instantiateViewController(withIdentifier: id) as? TouristDestinationsViewController else { return }
             
             nextVC.travel = travel
             navigationController?.pushViewController(nextVC, animated: true)
