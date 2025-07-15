@@ -21,4 +21,12 @@ struct City {
         self.cityImage = cityImage
         self.domesticTravel = domesticTravel
     }
+    
+    var nameLabelText: String {
+        return "\(cityName) | \(cityEnglishName)"
+    }
+    
+    var cityImageURL: URL? {
+        return URL(string: cityImage)
+    }
 }

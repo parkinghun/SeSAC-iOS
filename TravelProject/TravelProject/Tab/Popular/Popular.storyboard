@@ -22,6 +22,9 @@
                                     <segment title="First"/>
                                     <segment title="Second"/>
                                 </segments>
+                                <connections>
+                                    <action selector="citySegmentTapped:" destination="eHF-ds-FZp" eventType="valueChanged" id="2ey-oe-v8H"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zvH-sE-WNf">
                                 <rect key="frame" x="20" y="185" width="353" height="550"/>
@@ -43,6 +46,10 @@
                     <tabBarItem key="tabBarItem" title="Popular" image="flame" catalog="system" selectedImage="flame.fill" id="m73-7n-zEj"/>
                     <navigationItem key="navigationItem" title="Title" id="cqO-KG-k9m"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="citySegment" destination="BWV-HM-FAk" id="Cze-T3-Gh1"/>
+                        <outlet property="tableView" destination="zvH-sE-WNf" id="uIP-LS-P0S"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIn-HW-Y0M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
