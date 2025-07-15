@@ -21,6 +21,7 @@
                         <segue destination="oPL-r8-bS5" kind="relationship" relationship="viewControllers" id="nN7-dA-xJ8"/>
                         <segue destination="3Wx-D9-Gtc" kind="relationship" relationship="viewControllers" id="wYJ-nU-wr8"/>
                         <segue destination="2jT-CO-IAC" kind="relationship" relationship="viewControllers" id="QBN-NN-g6H"/>
+                        <segue destination="Gfn-tX-Cen" kind="relationship" relationship="viewControllers" id="mPj-5V-O1F"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EIN-VY-fbV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -56,6 +57,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wzG-Oa-buu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3233" y="897"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="Lc0-4w-4lU">
+            <objects>
+                <navigationController id="Gfn-tX-Cen" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="NsK-0C-cri"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="avS-A0-egu">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="5Fx-qv-WDO" kind="relationship" relationship="rootViewController" id="tGb-39-som"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Az-Gz-qik" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2077" y="1586"/>
+        </scene>
+        <!--PopularTableViewController-->
+        <scene sceneID="sG4-mi-MSh">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="PopularTableViewController" storyboardName="Popular" referencedIdentifier="PopularTableViewController" id="5Fx-qv-WDO" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Nvk-VG-CLB"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hEI-SS-Jjd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2815" y="1560"/>
         </scene>
         <!--Item-->
         <scene sceneID="PnA-js-nT8">

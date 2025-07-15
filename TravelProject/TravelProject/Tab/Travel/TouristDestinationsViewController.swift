@@ -8,7 +8,7 @@
 import UIKit
 
 
-class TouristDestinationsViewController: UIViewController {
+final class TouristDestinationsViewController: UIViewController {
 
     var travel: Travel?
 

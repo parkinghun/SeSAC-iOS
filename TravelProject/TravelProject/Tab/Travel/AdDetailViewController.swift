@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdDetailViewController: UIViewController {
+final class AdDetailViewController: UIViewController {
     
     var adTitle: String?
     
@@ -37,9 +37,7 @@ class AdDetailViewController: UIViewController {
     }
     
     @objc private func backButtonItemTapped() {
-        print(#function)
         dismiss(animated: true)
     }
-    
 }
 
