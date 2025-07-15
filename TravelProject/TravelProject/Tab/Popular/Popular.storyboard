@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eHF-ds-FZp">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Title-->
-        <scene sceneID="qFj-Xg-qVd">
+        <scene sceneID="bxR-ca-ubO">
             <objects>
-                <tableViewController storyboardIdentifier="PopularTableViewController" id="63f-9o-XDZ" customClass="PopularTableViewController" customModule="TravelProject" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="XsW-oK-JTt">
+                <viewController storyboardIdentifier="PopularViewController" id="eHF-ds-FZp" customClass="PopularViewController" customModule="TravelProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HxI-LJ-dyj">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BWV-HM-FAk">
+                                <rect key="frame" x="20" y="134" width="353" height="32"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zvH-sE-WNf">
+                                <rect key="frame" x="20" y="185" width="353" height="550"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="se2-3h-iYC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ILB-fZ-Zzh">
-                                <rect key="frame" x="0.0" y="50" width="393" height="44.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ILB-fZ-Zzh" id="z6k-qi-Nm1">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="44.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="63f-9o-XDZ" id="6cm-xM-jtt"/>
-                            <outlet property="delegate" destination="63f-9o-XDZ" id="RD6-Cx-rjN"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Popular" image="flame" catalog="system" selectedImage="flame.fill" id="XhL-IB-a5l"/>
-                    <navigationItem key="navigationItem" title="Title" id="ZgF-PI-Wxy"/>
+                        <constraints>
+                            <constraint firstItem="se2-3h-iYC" firstAttribute="trailing" secondItem="BWV-HM-FAk" secondAttribute="trailing" constant="20" id="HXZ-Ov-5xf"/>
+                            <constraint firstItem="se2-3h-iYC" firstAttribute="trailing" secondItem="zvH-sE-WNf" secondAttribute="trailing" constant="20" id="Mme-O4-G64"/>
+                            <constraint firstItem="se2-3h-iYC" firstAttribute="bottom" secondItem="zvH-sE-WNf" secondAttribute="bottom" id="Pgq-cG-XBv"/>
+                            <constraint firstItem="zvH-sE-WNf" firstAttribute="top" secondItem="BWV-HM-FAk" secondAttribute="bottom" constant="20" id="ZXP-64-3Y2"/>
+                            <constraint firstItem="BWV-HM-FAk" firstAttribute="leading" secondItem="se2-3h-iYC" secondAttribute="leading" constant="20" id="Zeu-zH-k3N"/>
+                            <constraint firstItem="BWV-HM-FAk" firstAttribute="top" secondItem="se2-3h-iYC" secondAttribute="top" constant="16" id="cY0-CQ-ZFK"/>
+                            <constraint firstItem="zvH-sE-WNf" firstAttribute="leading" secondItem="se2-3h-iYC" secondAttribute="leading" constant="20" id="zE3-Ja-GKx"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Popular" image="flame" catalog="system" selectedImage="flame.fill" id="m73-7n-zEj"/>
+                    <navigationItem key="navigationItem" title="Title" id="cqO-KG-k9m"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Dmf-lU-RjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eIn-HW-Y0M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="232" y="-3"/>
+            <point key="canvasLocation" x="1173" y="-15"/>
         </scene>
     </scenes>
     <resources>

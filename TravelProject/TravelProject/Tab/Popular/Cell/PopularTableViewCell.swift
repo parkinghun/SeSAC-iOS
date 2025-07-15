@@ -9,6 +9,13 @@ import UIKit
 
 class PopularTableViewCell: UITableViewCell {
 
+    
+    @IBOutlet var bgView: UIView!
+    @IBOutlet var cityImageView: UIImageView!
+    @IBOutlet var cityNameLabel: UILabel!
+    @IBOutlet var cityExPlainBgView: UIView!
+    @IBOutlet var cityExplainLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

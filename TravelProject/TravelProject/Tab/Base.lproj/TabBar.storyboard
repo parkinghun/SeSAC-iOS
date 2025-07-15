@@ -75,10 +75,10 @@
             </objects>
             <point key="canvasLocation" x="2077" y="1586"/>
         </scene>
-        <!--PopularTableViewController-->
+        <!--PopularViewController-->
         <scene sceneID="sG4-mi-MSh">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="PopularTableViewController" storyboardName="Popular" referencedIdentifier="PopularTableViewController" id="5Fx-qv-WDO" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="PopularViewController" storyboardName="Popular" referencedIdentifier="PopularViewController" id="5Fx-qv-WDO" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Nvk-VG-CLB"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEI-SS-Jjd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
