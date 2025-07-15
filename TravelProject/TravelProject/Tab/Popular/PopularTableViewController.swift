@@ -25,19 +25,33 @@ final class PopularViewController: UIViewController {
     
     let cityList = CityInfo().city
     var filteredCityList: [City] = []
+    var displayCityList: [City] = [] {
+        didSet {
+            if displayCityList.isEmpty {
+                tableView.isHidden = true
+                emptyViewLabel.isHidden = false
+            } else {
+                tableView.isHidden = false
+                emptyViewLabel.isHidden = true
+            }
+            tableView.reloadData()
+        }
+    }
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var citySegment: UISegmentedControl!
     @IBOutlet var textFieldBgView: UIView!
     @IBOutlet var searchTextField: UITextField!
-    @IBOutlet var searchButton: UIImageView!
+    
+    @IBOutlet var searchButton: UIButton!
+    @IBOutlet var emptyViewLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureNavigationTitle()
         setTableViewDelegate()
         setupSegmentControl()
+        configureUI()
     }
     
     private func configureNavigationTitle() {
@@ -58,43 +72,92 @@ final class PopularViewController: UIViewController {
         }
 
         citySegment.selectedSegmentIndex = 0
-        filteredCityList = cityList
+        
+        filteredCityList = getFilteredTravelList()
+        displayCityList = getFilteredTravelList()
+    }
+    
+    private func configureUI() {
+        textFieldBgView.layer.cornerRadius = 12
+        textFieldBgView.clipsToBounds = true
+        textFieldBgView.layer.borderWidth = 1
+        textFieldBgView.layer.borderColor = UIColor.gray.cgColor
+        
+        searchTextField.borderStyle = .none
+        searchTextField.placeholder = "도시를 검색해보세요."
+        
+        searchButton.setTitle("", for: .normal)
+        searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        searchButton.tintColor = .gray
+        
+        emptyViewLabel.text = "검색한 결과가 없습니다."
+        emptyViewLabel.font = .boldSystemFont(ofSize: 20)
     }
     
     @IBAction func citySegmentTapped(_ sender: UISegmentedControl) {
         print(#function, sender.selectedSegmentIndex)
         
-        switch sender.selectedSegmentIndex {
-        case 0:
-            filteredCityList = cityList
-            tableView.reloadData()
-        case 1:
-            filteredCityList = cityList.filter { $0.domesticTravel }
-            tableView.reloadData()
-        case 2:
-            filteredCityList = cityList.filter { !$0.domesticTravel}
-            tableView.reloadData()
-        default: break
-        }
+        displayCityList = getFilteredTravelList()
     }
     
     @IBAction func searchTextFieldDidEndOnExit(_ sender: UITextField) {
-        // 엔터눌렀을 때
         print(#function)
+        applySearch(keyword: sender.text)
     }
     
     
     @IBAction func searchTextFieldEditingChanged(_ sender: UITextField) {
         print(#function)
+        applySearch(keyword: sender.text)
     }
     
     
+    @IBAction func searchButtonTapped(_ sender: UIButton) {
+        applySearch(keyword: searchTextField.text)
+        searchTextField.resignFirstResponder()
+    }
+    
+    
+    @IBAction func tapGesutreClicked(_ sender: UITapGestureRecognizer) {
+        searchTextField.resignFirstResponder()
+    }
+    
+    private func getFilteredTravelList() -> [City] {
+        switch citySegment.selectedSegmentIndex {
+        case 0:
+            filteredCityList = cityList
+        case 1:
+            filteredCityList = cityList.filter { $0.domesticTravel }
+        case 2:
+            filteredCityList = cityList.filter { !$0.domesticTravel}
+        default:
+            filteredCityList = []
+        }
+        
+        return filteredCityList
+    }
+    
+    // 검색기능 - 첫 세그먼트에서 오타나고 다시 검색하면 안됨 ㅋ
+    private func applySearch(keyword: String?) {
+        guard let keyword else { return }
+        let key = keyword.lowercased().trimmingCharacters(in: .whitespaces)
+
+        if keyword.isEmpty {
+            displayCityList = filteredCityList
+        } else {
+            displayCityList = filteredCityList.filter { city in
+                city.cityName.contains(key) ||
+                city.cityEnglishName.lowercased().contains(key) ||
+                city.cityExplain.contains(key)
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension PopularViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredCityList.count
+        return displayCityList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,7 +166,7 @@ extension PopularViewController: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularTableViewCell.id, for: indexPath) as? PopularTableViewCell else { return UITableViewCell() }
         
-        cell.configure(data: filteredCityList[indexPath.row])
+        cell.configure(data: displayCityList[indexPath.row])
         return cell
     }
 }
@@ -113,7 +176,5 @@ extension PopularViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180
     }
-    
-
 }
 
