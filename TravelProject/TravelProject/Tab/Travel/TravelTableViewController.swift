@@ -12,15 +12,18 @@ import Toast
 final class TravelTableViewController: UITableViewController {
     
     private var travelInfo = TravelInfo()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationTitle()
+        configureNavigationItem()
         registerNib()
     }
     
-    private func configureNavigationTitle() {
+    private func configureNavigationItem() {
         navigationItem.title = "도시 상세 정보"
+        
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil )
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func registerNib() {
@@ -84,8 +87,14 @@ final class TravelTableViewController: UITableViewController {
         guard let ad = travel.ad else { return }
         
         if ad {
-            // toast 띄우기 - 스크롤뷰 위치를 고정해야함.(CGPoint 문제인듯 ,xy 고정)
-            view.makeToast("광고 셀입니다.", position: .bottom)
+            // navigationController - fullscreen 방식으로 present(모달)
+        } else {
+            // push
+            let storyboard = UIStoryboard(name: "TouristDestinations", bundle: nil)
+            guard let nextVC = storyboard.instantiateViewController(withIdentifier: "TouristDestinationsViewController") as? TouristDestinationsViewController else { return }
+            
+            nextVC.travel = travel
+            navigationController?.pushViewController(nextVC, animated: true)
         }
     }
     
