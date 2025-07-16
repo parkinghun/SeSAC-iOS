@@ -19,49 +19,21 @@ class MagazineTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         print(#function)
-        configureDefault()
+        configurelDefault()
     }
     
     func configure(data magazine: Magazine) {
-        configureMainImageView(magazine: magazine)
-        configureTitleLabel(magazine: magazine)
-        configureSubtitleLabel(magazine: magazine)
-        configureDateLabel(magazine: magazine)
-    }
-    
-    private func configureMainImageView(magazine: Magazine) {
         mainImageView.downSampling(url: magazine.imageUrl)
-    }
-    
-    private func configureTitleLabel(magazine: Magazine) {
         titleLabel.text = magazine.title
-    }
-    
-    private func configureSubtitleLabel(magazine: Magazine) {
         subtitleLabel.text = magazine.subtitle
-    }
-    
-    private func configureDateLabel(magazine: Magazine) {
         dateLabel.text = magazine.formattedDate
-
     }
     
-    private func configureDefault() {
-        configureImageViewDefault()
-        configureLabelDefault()
-    }
-    
-    private func configureImageViewDefault() {
-        mainImageView.layer.cornerRadius = 12
-        mainImageView.clipsToBounds = true
-        mainImageView.contentMode = .scaleAspectFill
-    }
-    
-    private func configureLabelDefault() {
-        titleLabel.font = .boldSystemFont(ofSize: 24)
-        titleLabel.numberOfLines = 0
-        subtitleLabel.textColor = .gray
-        dateLabel.textColor = .gray
-        dateLabel.textAlignment = .right
+    private func configurelDefault() {
+        mainImageView.configure(cornerRadius: 12, contentMode: .scaleAspectFill)
+        
+        titleLabel.configure(font: .boldSystemFont(ofSize: 24), numberOfLines: 0)
+        subtitleLabel.configure(color: .gray)
+        dateLabel.configure(color: .gray, alignment: .right)
     }
 }

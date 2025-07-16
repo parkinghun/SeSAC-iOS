@@ -19,4 +19,10 @@ extension UIImageView {
                 .cacheOriginalImage
             ])
     }
+    
+    func configure(cornerRadius: CGFloat? = nil, contentMode: UIView.ContentMode? = nil) {
+        if let cornerRadius { self.setCornerRadius(cornerRadius: cornerRadius) }
+        if let contentMode { self.contentMode = contentMode }
+        
+    }
 }

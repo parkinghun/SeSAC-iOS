@@ -11,35 +11,26 @@ import Kingfisher
 final class MagazineTableViewController: UITableViewController {
     
     private let magazineInfo = MagazineInfo()
-    var heightCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configure()
-        registerNib()
-        applyDynamicRowHeightConfiguration()
+        setupNavigation()
+        setupTableView()
     }
     
-    private func applyDynamicRowHeightConfiguration() {
-        tableView.estimatedRowHeight = 500
-        tableView.rowHeight = UITableView.automaticDimension
-    }
-    
-    private func configure() {
-        configureNavigatoinTitle()
-        configureTableView()
-    }
-    
-    private func configureNavigatoinTitle() {
+    private func setupNavigation() {
         self.navigationItem.title = "SeSAC TRAVEL"
     }
     
-    private func configureTableView() {
+    private func setupTableView() {
         self.tableView.separatorStyle = .none
+        tableView.estimatedRowHeight = 500
+        tableView.rowHeight = UITableView.automaticDimension
+        registerCell()
     }
     
-    private func registerNib() {
+    private func registerCell() {
         let nib = UINib(nibName: MagazineTableViewCell.id, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: MagazineTableViewCell.id)
     }

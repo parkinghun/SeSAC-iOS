@@ -8,6 +8,14 @@
 import UIKit
 
 extension UILabel {
+    func configure(text: String? = nil, font: UIFont? = nil, color: UIColor? = nil, alignment: NSTextAlignment? = nil, numberOfLines: Int = 1) {
+        if let text { self.text = text}
+        if let font { self.font = font }
+        if let color { self.textColor = color }
+        if let alignment { self.textAlignment = alignment }
+        
+    }
+    
     func asFontColor(targetString: String, color: UIColor = .yellow) {
         let fullText = text ?? ""
         let attributedString = NSMutableAttributedString(string: fullText)

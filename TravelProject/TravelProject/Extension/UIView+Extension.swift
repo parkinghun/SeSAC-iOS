@@ -16,4 +16,9 @@ extension UIView {
         container.addSubview(spinner)
         return container
     }
+    
+    func setCornerRadius(cornerRadius: CGFloat) {
+        self.layer.cornerRadius = cornerRadius
+        self.clipsToBounds = true
+    }
 }
