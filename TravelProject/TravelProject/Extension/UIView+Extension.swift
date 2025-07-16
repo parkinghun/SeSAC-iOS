@@ -17,8 +17,14 @@ extension UIView {
         return container
     }
     
-    func setCornerRadius(cornerRadius: CGFloat) {
+    func setCornerRadius(to cornerRadius: CGFloat) {
         self.layer.cornerRadius = cornerRadius
         self.clipsToBounds = true
     }
+    
+    func configure(cornerRadius: CGFloat? = nil, bgColor: UIColor? = nil) {
+        if let cornerRadius { self.setCornerRadius(to: cornerRadius) }
+        if let bgColor { self.backgroundColor = bgColor }
+    }
+    
 }

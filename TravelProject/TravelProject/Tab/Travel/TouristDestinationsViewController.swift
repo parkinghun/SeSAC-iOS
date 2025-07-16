@@ -19,50 +19,27 @@ final class TouristDestinationsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigation()
         configure()
     }
     
-    private func configure() {
-        configureNavigationTitle()
-        setData()
-        configureImageView()
-        configureLabel()
-        configureButton()
-    }
-    
-    private func configureNavigationTitle() {
+    private func setupNavigation() {
         navigationItem.title = "관광지 화면"
     }
     
-    private func setData() {
+    private func configure() {
         travelImageView.downSampling(url: travel?.imageURL)
-        nameLabel.text = travel?.title
-        descriptionLabel.text = travel?.description
-    }
-    
-    private func configureImageView() {
-        travelImageView.contentMode = .scaleAspectFill
-        travelImageView.layer.cornerRadius = 12
-        travelImageView.clipsToBounds = true
-    }
-    
-    private func configureLabel() {
-        configureLabel(nameLabel, size: 35)
-        configureLabel(descriptionLabel, size: 20)
-    }
-    
-    private func configureLabel(_ label: UILabel, size: CGFloat) {
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: size)
-        label.numberOfLines = 0
-    }
-    
-    private func configureButton() {
-        popButton.setTitle("다른 관광지 보러 가기", for: .normal)
-        popButton.setTitleColor(.white, for: .normal)
-        popButton.backgroundColor = .systemBlue
-        popButton.layer.cornerRadius = popButton.bounds.height / 2
-        popButton.clipsToBounds = true
+        travelImageView.configure(cornerRadius: 12, contentMode: .scaleAspectFill)
+        
+        descriptionLabel.configure(text: travel?.description)
+        
+        nameLabel.configure(text: travel?.title, font: .boldSystemFont(ofSize: 35), alignment: .center, numberOfLines: 0)
+        descriptionLabel.configure(text: travel?.description, font: .boldSystemFont(ofSize: 20), alignment: .center, numberOfLines: 0)
+     
+        popButton.configure(title: "다른 관광지 보러 가기",
+                            color: .white,
+                            bgColor: .systemBlue,
+                            cornerRadius: popButton.bounds.height / 2)
     }
     
     @IBAction func popButtonTapped(_ sender: UIButton) {

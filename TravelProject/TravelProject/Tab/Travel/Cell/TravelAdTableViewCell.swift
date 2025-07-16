@@ -18,8 +18,7 @@ class TravelAdTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        configureUI()
+        configureDefault()
     }
 
     func configure(data travel: Travel) {
@@ -27,27 +26,11 @@ class TravelAdTableViewCell: UITableViewCell {
         messageLabel.text = travel.title
     }
     
-    private func configureUI() {
-        configureBgView()
-        configureLabel()
-    }
-    
-    private func configureBgView() {
-        bgView.layer.cornerRadius = 12
-        bgView.clipsToBounds = true
+    private func configureDefault() {
+        bgView.setCornerRadius(to: 12)
+        adBgView.configure(cornerRadius: 4, bgColor: .white)
         
-        adBgView.backgroundColor = .white
-        adBgView.layer.cornerRadius = 4
-        adBgView.clipsToBounds = true
-    }
-    
-    private func configureLabel() {
-        messageLabel.font = .boldSystemFont(ofSize: 18)
-        messageLabel.textAlignment = .center
-        messageLabel.numberOfLines = 0
-        
-        adLabel.text = "AD"
-        adLabel.font = .systemFont(ofSize: 8)
-        adLabel.textAlignment = .center
+        messageLabel.configure(font: .boldSystemFont(ofSize: 18), alignment: .center, numberOfLines: 0)
+        adLabel.configure(text: "AD", font: .systemFont(ofSize: 8), alignment: .center)
     }
 }

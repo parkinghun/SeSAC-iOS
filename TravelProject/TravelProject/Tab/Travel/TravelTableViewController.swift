@@ -15,18 +15,18 @@ final class TravelTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationItem()
-        registerNib()
+        setupNavigation()
+        setupTableView()
     }
     
-    private func configureNavigationItem() {
+    private func setupNavigation() {
         navigationItem.title = "도시 상세 정보"
         
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil )
         navigationItem.backBarButtonItem = backBarButtonItem
     }
     
-    private func registerNib() {
+    private func setupTableView() {
         let travelNib = UINib(nibName: TravelTableViewCell.id, bundle: nil)
         let adNib = UINib(nibName: TravelAdTableViewCell.id, bundle: nil)
         

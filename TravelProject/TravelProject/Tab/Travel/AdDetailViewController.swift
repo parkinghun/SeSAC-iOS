@@ -17,11 +17,11 @@ final class AdDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureNavigationItem()
-        configureLabel()
+        setupNavigation()
+        configure()
     }
     
-    private func configureNavigationItem() {
+    private func setupNavigation() {
         navigationItem.title = "광고 화면"
         let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(backButtonItemTapped))
         navigationItem.leftBarButtonItem = backButtonItem
@@ -29,11 +29,8 @@ final class AdDetailViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .gray
     }
     
-    private func configureLabel() {
-        titleLabel.text = adTitle
-        titleLabel.font = .boldSystemFont(ofSize: 30)
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 0
+    private func configure() {
+        titleLabel.configure(text: adTitle, font: .boldSystemFont(ofSize: 30), alignment: .center, numberOfLines: 0)
     }
     
     @objc private func backButtonItemTapped() {
