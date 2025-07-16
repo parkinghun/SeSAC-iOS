@@ -30,7 +30,7 @@ class MagazineTableViewCell: UITableViewCell {
     }
     
     private func configureMainImageView(magazine: Magazine) {
-        mainImageView.kf.setImage(with: magazine.imageUrl)
+        mainImageView.downSampling(url: magazine.imageUrl)
     }
     
     private func configureTitleLabel(magazine: Magazine) {

@@ -35,7 +35,7 @@ final class TouristDestinationsViewController: UIViewController {
     }
     
     private func setData() {
-        travelImageView.kf.setImage(with: travel?.imageURL)
+        travelImageView.downSampling(url: travel?.imageURL)
         nameLabel.text = travel?.title
         descriptionLabel.text = travel?.description
     }

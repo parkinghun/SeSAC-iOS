@@ -34,7 +34,7 @@ final class PopularDetailViewController: UIViewController {
     }
     
     private func configureImageView() {
-        cityImageView.kf.setImage(with: city?.cityImageURL)
+        cityImageView.downSampling(url: city?.cityImageURL)
         cityImageView.contentMode = .scaleAspectFill
     }
     

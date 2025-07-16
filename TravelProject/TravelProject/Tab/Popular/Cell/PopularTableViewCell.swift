@@ -26,7 +26,7 @@ final class PopularTableViewCell: UITableViewCell {
     func configure(data: City) {
         cityNameLabel.text = data.nameLabelText
         cityExplainLabel.text = data.cityExplain
-        cityImageView.kf.setImage(with: data.cityImageURL)
+        cityImageView.downSampling(url: data.cityImageURL)
     }
     
     func HilightedMatchedText(keyword: String) {

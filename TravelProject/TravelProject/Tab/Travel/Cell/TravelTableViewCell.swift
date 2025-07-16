@@ -30,7 +30,8 @@ class TravelTableViewCell: UITableViewCell {
         titleLabel.text = travel.title
         descriptionLabel.text = travel.description
         saveLabel.text = travel.saveText
-        travelImageView.kf.setImage(with: travel.imageURL)
+        
+        travelImageView.downSampling(url: travel.imageURL)
         likeButton.setImage(travel.likeImage, for: .normal)
         likeButton.addTarget(self, action: #selector(likeButtonTapped(_:)), for: .touchUpInside)
         likeButton.tag = index
