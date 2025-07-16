@@ -20,7 +20,6 @@ final class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
     }
     
@@ -30,14 +29,8 @@ final class GameViewController: UIViewController {
     }
     
     private func configureLabel() {
-        placeholderLabel.text = "최대 숫자를 입력해주세요"
-        placeholderLabel.textColor = .gray
-        placeholderLabel.textAlignment = .center
-        
-        resultLabel.text = "총 몇번의 박수를 쳤을까요? "
-        resultLabel.font = .boldSystemFont(ofSize: 25)
-        resultLabel.numberOfLines = 0
-        resultLabel.textAlignment = .center
+        placeholderLabel.configure(text: "최대 숫자를 입력해주세요", color: .gray, alignment: .center)
+        resultLabel.configure(text: "총 몇번의 박수를 쳤을까요?", font: .boldSystemFont(ofSize: 25), alignment: .center, numberOfLines: 0)
     }
     
     private func configureTextField() {
