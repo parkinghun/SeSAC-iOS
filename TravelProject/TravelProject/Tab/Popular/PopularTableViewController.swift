@@ -47,22 +47,21 @@ final class PopularViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationItem()
-        setTableViewDelegate()
+        setupNavigation()
+        setupTableView()
         setupSegmentControl()
-        configureUI()
+        configure()
     }
     
-    private func configureNavigationItem() {
+    private func setupNavigation() {
         navigationItem.title = "인기 도시"
         
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil )
         backBarButtonItem.tintColor = .gray
         navigationItem.backBarButtonItem = backBarButtonItem
-
     }
     
-    private func setTableViewDelegate() {
+    private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.showsVerticalScrollIndicator = false
@@ -81,26 +80,18 @@ final class PopularViewController: UIViewController {
         displayCityList = getFilteredTravelList()
     }
     
-    private func configureUI() {
-        textFieldBgView.layer.cornerRadius = 12
-        textFieldBgView.clipsToBounds = true
-        textFieldBgView.layer.borderWidth = 1
-        textFieldBgView.layer.borderColor = UIColor.gray.cgColor
+    private func configure() {
+        textFieldBgView.configure(cornerRadius: 12, borderWidth: 1, borderColor: UIColor.gray.cgColor)
         
         searchTextField.borderStyle = .none
         searchTextField.placeholder = "도시를 검색해보세요."
         
-        searchButton.setTitle("", for: .normal)
-        searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        searchButton.tintColor = .gray
-        
-        emptyViewLabel.text = "검색한 결과가 없습니다."
-        emptyViewLabel.font = .boldSystemFont(ofSize: 20)
+        searchButton.configure(image: UIImage(systemName: "magnifyingglass"), color: .gray)
+        emptyViewLabel.configure(text: "검색한 결과가 없습니다.", font: .boldSystemFont(ofSize: 20))
     }
     
     @IBAction func citySegmentTapped(_ sender: UISegmentedControl) {
         print(#function, sender.selectedSegmentIndex)
-        
         displayCityList = getFilteredTravelList()
     }
     

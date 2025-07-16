@@ -22,9 +22,12 @@ extension UIView {
         self.clipsToBounds = true
     }
     
-    func configure(cornerRadius: CGFloat? = nil, bgColor: UIColor? = nil) {
+    func configure(cornerRadius: CGFloat? = nil, bgColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: CGColor? = nil, opacity: Float? = nil) {
         if let cornerRadius { self.setCornerRadius(to: cornerRadius) }
         if let bgColor { self.backgroundColor = bgColor }
+        if let borderWidth { self.layer.borderWidth = borderWidth }
+        if let borderColor { self.layer.borderColor = borderColor }
+        if let opacity { self.layer.opacity = opacity }
     }
     
 }

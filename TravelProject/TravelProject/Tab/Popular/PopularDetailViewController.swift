@@ -24,26 +24,19 @@ final class PopularDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationTitle()
-        configureImageView()
-        configureLabel()
+        setupNavigation()
+        configure()
     }
     
-    private func configureNavigationTitle() {
+    private func setupNavigation() {
         navigationItem.title = "\(nameText) 정보"
     }
     
-    private func configureImageView() {
+    private func configure() {
         cityImageView.downSampling(url: city?.cityImageURL)
-        cityImageView.contentMode = .scaleAspectFill
-    }
-    
-    private func configureLabel() {
-        nameLabel.text = nameText
-        nameLabel.font = .boldSystemFont(ofSize: 20)
-        nameLabel.textAlignment = .center
+        cityImageView.configure(contentMode: .scaleAspectFill)
         
-        explainLabel.text = city?.cityExplain
-        explainLabel.textAlignment = .center
+        nameLabel.configure(text: nameText, font: .boldSystemFont(ofSize: 20), alignment: .center)
+        explainLabel.configure(text: city?.cityExplain, alignment: .center)
     }
 }
