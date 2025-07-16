@@ -29,6 +29,11 @@ final class PopularTableViewCell: UITableViewCell {
         cityImageView.kf.setImage(with: data.cityImageURL)
     }
     
+    func HilightedMatchedText(keyword: String) {
+        cityNameLabel.asFontColor(targetString: keyword)
+        cityExplainLabel.asFontColor(targetString: keyword)
+    }
+    
     private func configureDefault() {
         configureBgView()
         configureLabel()

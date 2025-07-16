@@ -42,7 +42,6 @@ final class PopularViewController: UIViewController {
     @IBOutlet var citySegment: UISegmentedControl!
     @IBOutlet var textFieldBgView: UIView!
     @IBOutlet var searchTextField: UITextField!
-    
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var emptyViewLabel: UILabel!
     
@@ -137,7 +136,6 @@ final class PopularViewController: UIViewController {
         return filteredCityList
     }
     
-    // 검색기능 - 첫 세그먼트에서 오타나고 다시 검색하면 안됨 ㅋ
     private func applySearch(keyword: String?) {
         guard let keyword else { return }
         let key = keyword.lowercased().trimmingCharacters(in: .whitespaces)
@@ -167,6 +165,7 @@ extension PopularViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularTableViewCell.id, for: indexPath) as? PopularTableViewCell else { return UITableViewCell() }
         
         cell.configure(data: displayCityList[indexPath.row])
+        cell.HilightedMatchedText(keyword: searchTextField.text ?? "")
         return cell
     }
 }
