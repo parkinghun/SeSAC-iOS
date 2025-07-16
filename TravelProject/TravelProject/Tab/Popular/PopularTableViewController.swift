@@ -47,14 +47,19 @@ final class PopularViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationTitle()
+        configureNavigationItem()
         setTableViewDelegate()
         setupSegmentControl()
         configureUI()
     }
     
-    private func configureNavigationTitle() {
+    private func configureNavigationItem() {
         navigationItem.title = "인기 도시"
+        
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil )
+        backBarButtonItem.tintColor = .gray
+        navigationItem.backBarButtonItem = backBarButtonItem
+
     }
     
     private func setTableViewDelegate() {
@@ -104,20 +109,13 @@ final class PopularViewController: UIViewController {
         applySearch(keyword: sender.text)
     }
     
-    
     @IBAction func searchTextFieldEditingChanged(_ sender: UITextField) {
         print(#function)
         applySearch(keyword: sender.text)
     }
     
-    
     @IBAction func searchButtonTapped(_ sender: UIButton) {
         applySearch(keyword: searchTextField.text)
-        searchTextField.resignFirstResponder()
-    }
-    
-    
-    @IBAction func tapGesutreClicked(_ sender: UITapGestureRecognizer) {
         searchTextField.resignFirstResponder()
     }
     
@@ -175,5 +173,14 @@ extension PopularViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(#function)
+        
+        let storyboard = UIStoryboard(name: "PopularDetail", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: PopularDetailViewController.id) as? PopularDetailViewController else { return }
+        
+        vc.city = displayCityList[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
-

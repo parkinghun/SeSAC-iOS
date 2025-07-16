@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Popular Detail View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="PopularDetailViewController" id="Y6W-OH-hqX" customClass="PopularDetailViewController" customModule="TravelProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uvq-ik-MVF">
+                                <rect key="frame" x="20" y="134" width="353" height="353"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Uvq-ik-MVF" secondAttribute="height" id="KLJ-uq-8tr"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pq4-zu-A8b">
+                                <rect key="frame" x="20" y="507" width="353" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDK-dc-8MD">
+                                <rect key="frame" x="20" y="548" width="353" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="lDK-dc-8MD" secondAttribute="trailing" constant="20" id="3ft-OC-Yte"/>
+                            <constraint firstItem="Pq4-zu-A8b" firstAttribute="top" secondItem="Uvq-ik-MVF" secondAttribute="bottom" constant="20" id="FtD-3h-fR1"/>
+                            <constraint firstItem="Pq4-zu-A8b" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="VpO-1P-Ldp"/>
+                            <constraint firstItem="Uvq-ik-MVF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="afj-7a-vDh"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Pq4-zu-A8b" secondAttribute="trailing" constant="20" id="dcL-Wp-tBC"/>
+                            <constraint firstItem="Pq4-zu-A8b" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="djG-9x-d21"/>
+                            <constraint firstItem="lDK-dc-8MD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="es3-ss-MBd"/>
+                            <constraint firstItem="Uvq-ik-MVF" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="16" id="ian-oT-JQ5"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Uvq-ik-MVF" secondAttribute="trailing" constant="20" id="kN2-RK-LPc"/>
+                            <constraint firstItem="lDK-dc-8MD" firstAttribute="top" secondItem="Pq4-zu-A8b" secondAttribute="bottom" constant="20" id="lIJ-6e-ye0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cityImageView" destination="Uvq-ik-MVF" id="5j2-zz-Iwh"/>
+                        <outlet property="explainLabel" destination="lDK-dc-8MD" id="6ds-5l-J26"/>
+                        <outlet property="nameLabel" destination="Pq4-zu-A8b" id="IhN-tu-6gk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="-34"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

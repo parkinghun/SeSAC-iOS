@@ -112,9 +112,6 @@
                             <constraint firstItem="BWV-HM-FAk" firstAttribute="top" secondItem="3PL-1C-6cV" secondAttribute="bottom" constant="16" id="s0j-qY-kSZ"/>
                             <constraint firstItem="se2-3h-iYC" firstAttribute="bottom" secondItem="7yr-D1-P0U" secondAttribute="bottom" id="zQY-L4-fjF"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="Cam-By-Z8d" appends="YES" id="WIV-PL-eCr"/>
-                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Popular" image="flame" catalog="system" selectedImage="flame.fill" id="m73-7n-zEj"/>
                     <navigationItem key="navigationItem" title="Title" id="cqO-KG-k9m"/>
@@ -129,11 +126,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIn-HW-Y0M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Cam-By-Z8d">
-                    <connections>
-                        <action selector="tapGesutreClicked:" destination="eHF-ds-FZp" id="A0g-Pg-m23"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1171.7557251908397" y="-15.492957746478874"/>
         </scene>
