@@ -7,64 +7,77 @@
 
 import UIKit
 
-enum MenuSection: CaseIterable {
-    case all
-    case domestic
-    case overseas
-    
-    var title: String {
-        switch self {
-        case .all: return "모두"
-        case .domestic: return "국내"
-        case .overseas: return "해외"
-        }
-    }
-}
-
 final class PopularViewController: UIViewController {
     
-    let cityList = CityInfo().city
-    var filteredCityList: [City] = []
-    var displayCityList: [City] = [] {
-        didSet {
-            if displayCityList.isEmpty {
-                tableView.isHidden = true
-                emptyViewLabel.isHidden = false
-            } else {
-                tableView.isHidden = false
-                emptyViewLabel.isHidden = true
-            }
-            tableView.reloadData()
-        }
-    }
-    
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var citySegment: UISegmentedControl!
     @IBOutlet var textFieldBgView: UIView!
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var emptyViewLabel: UILabel!
     
+    let cityList = CityInfo().city
+    var filteredCityList: [City] = []
+    var displayCityList: [City] = [] {
+        didSet {
+            if displayCityList.isEmpty {
+                collectionView.isHidden = true
+                emptyViewLabel.isHidden = false
+            } else {
+                collectionView.isHidden = false
+                emptyViewLabel.isHidden = true
+            }
+            collectionView.reloadData()
+        }
+    }
+    
+    private var menuSectoin = MenuSection.all
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
-        setupTableView()
+        setupCollectionView()
         setupSegmentControl()
         configure()
     }
     
     private func setupNavigation() {
-        navigationItem.title = "인기 도시"
+        navigationItem.title = StaticText.navigationTitle.rawValue
         
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil )
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .gray
         navigationItem.backBarButtonItem = backBarButtonItem
     }
     
-    private func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.showsVerticalScrollIndicator = false
+    private func setupCollectionView() {
+        let nib = UINib(nibName: PopularCollectionViewCell.id, bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: PopularCollectionViewCell.id)
+
+        setupFlowLayout()
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
+
+    private func setupFlowLayout() {
+        let columnsCount = CollectionViewLayout.columnsCount
+        let sectionSpacing = CollectionViewLayout.sectionSpacing
+        let itemSpacing = CollectionViewLayout.itemSpacing
+        let screenWidth = UIScreen.main.bounds.width
+        
+        let width = screenWidth - (sectionSpacing * 2) - (itemSpacing * CGFloat(columnsCount  - 1))
+        let itemWidth = width / CGFloat(columnsCount)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
+        layout.minimumInteritemSpacing = itemSpacing
+        layout.minimumLineSpacing = itemSpacing
+        
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth * 1.4)
+   
+        layout.scrollDirection = .vertical
+        
+        collectionView.collectionViewLayout = layout
     }
     
     private func setupSegmentControl() {
@@ -84,15 +97,17 @@ final class PopularViewController: UIViewController {
         textFieldBgView.configure(cornerRadius: 12, borderWidth: 1, borderColor: UIColor.gray.cgColor)
         
         searchTextField.borderStyle = .none
-        searchTextField.placeholder = "도시를 검색해보세요."
+        searchTextField.placeholder = StaticText.placeholder.rawValue  //nested enum
         
         searchButton.configure(image: UIImage(systemName: "magnifyingglass"), color: .gray)
-        emptyViewLabel.configure(text: "검색한 결과가 없습니다.", font: .boldSystemFont(ofSize: 20))
+        emptyViewLabel.configure(text: StaticText.emptyText.rawValue, font: .boldSystemFont(ofSize: 20))
     }
     
     @IBAction func citySegmentTapped(_ sender: UISegmentedControl) {
         print(#function, sender.selectedSegmentIndex)
+        menuSectoin = MenuSection.allCases[sender.selectedSegmentIndex]
         displayCityList = getFilteredTravelList()
+        dump(displayCityList)
     }
     
     @IBAction func searchTextFieldDidEndOnExit(_ sender: UITextField) {
@@ -111,15 +126,13 @@ final class PopularViewController: UIViewController {
     }
     
     private func getFilteredTravelList() -> [City] {
-        switch citySegment.selectedSegmentIndex {
-        case 0:
+        switch menuSectoin {
+        case .all:
             filteredCityList = cityList
-        case 1:
+        case .domestic:
             filteredCityList = cityList.filter { $0.domesticTravel }
-        case 2:
-            filteredCityList = cityList.filter { !$0.domesticTravel}
-        default:
-            filteredCityList = []
+        case .overseas:
+            filteredCityList = cityList.filter { !$0.domesticTravel }
         }
         
         return filteredCityList
@@ -141,37 +154,59 @@ final class PopularViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDataSource
-extension PopularViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// MARK: - UICollectionViewFlowLayout
+extension PopularViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return displayCityList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let nib = UINib(nibName: PopularTableViewCell.id, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: PopularTableViewCell.id)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCollectionViewCell.id, for: indexPath) as? PopularCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularTableViewCell.id, for: indexPath) as? PopularTableViewCell else { return UITableViewCell() }
-        
-        cell.configure(data: displayCityList[indexPath.row])
-        cell.HilightedMatchedText(keyword: searchTextField.text ?? "")
+        let item = displayCityList[indexPath.item]
+        cell.configure(item: item)
+        cell.hilightedMatchedText(keyword: searchTextField.text ?? "")
         return cell
     }
 }
 
-// MARK: - UITableViewDelegate
-extension PopularViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
+// MARK: - UICollectionViewDelegate
+extension PopularViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let sb = UIStoryboard(name: "PopularDetail", bundle: nil)
+        guard let vc = sb.instantiateViewController(withIdentifier: PopularDetailViewController.id) as? PopularDetailViewController else { return }
+        
+        vc.city = displayCityList[indexPath.item]
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension PopularViewController {
+    enum MenuSection: CaseIterable {
+        case all
+        case domestic
+        case overseas
+        
+        var title: String {
+            switch self {
+            case .all: return "모두"
+            case .domestic: return "국내"
+            case .overseas: return "해외"
+            }
+        }
+    }
+
+    enum StaticText: String {
+        case navigationTitle = "인기 도시"
+        case placeholder = "도시를 검색해보세요."
+        case emptyText = "검색한 결과가 없습니다."
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(#function)
-        
-        let storyboard = UIStoryboard(name: "PopularDetail", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: PopularDetailViewController.id) as? PopularDetailViewController else { return }
-        
-        vc.city = displayCityList[indexPath.row]
-        navigationController?.pushViewController(vc, animated: true)
+    enum CollectionViewLayout {
+        static let columnsCount = 2
+        static let sectionSpacing: CGFloat = 16
+        static let itemSpacing: CGFloat = 16
     }
 }

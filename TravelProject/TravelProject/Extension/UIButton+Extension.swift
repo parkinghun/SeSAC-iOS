@@ -15,6 +15,5 @@ extension UIButton {
         if let color { self.tintColor = color }
         if let bgColor { self.backgroundColor = bgColor }
         if let cornerRadius { self.setCornerRadius(to: cornerRadius) }
-        
     }
 }

@@ -28,7 +28,7 @@ final class PopularTableViewCell: UITableViewCell {
         cityImageView.downSampling(url: data.cityImageURL)
     }
     
-    func HilightedMatchedText(keyword: String) {
+    func hilightedMatchedText(keyword: String) {
         cityNameLabel.asFontColor(targetString: keyword)
         cityExplainLabel.asFontColor(targetString: keyword)
     }
