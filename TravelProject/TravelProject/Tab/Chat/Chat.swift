@@ -12,6 +12,10 @@ struct Chat {
     let date: String
     let message: String
     
+    static func makeNewChat(message: String) -> Chat {
+        return Chat(user: ChatList.me, date: Date().hourDateString, message: message)
+    }
+    
     var formattedtTime: String? {
         return date.toFormattedTime()
     }

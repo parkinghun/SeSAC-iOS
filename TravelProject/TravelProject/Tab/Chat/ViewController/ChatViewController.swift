@@ -14,14 +14,16 @@ final class ChatViewController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var dialogTextFieldBgView: UIView!
-    @IBOutlet var dialogTextField: UITextField!
     @IBOutlet var sendButton: UIButton!
+    @IBOutlet var dialogTextView: UITextView!
+    @IBOutlet var placeholderLabel: UILabel!
     
     static let id = String(describing: ChatViewController.self)
     private let placeholder = "메세지를 입력하세요"
     private var chatItems: [ChatItem] = [] {
         didSet {
             collectionView.reloadData()
+            setScrollLastItem()
         }
     }
     
@@ -35,6 +37,19 @@ final class ChatViewController: UIViewController {
         configure()
         setupData()
     }
+    
+    // TODO: - 데이터 올리기
+    @IBAction func sendButtonTapped(_ sender: UIButton) {
+        guard let chatRoom else { return }
+        
+        let chat = Chat.makeNewChat(message: dialogTextView.text)
+        ChatList.appendChat(chat, roomId: chatRoom.chatroomId)
+        
+        guard let roomIndex = ChatList.list.firstIndex(where: { $0.chatroomId == chatRoom.chatroomId }) else { return }
+        makeChatItems(from: ChatList.list[roomIndex].chatList)
+        dialogTextView.text = ""
+    }
+    
     
     private func setupNavigation() {
         navigationItem.setupWithBackButton(title: chatRoom?.chatroomName ?? "")
@@ -86,9 +101,12 @@ final class ChatViewController: UIViewController {
     
     private func configure() {
         dialogTextFieldBgView.configure(cornerRadius: 12, bgColor: .systemGray6)
-        dialogTextField.placeholder = placeholder
-        dialogTextField.borderStyle = .none
+        placeholderLabel.configure(text: placeholder, color: .secondaryLabel, numberOfLines: 0)
         sendButton.configure(image: UIImage(systemName: "paperplane"), color: .gray, bgColor: .clear)
+        
+        dialogTextView.borderStyle = .none
+        dialogTextView.backgroundColor = .clear
+        dialogTextView.delegate = self
     }
     
     private func setupData() {
@@ -144,6 +162,17 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 extension ChatViewController: UICollectionViewDelegate {
     
+}
+
+// MARK: - UITextViewDelegate
+extension ChatViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = textView.text.isEmpty ? false :  true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print(#function)
+    }
 }
 
 // MARK: - ChatViewController+Extnension
