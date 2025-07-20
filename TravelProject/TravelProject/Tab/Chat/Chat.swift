@@ -15,4 +15,8 @@ struct Chat {
     var formattedtTime: String? {
         return date.toFormattedTime()
     }
+    
+    var formattedDate: String? {
+        return date.toFormattedFullDate()
+    }
 }

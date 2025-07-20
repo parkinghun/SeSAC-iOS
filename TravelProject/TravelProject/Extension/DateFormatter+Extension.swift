@@ -42,5 +42,12 @@ extension DateFormatter {
         formatter.locale = Locale(identifier: "ko_KR")
         return formatter
     }()
+    
+    static let fullDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 M월 dd일 EEEE"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter
+    }()
 }
 

@@ -31,4 +31,23 @@ extension String {
         
         return DateFormatter.timeDateFormatter.string(from: date)
     }
+    
+    func toFormattedFullDate() -> String {
+        guard let date = DateFormatter.hourDateFormatter.date(from: self) else {
+            return ""
+        }
+        
+        return DateFormatter.fullDateFormatter.string(from: date)
+    }
+    
+    func isSameDay(as other: String) -> Bool {
+        let formatter = DateFormatter.hourDateFormatter
+        
+        guard let date = formatter.date(from: self),
+              let lastDate = formatter.date(from: other) else {
+            return false
+        }
+        
+        return Calendar.current.isDate(date, inSameDayAs: lastDate)
+    }
 }

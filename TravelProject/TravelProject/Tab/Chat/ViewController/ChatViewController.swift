@@ -7,6 +7,9 @@
 
 import UIKit
 
+// TODO: - SELF-SIZE CELL
+
+
 final class ChatViewController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
@@ -16,6 +19,11 @@ final class ChatViewController: UIViewController {
     
     static let id = String(describing: ChatViewController.self)
     private let placeholder = "메세지를 입력하세요"
+    private var chatItems: [ChatItem] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     var chatRoom: ChatRoom?
     
@@ -25,6 +33,7 @@ final class ChatViewController: UIViewController {
         setupNavigation()
         setupCollectoinView()
         configure()
+        setupData()
     }
     
     private func setupNavigation() {
@@ -37,8 +46,11 @@ final class ChatViewController: UIViewController {
         
         let otherChatNib = UINib(nibName: OhtersChatCollectionViewCell.id, bundle: nil)
         let myChatNib = UINib(nibName: MyChatCollectionViewCell.id, bundle: nil)
+        let dividerNib = UINib(nibName: DateDividerCollectionViewCell.id, bundle: nil)
+        
         collectionView.register(otherChatNib, forCellWithReuseIdentifier: OhtersChatCollectionViewCell.id)
         collectionView.register(myChatNib, forCellWithReuseIdentifier: MyChatCollectionViewCell.id)
+        collectionView.register(dividerNib, forCellWithReuseIdentifier: DateDividerCollectionViewCell.id)
         
         configureCollectionViewLayout()
         
@@ -57,8 +69,7 @@ final class ChatViewController: UIViewController {
             layout.minimumInteritemSpacing = config.itemSpacing
             layout.minimumLineSpacing = config.lineSpacing
             layout.sectionInset = config.sectionInset
-            layout.itemSize = config.itemSize
-
+            
             return layout
         }()
         
@@ -67,8 +78,7 @@ final class ChatViewController: UIViewController {
     
     // viewDidLoad에서 동작을 안함.
     private func setScrollLastItem() {
-        guard let chatRoom else { return }
-        let lastItem = chatRoom.chatList.count - 1
+        let lastItem = chatItems.count - 1
         let lastItemIndexPath = IndexPath(item: lastItem, section: 0)
         
         collectionView.scrollToItem(at: lastItemIndexPath, at: .bottom, animated: false)
@@ -80,38 +90,92 @@ final class ChatViewController: UIViewController {
         dialogTextField.borderStyle = .none
         sendButton.configure(image: UIImage(systemName: "paperplane"), color: .gray, bgColor: .clear)
     }
+    
+    private func setupData() {
+        makeChatItems(from: chatRoom?.chatList)
+    }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ChatViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return chatRoom?.chatList.count ?? 0
+        return chatItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let emptyCell = UICollectionViewCell()
-        guard let chatRoom else { return emptyCell }
-        let chat = chatRoom.chatList[indexPath.item]
         
-        if chat.user == ChatList.me {
+        switch chatItems[indexPath.item] {
+        case .date(let dateString):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateDividerCollectionViewCell.id, for: indexPath) as? DateDividerCollectionViewCell else { return emptyCell }
+            
+            cell.configureData(date: dateString)
+            return cell
+        case .myChat(let chat):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyChatCollectionViewCell.id, for: indexPath) as? MyChatCollectionViewCell else { return emptyCell }
             
             cell.configure(item: chat)
             return cell
-        } else {
+            
+        case .otherChat(let chat):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OhtersChatCollectionViewCell.id, for: indexPath) as? OhtersChatCollectionViewCell else { return emptyCell }
             
             cell.configure(item: chat)
             return cell
         }
     }
+    
 }
 
+extension ChatViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let config = ChatItemLayoutConfig()
+        switch chatItems[indexPath.item] {
+        case .date:
+            return CGSize(width: 180, height: 30)
+        default:
+            return config.itemSize
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
 extension ChatViewController: UICollectionViewDelegate {
     
 }
 
+// MARK: - ChatViewController+Extnension
 extension ChatViewController {
+    enum ChatItem {
+        case date(String)
+        case myChat(Chat)
+        case otherChat(Chat)
+    }
+    
+    func makeChatItems(from chats: [Chat]?) {
+        var tempChatItems: [ChatItem] = []
+        var lastDate: String?
+        
+        guard let chats else { return }
+        
+        for chat in chats {
+            if lastDate == nil || !chat.date.isSameDay(as: lastDate!) {
+                tempChatItems.append(.date(chat.date))
+                lastDate = chat.date
+            }
+            
+            if chat.user == ChatList.me {
+                tempChatItems.append(.myChat(chat))
+            } else {
+                tempChatItems.append(.otherChat(chat))
+            }
+        }
+        
+        self.chatItems = tempChatItems
+    }
+    
     struct ChatItemLayoutConfig {
         let scrollDirection: UICollectionView.ScrollDirection = .vertical
         let numberOfColumns = 1

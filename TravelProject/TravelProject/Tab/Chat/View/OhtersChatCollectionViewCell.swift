@@ -38,6 +38,6 @@ final class OhtersChatCollectionViewCell: UICollectionViewCell {
     private func configureUI() {
         messageLabel.numberOfLines = 0
         messageBgView.configure(cornerRadius: 12, borderWidth: 1, borderColor: UIColor.gray.cgColor)
-        dateLabel.textColor = .gray
+        dateLabel.configure(font: .systemFont(ofSize: 12), color: .gray)
     }
 }

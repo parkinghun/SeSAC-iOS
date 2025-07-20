@@ -28,7 +28,7 @@ final class MyChatCollectionViewCell: UICollectionViewCell {
     private func configurUI() {
         bgView.configure(cornerRadius: 12, bgColor: .systemGray5, borderWidth: 1, borderColor: UIColor.gray.cgColor)
         messageLabel.numberOfLines = 0
-        dateLabel.configure(color: .gray)
+        dateLabel.configure(font: .systemFont(ofSize: 12), color: .gray)
     }
 
 }
