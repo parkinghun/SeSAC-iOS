@@ -23,7 +23,10 @@ final class ChatViewController: UIViewController {
     private var chatItems: [ChatItem] = [] {
         didSet {
             collectionView.reloadData()
-            setScrollLastItem()
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.setScrollLastItem()
+            }
         }
     }
     
@@ -48,8 +51,12 @@ final class ChatViewController: UIViewController {
         guard let roomIndex = ChatList.list.firstIndex(where: { $0.chatroomId == chatRoom.chatroomId }) else { return }
         makeChatItems(from: ChatList.list[roomIndex].chatList)
         dialogTextView.text = ""
+        dialogTextView.resignFirstResponder()
     }
     
+    @IBAction func tapGestureAction(_ sender: UITapGestureRecognizer) {
+        dialogTextView.resignFirstResponder()
+    }
     
     private func setupNavigation() {
         navigationItem.setupWithBackButton(title: chatRoom?.chatroomName ?? "")
@@ -167,7 +174,13 @@ extension ChatViewController: UICollectionViewDelegate {
 // MARK: - UITextViewDelegate
 extension ChatViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        placeholderLabel.isHidden = textView.text.isEmpty ? false :  true
+        if textView.text.isEmpty {
+            placeholderLabel.isHidden = false
+            sendButton.isEnabled = false
+        } else {
+            placeholderLabel.isHidden = true
+            sendButton.isEnabled = true
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

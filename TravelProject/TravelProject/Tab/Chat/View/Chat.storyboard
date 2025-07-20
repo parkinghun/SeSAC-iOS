@@ -73,6 +73,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="T8H-CJ-AUC" secondAttribute="trailing" constant="16" id="101-AF-ffL"/>
                             <constraint firstItem="NyT-QH-VlA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1O3-ju-C6k"/>
@@ -82,6 +83,9 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="T8H-CJ-AUC" secondAttribute="bottom" constant="16" id="Yqi-Vd-tux"/>
                             <constraint firstItem="T8H-CJ-AUC" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="fcX-YQ-e7n"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="YHP-6i-ITi" appends="YES" id="4iZ-q4-hwQ"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="gMz-kK-Rvo"/>
                     <connections>
@@ -93,6 +97,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="YHP-6i-ITi">
+                    <connections>
+                        <action selector="tapGestureAction:" destination="Y6W-OH-hqX" id="mEf-GF-AsN"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-16.030534351145036" y="-28.169014084507044"/>
         </scene>
