@@ -29,8 +29,6 @@ final class ChatViewController: UIViewController {
     
     private func setupNavigation() {
         navigationItem.setupWithBackButton(title: chatRoom?.chatroomName ?? "")
-        
-//        navigationItem.title = chatRoom?.chatroomName
     }
     
     private func setupCollectoinView() {
@@ -55,7 +53,6 @@ final class ChatViewController: UIViewController {
             layout.minimumLineSpacing = config.lineSpacing
             layout.sectionInset = config.sectionInset
             layout.itemSize = config.itemSize
-//            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
             
             return layout
         }()
@@ -86,18 +83,14 @@ extension ChatViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyChatCollectionViewCell.id, for: indexPath) as? MyChatCollectionViewCell else { return emptyCell }
             
             cell.configure(item: chat)
-            
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OhtersChatCollectionViewCell.id, for: indexPath) as? OhtersChatCollectionViewCell else { return emptyCell }
             
             cell.configure(item: chat)
-            
             return cell
         }
     }
-    
-    
 }
 
 extension ChatViewController: UICollectionViewDelegate {
@@ -126,6 +119,5 @@ extension ChatViewController {
         var itemSize: CGSize {
             return CGSize(width: itemWidth, height: itemHeight)
         }
-        
     }
 }

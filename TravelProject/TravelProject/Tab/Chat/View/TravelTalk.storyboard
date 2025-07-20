@@ -23,17 +23,37 @@
                                     <constraint firstAttribute="height" constant="1" id="buV-8W-OW5"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Yky-LG-Mff">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSQ-8w-LYb">
                                 <rect key="frame" x="0.0" y="185" width="393" height="550"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Yky-LG-Mff">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="550"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VF6-V0-EPx">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bD1-T0-tvi">
+                                        <rect key="frame" x="175.66666666666666" y="264.66666666666669" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VF6-V0-EPx">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                                <constraints>
+                                    <constraint firstItem="Yky-LG-Mff" firstAttribute="leading" secondItem="aSQ-8w-LYb" secondAttribute="leading" id="9ge-d0-Tiw"/>
+                                    <constraint firstItem="bD1-T0-tvi" firstAttribute="centerY" secondItem="aSQ-8w-LYb" secondAttribute="centerY" id="Qjr-9r-LeB"/>
+                                    <constraint firstItem="bD1-T0-tvi" firstAttribute="centerX" secondItem="aSQ-8w-LYb" secondAttribute="centerX" id="Zhb-rI-w3y"/>
+                                    <constraint firstAttribute="trailing" secondItem="Yky-LG-Mff" secondAttribute="trailing" id="cO1-Qr-dwJ"/>
+                                    <constraint firstItem="Yky-LG-Mff" firstAttribute="top" secondItem="aSQ-8w-LYb" secondAttribute="top" id="kBx-Dw-GpS"/>
+                                    <constraint firstAttribute="bottom" secondItem="Yky-LG-Mff" secondAttribute="bottom" id="xae-3D-TAb"/>
+                                </constraints>
+                            </view>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="A7R-2y-b8k">
                                 <rect key="frame" x="0.0" y="118" width="393" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -46,14 +66,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="yGk-eq-QeW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="0dC-2N-fDO"/>
+                            <constraint firstItem="aSQ-8w-LYb" firstAttribute="top" secondItem="yGk-eq-QeW" secondAttribute="bottom" id="33S-aA-EqD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="aSQ-8w-LYb" secondAttribute="trailing" id="RJN-11-DHi"/>
                             <constraint firstItem="A7R-2y-b8k" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="aKf-aK-fe7"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="yGk-eq-QeW" secondAttribute="trailing" id="eto-os-ymD"/>
+                            <constraint firstItem="aSQ-8w-LYb" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="f8i-Px-7vF"/>
                             <constraint firstItem="yGk-eq-QeW" firstAttribute="top" secondItem="A7R-2y-b8k" secondAttribute="bottom" constant="10" id="gUt-6Y-PpQ"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Yky-LG-Mff" secondAttribute="bottom" id="jUS-dp-bc4"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="aSQ-8w-LYb" secondAttribute="bottom" id="m0R-mO-I2w"/>
                             <constraint firstAttribute="trailing" secondItem="A7R-2y-b8k" secondAttribute="trailing" id="nEv-Vi-MlJ"/>
-                            <constraint firstItem="Yky-LG-Mff" firstAttribute="top" secondItem="yGk-eq-QeW" secondAttribute="bottom" id="q8T-Fs-dem"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Yky-LG-Mff" secondAttribute="trailing" id="xzc-9R-03u"/>
-                            <constraint firstItem="Yky-LG-Mff" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="yiR-3o-kXI"/>
                             <constraint firstItem="A7R-2y-b8k" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="zeq-pJ-Uvd"/>
                         </constraints>
                     </view>
@@ -62,6 +82,9 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="Yky-LG-Mff" id="6j7-gz-5kW"/>
+                        <outlet property="emptyAnnounceLabel" destination="bD1-T0-tvi" id="5y8-yN-tbr"/>
+                        <outlet property="searchBar" destination="A7R-2y-b8k" id="i26-8T-rPA"/>
+                        <outlet property="separatorView" destination="yGk-eq-QeW" id="dXH-AC-vPo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
