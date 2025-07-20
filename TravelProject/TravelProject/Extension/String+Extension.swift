@@ -15,4 +15,12 @@ extension String {
         
         return DateFormatter.krDateFormatter.string(from: date)
     }
+    
+    func toFormattedShortDate() -> String? {
+        guard let date = DateFormatter.hourDateFormatter.date(from: self) else {
+            return nil
+        }
+        
+        return DateFormatter.shortDateFormatter.string(from: date)
+    }
 }

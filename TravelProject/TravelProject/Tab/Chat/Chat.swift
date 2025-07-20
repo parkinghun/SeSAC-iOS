@@ -11,4 +11,8 @@ struct Chat {
     let user: User
     let date: String
     let message: String
+    
+    var formattedDate: String? {
+        return date.toFormattedShortDate()
+    }
 }

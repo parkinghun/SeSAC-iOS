@@ -15,9 +15,23 @@ extension DateFormatter {
         return formatter
     }()
     
-    static let krDateFormatter: DateFormatter = {
+    static let hourDateFormatter: DateFormatter = {
        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter
+    }()
+    
+    static let krDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yy년 MM월 dd일"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter
+    }()
+    
+    static let shortDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy.MM.dd"
         formatter.locale = Locale(identifier: "ko_KR")
         return formatter
     }()

@@ -7,13 +7,38 @@
 
 import UIKit
 
-class TravelTalkCollectionViewCell: UICollectionViewCell {
-
+final class TravelTalkCollectionViewCell: UICollectionViewCell {
+    
     static let id = String(describing: TravelTalkCollectionViewCell.self)
+    
+    @IBOutlet var profileImageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var lastMessageLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        configureUI()
+    }
+    
+    func configure(item: ChatRoom) {
+        profileImageView.image = item.chatRoomUIImage
+        nameLabel.text = item.chatroomName
+        lastMessageLabel.text = item.lastMessage
+        dateLabel.text = item.formattedLastDate
+    }
+    
+    private func configureUI() {
+        profileImageView.clipsToBounds = true
+        nameLabel.font = .boldSystemFont(ofSize: 16)
+        lastMessageLabel.textColor = .gray
+        dateLabel.textColor = .gray
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
     }
 
 }

@@ -10,4 +10,8 @@ import Foundation
 struct User {
     let name: String //유저 닉네임
     let image: String //유저 프로필
+    
+    var imageURL: URL? {
+        return URL(string: image)
+    }
 }
