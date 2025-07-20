@@ -41,6 +41,11 @@ final class ChatViewController: UIViewController {
         collectionView.register(myChatNib, forCellWithReuseIdentifier: MyChatCollectionViewCell.id)
         
         configureCollectionViewLayout()
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.setScrollLastItem()
+        }
     }
     
     private func configureCollectionViewLayout() {
@@ -53,11 +58,20 @@ final class ChatViewController: UIViewController {
             layout.minimumLineSpacing = config.lineSpacing
             layout.sectionInset = config.sectionInset
             layout.itemSize = config.itemSize
-            
+
             return layout
         }()
         
         collectionView.collectionViewLayout = flowLayout
+    }
+    
+    // viewDidLoad에서 동작을 안함.
+    private func setScrollLastItem() {
+        guard let chatRoom else { return }
+        let lastItem = chatRoom.chatList.count - 1
+        let lastItemIndexPath = IndexPath(item: lastItem, section: 0)
+        
+        collectionView.scrollToItem(at: lastItemIndexPath, at: .bottom, animated: false)
     }
     
     private func configure() {
