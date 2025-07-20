@@ -35,5 +35,12 @@ extension DateFormatter {
         formatter.locale = Locale(identifier: "ko_KR")
         return formatter
     }()
+    
+    static let timeDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm a"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter
+    }()
 }
 

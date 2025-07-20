@@ -42,11 +42,7 @@ final class PopularViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        navigationItem.title = StaticText.navigationTitle.rawValue
-        
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .gray
-        navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.setupWithBackButton(title: StaticText.navigationTitle.rawValue)
     }
     
     private func setupCollectionView() {

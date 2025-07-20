@@ -38,7 +38,7 @@ final class TravelTalkCollectionViewCell: UICollectionViewCell {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
+        profileImageView.configure(cornerRadius: profileImageView.frame.width / 2, contentMode: .scaleAspectFill)
     }
 
 }

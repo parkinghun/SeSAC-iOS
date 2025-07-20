@@ -9,11 +9,12 @@ import UIKit
 
 final class AdDetailViewController: UIViewController {
     
-    var adTitle: String?
-    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var backButtonItem: UIBarButtonItem!
     
+    private let navigationTitle = "광고 화면"
+    var adTitle: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,7 +23,7 @@ final class AdDetailViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        navigationItem.title = "광고 화면"
+        navigationItem.title = navigationTitle
         let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(backButtonItemTapped))
         navigationItem.leftBarButtonItem = backButtonItem
         

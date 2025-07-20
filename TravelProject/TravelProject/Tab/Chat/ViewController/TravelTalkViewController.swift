@@ -24,7 +24,7 @@ final class TravelTalkViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        navigationItem.title = navigationTitle
+        navigationItem.setupWithBackButton(title: navigationTitle)
     }
 
     private func setupCollectionView() {
@@ -71,7 +71,11 @@ extension TravelTalkViewController: UICollectionViewDataSource {
 
 extension TravelTalkViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(#function, indexPath.item + 1)
+//        print(#function, indexPath.item + 1)
+        let sb = UIStoryboard(name: "Chat", bundle: nil)
+        guard let vc = sb.instantiateViewController(withIdentifier: ChatViewController.id) as? ChatViewController else { return }
+        vc.chatRoom = chatRoomList[indexPath.item]
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -23,4 +23,12 @@ extension String {
         
         return DateFormatter.shortDateFormatter.string(from: date)
     }
+    
+    func toFormattedTime() -> String? {
+        guard let date = DateFormatter.hourDateFormatter.date(from: self) else {
+            return nil
+        }
+        
+        return DateFormatter.timeDateFormatter.string(from: date)
+    }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B51584BE2E2C9AAA00B9BE7C /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B51584BD2E2C9AAA00B9BE7C /* IQKeyboardManagerSwift */; };
 		B5C1F5352E2527CB00C0E778 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B5C1F5342E2527CB00C0E778 /* Toast */; };
 		B5C7E99C2E21154D00CCD91A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B5C7E99B2E21154D00CCD91A /* Kingfisher */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 			files = (
 				B5C1F5352E2527CB00C0E778 /* Toast in Frameworks */,
 				B5C7E99C2E21154D00CCD91A /* Kingfisher in Frameworks */,
+				B51584BE2E2C9AAA00B9BE7C /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				B5C7E99B2E21154D00CCD91A /* Kingfisher */,
 				B5C1F5342E2527CB00C0E778 /* Toast */,
+				B51584BD2E2C9AAA00B9BE7C /* IQKeyboardManagerSwift */,
 			);
 			productName = TravelProject;
 			productReference = B5C7E9672E20F95400CCD91A /* TravelProject.app */;
@@ -119,6 +122,7 @@
 			packageReferences = (
 				B5C7E99A2E21154D00CCD91A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				B5C1F5332E2527CB00C0E778 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				B51584BC2E2C9AAA00B9BE7C /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B5C7E9682E20F95400CCD91A /* Products */;
@@ -362,6 +366,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B51584BC2E2C9AAA00B9BE7C /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.1;
+			};
+		};
 		B5C1F5332E2527CB00C0E778 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
@@ -381,6 +393,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B51584BD2E2C9AAA00B9BE7C /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B51584BC2E2C9AAA00B9BE7C /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		B5C1F5342E2527CB00C0E778 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B5C1F5332E2527CB00C0E778 /* XCRemoteSwiftPackageReference "Toast-Swift" */;

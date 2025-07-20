@@ -12,6 +12,7 @@ import Toast
 final class TravelTableViewController: UITableViewController {
     
     private var travelInfo = TravelInfo()
+    private let navigationTitle = "도시 상세 정보"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,10 +21,7 @@ final class TravelTableViewController: UITableViewController {
     }
     
     private func setupNavigation() {
-        navigationItem.title = "도시 상세 정보"
-        
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil )
-        navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.setupWithBackButton(title: navigationTitle)
     }
     
     private func setupTableView() {

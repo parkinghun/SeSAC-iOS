@@ -12,7 +12,7 @@ struct Chat {
     let date: String
     let message: String
     
-    var formattedDate: String? {
-        return date.toFormattedShortDate()
+    var formattedtTime: String? {
+        return date.toFormattedTime()
     }
 }
