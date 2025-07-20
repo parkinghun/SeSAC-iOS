@@ -70,6 +70,9 @@
                     <tabBarItem key="tabBarItem" title="Chat" image="message" catalog="system" selectedImage="message.fill" id="GiG-Vk-avf"/>
                     <navigationItem key="navigationItem" title="Title" id="Weg-oC-axN"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Yky-LG-Mff" id="6j7-gz-5kW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
