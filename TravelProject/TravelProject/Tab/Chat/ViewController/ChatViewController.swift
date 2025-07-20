@@ -8,8 +8,7 @@
 import UIKit
 
 // TODO: - SELF-SIZE CELL
-
-
+// TODO: - dialogTextView Dynamic height
 final class ChatViewController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
@@ -41,7 +40,6 @@ final class ChatViewController: UIViewController {
         setupData()
     }
     
-    // TODO: - 데이터 올리기
     @IBAction func sendButtonTapped(_ sender: UIButton) {
         guard let chatRoom else { return }
         
@@ -98,7 +96,6 @@ final class ChatViewController: UIViewController {
         collectionView.collectionViewLayout = flowLayout
     }
     
-    // viewDidLoad에서 동작을 안함.
     private func setScrollLastItem() {
         let lastItem = chatItems.count - 1
         let lastItemIndexPath = IndexPath(item: lastItem, section: 0)
@@ -150,9 +147,9 @@ extension ChatViewController: UICollectionViewDataSource {
             return cell
         }
     }
-    
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -164,11 +161,6 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
             return config.itemSize
         }
     }
-}
-
-// MARK: - UICollectionViewDelegate
-extension ChatViewController: UICollectionViewDelegate {
-    
 }
 
 // MARK: - UITextViewDelegate
