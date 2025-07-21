@@ -66,7 +66,7 @@ class JackFlixViewController: UIViewController {
     }
     
     private func configureView() {
-        view.backgroundColor = .black
+        view.backgroundColor = DS.Color.bgColor
     }
     
     private func configureHierarchy() {
