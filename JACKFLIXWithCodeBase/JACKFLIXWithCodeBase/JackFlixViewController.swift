@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class JackFlixViewController: UIViewController {
     
     typealias DS = DesignSystem
     
