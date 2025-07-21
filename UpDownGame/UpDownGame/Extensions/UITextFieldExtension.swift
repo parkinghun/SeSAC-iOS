@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UITextField {    
+extension UITextField {
     func configure(placeholder: String? = nil, alignment: NSTextAlignment? = nil, bgColor: UIColor? = nil, cornerRadius: CGFloat? = nil) {
         if let placeholder { self.placeholder = placeholder }
         if let alignment { self.textAlignment = alignment }

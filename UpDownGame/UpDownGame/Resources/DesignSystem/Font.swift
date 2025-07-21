@@ -9,6 +9,7 @@ import UIKit
 
 extension DesignSystem {
     enum Font {
+        static let mainTitle = UIFont.systemFont(ofSize: 33, weight: .heavy)
         static let largeTitle = UIFont.systemFont(ofSize: 33, weight: .regular)
         static let title1 = UIFont.systemFont(ofSize: 27, weight: .regular)
         static let title2 = UIFont.systemFont(ofSize: 21, weight: .regular)

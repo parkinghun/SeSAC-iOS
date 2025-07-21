@@ -9,6 +9,6 @@ import UIKit
 
 extension DesignSystem {
     enum Color {
-        static let bgColor = UIColor(hexCode: "#8da9c9")
+        static let bgColor = UIColor(hexCode: "#bedafa")
     }
 }
