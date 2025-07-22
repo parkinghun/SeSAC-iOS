@@ -27,10 +27,10 @@ struct Game {
             numberArray = [randomNumber]
         } else if selectedNumber > randomNumber  {
             gameState = .down
-            numberArray.removeAll(where: { $0 > selectedNumber })
+            numberArray.removeAll(where: { $0 >= selectedNumber })
         } else {
             gameState = .up
-            numberArray.removeAll(where: { $0 < selectedNumber })
+            numberArray.removeAll(where: { $0 <= selectedNumber })
         }
         print(numberArray)
         count += 1

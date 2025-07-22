@@ -17,13 +17,9 @@ final class GameViewController: UIViewController {
     typealias DS = DesignSystem
     static let id = String(describing: GameViewController.self)
     
-    var game: Game? /*{*/ // nil -> 값이 생겨야 호출인데 에러나는 이유를 모르겠음
-    //        didSet {
-#warning("nil 에러 발생")
-    //            updateUI()
-    //        }
-    //    }
-    
+    // Property Wrapper를 사용하면 에러가 발생하는 이유?
+    // 이 때 updateUI()에 접근해서 그런 것 같은데..
+    var game: Game?
     private var countText: String {
         guard let game else { return "" }
         return "시도 횟수: \(game.count)"
@@ -84,15 +80,16 @@ final class GameViewController: UIViewController {
     }
     
     private func updateUI() {
-        guard let game else {
-            print(#function, "Game - nil")
-            return
-        }
+        guard let game else { return }
         titleLabel.text = game.gameState.rawValue
-        countLabel.text = "\(game.count)"
+        countLabel.text = countText
+        resultButton.isEnabled = false
+        resultButton.backgroundColor = .gray
+        
         collectionView.reloadData()
+        
         // TODO: - 특정 아이템들만 리로드
-        //        collectionView.reloadItems(at: <#T##[IndexPath]#>)
+//        let indexPath = IndexPath(item: <#T##Int#>, section: 0)
     }
     
     private func setupStartButtonAction() {
@@ -100,14 +97,18 @@ final class GameViewController: UIViewController {
     }
     
     @objc private func resultButtonTapped() {
-        print(#function)
-        
-        //        guard let game else { return }
+        // TODO: - 옵셔널 체이닝 안하고 싶음
         game?.updateGame()
         updateUI()
-        
+        bingoAction()
+    }
+    
+    private func bingoAction() {
         if game?.gameState == .bingo {
-            navigationController?.popViewController(animated: true)
+            showAlert(title: "🎉 BINGO 🎉", message: "첫 화면으로 돌아가기") { [weak self] _ in
+                guard let self else { return }
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
 }
@@ -133,7 +134,8 @@ extension GameViewController: UICollectionViewDataSource {
 
 extension GameViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-#warning("변경하고 싶을땐?")
+
+        // TODO: - 강제 언래핑 제거
         game!.selectedNumber = game!.numberArray[indexPath.item]
         print(game?.selectedNumber ?? 0)
         resultButton.isEnabled = true
