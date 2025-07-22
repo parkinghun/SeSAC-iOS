@@ -8,7 +8,7 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
-
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var gameLabel: UILabel!
     @IBOutlet var logoImageView: UIImageView!
@@ -18,8 +18,10 @@ final class HomeViewController: UIViewController {
     typealias DS = DesignSystem
     private let placeholder = "숫자를 입력해주세요"
     private var isValid: Bool {
-        if let text = inputTextField.text,
-           let _ = Int(text) {
+        guard let text = inputTextField.text,
+              let number = Int(text) else { return false }
+        
+        if number >= 1 {
             return true
         } else {
             return false
@@ -58,7 +60,7 @@ final class HomeViewController: UIViewController {
     private func setupStartButtonAction() {
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
-
+    
     private func pushToGameVC() {
         let sb = UIStoryboard(name: "Game", bundle: nil)
         // 이 때 인스턴스 생성이라서 그런지?
@@ -70,7 +72,7 @@ final class HomeViewController: UIViewController {
             vc.game = Game(inputNumber: inputNumber, randomNumber: randomNumber)
             print(randomNumber)
         }
-
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -83,7 +85,7 @@ final class HomeViewController: UIViewController {
         if isValid {
             pushToGameVC()
         } else {
-            self.showAlert(title: "입력 에러", message: "숫자만 입력해주세요.")
+            self.showAlert(title: "입력 에러", message: "0보다 큰 숫자만 입력해주세요.")
         }
         
         resetTextField()
