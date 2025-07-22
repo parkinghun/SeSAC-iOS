@@ -7,7 +7,6 @@
 
 import UIKit
 
-// TODO: - 숫자가 아닐 때는 알럿 띄우기
 final class HomeViewController: UIViewController {
 
     @IBOutlet var titleLabel: UILabel!
@@ -18,6 +17,14 @@ final class HomeViewController: UIViewController {
     
     typealias DS = DesignSystem
     private let placeholder = "숫자를 입력해주세요"
+    private var isValid: Bool {
+        if let text = inputTextField.text,
+           let _ = Int(text) {
+            return true
+        } else {
+            return false
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +59,7 @@ final class HomeViewController: UIViewController {
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
 
-    @objc private func startButtonTapped() {
-        print(#function)
+    private func pushToGameVC() {
         let sb = UIStoryboard(name: "Game", bundle: nil)
         // 이 때 인스턴스 생성이라서 그런지?
         guard let vc = sb.instantiateViewController(withIdentifier: GameViewController.id) as? GameViewController else { return }
@@ -68,6 +74,20 @@ final class HomeViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func resetTextField() {
+        inputTextField.text = ""
+    }
+    
+    @objc private func startButtonTapped() {
+        print(#function)
+        if isValid {
+            pushToGameVC()
+        } else {
+            self.showAlert(title: "입력 에러", message: "숫자만 입력해주세요.")
+        }
+        
+        resetTextField()
+    }
     
     @IBAction func inputTextFieldDidEndOnExit(_ sender: UITextField) {
         print(#function)
