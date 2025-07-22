@@ -17,15 +17,12 @@ final class ChatViewController: UIViewController {
     @IBOutlet var dialogTextView: UITextView!
     @IBOutlet var placeholderLabel: UILabel!
     
-    static let id = String(describing: ChatViewController.self)
+    typealias ID = ChatCommon.Id
+
     private let placeholder = "메세지를 입력하세요"
     private var chatItems: [ChatItem] = [] {
         didSet {
-            collectionView.reloadData()
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                self.setScrollLastItem()
-            }
+            updateUI()
         }
     }
     
@@ -35,7 +32,7 @@ final class ChatViewController: UIViewController {
         super.viewDidLoad()
         
         setupNavigation()
-        setupCollectoinView()
+        setupCollectionView()
         configure()
         setupData()
     }
@@ -55,22 +52,41 @@ final class ChatViewController: UIViewController {
     @IBAction func tapGestureAction(_ sender: UITapGestureRecognizer) {
         dialogTextView.resignFirstResponder()
     }
+        
+    private func setScrollLastItem() {
+        let lastItem = chatItems.count - 1
+        let lastItemIndexPath = IndexPath(item: lastItem, section: 0)
+        
+        collectionView.scrollToItem(at: lastItemIndexPath, at: .bottom, animated: false)
+    }
     
-    private func setupNavigation() {
+    private func updateUI() {
+        collectionView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.setScrollLastItem()
+        }
+    }
+}
+
+// MARK: - ConfigureViewControllerProtocol
+extension ChatViewController: ConfigureViewControllerProtocol {
+    func setupNavigation() {
         navigationItem.setupWithBackButton(title: chatRoom?.chatroomName ?? "")
     }
     
-    private func setupCollectoinView() {
+    func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        let otherChatNib = UINib(nibName: OhtersChatCollectionViewCell.id, bundle: nil)
-        let myChatNib = UINib(nibName: MyChatCollectionViewCell.id, bundle: nil)
-        let dividerNib = UINib(nibName: DateDividerCollectionViewCell.id, bundle: nil)
         
-        collectionView.register(otherChatNib, forCellWithReuseIdentifier: OhtersChatCollectionViewCell.id)
-        collectionView.register(myChatNib, forCellWithReuseIdentifier: MyChatCollectionViewCell.id)
-        collectionView.register(dividerNib, forCellWithReuseIdentifier: DateDividerCollectionViewCell.id)
+        let otherChatNib = UINib(nibName: ID.ohtersChatCell.rawValue, bundle: nil)
+        let myChatNib = UINib(nibName: ID.myChatCell.rawValue, bundle: nil)
+        let dividerNib = UINib(nibName: ID.dateDividerCell.rawValue, bundle: nil)
+        
+        collectionView.register(otherChatNib, forCellWithReuseIdentifier: ID.ohtersChatCell.rawValue)
+        collectionView.register(myChatNib, forCellWithReuseIdentifier: ID.myChatCell.rawValue)
+        collectionView.register(dividerNib, forCellWithReuseIdentifier: ID.dateDividerCell.rawValue)
         
         configureCollectionViewLayout()
         
@@ -96,14 +112,7 @@ final class ChatViewController: UIViewController {
         collectionView.collectionViewLayout = flowLayout
     }
     
-    private func setScrollLastItem() {
-        let lastItem = chatItems.count - 1
-        let lastItemIndexPath = IndexPath(item: lastItem, section: 0)
-        
-        collectionView.scrollToItem(at: lastItemIndexPath, at: .bottom, animated: false)
-    }
-    
-    private func configure() {
+    func configure() {
         dialogTextFieldBgView.configure(cornerRadius: 12, bgColor: .systemGray6)
         placeholderLabel.configure(text: placeholder, color: .secondaryLabel, numberOfLines: 0)
         sendButton.configure(image: UIImage(systemName: "paperplane"), color: .gray, bgColor: .clear)
@@ -113,7 +122,7 @@ final class ChatViewController: UIViewController {
         dialogTextView.delegate = self
     }
     
-    private func setupData() {
+    func setupData() {
         makeChatItems(from: chatRoom?.chatList)
     }
 }
@@ -130,18 +139,18 @@ extension ChatViewController: UICollectionViewDataSource {
         
         switch chatItems[indexPath.item] {
         case .date(let dateString):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateDividerCollectionViewCell.id, for: indexPath) as? DateDividerCollectionViewCell else { return emptyCell }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ID.dateDividerCell.rawValue, for: indexPath) as? DateDividerCollectionViewCell else { return emptyCell }
             
-            cell.configureData(date: dateString)
+            cell.configure(date: dateString)
             return cell
         case .myChat(let chat):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyChatCollectionViewCell.id, for: indexPath) as? MyChatCollectionViewCell else { return emptyCell }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ID.myChatCell.rawValue, for: indexPath) as? MyChatCollectionViewCell else { return emptyCell }
             
             cell.configure(item: chat)
             return cell
             
         case .otherChat(let chat):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OhtersChatCollectionViewCell.id, for: indexPath) as? OhtersChatCollectionViewCell else { return emptyCell }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ID.ohtersChatCell.rawValue, for: indexPath) as? OhtersChatCollectionViewCell else { return emptyCell }
             
             cell.configure(item: chat)
             return cell

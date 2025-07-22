@@ -32,7 +32,7 @@ struct Game {
             gameState = .up
             numberArray.removeAll(where: { $0 <= selectedNumber })
         }
-        print(numberArray)
+        
         count += 1
     }
 }

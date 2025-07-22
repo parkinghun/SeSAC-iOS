@@ -15,8 +15,6 @@ final class OhtersChatCollectionViewCell: UICollectionViewCell {
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     
-    static let id = String(describing: OhtersChatCollectionViewCell.self)
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
@@ -24,7 +22,6 @@ final class OhtersChatCollectionViewCell: UICollectionViewCell {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
         profileImageView.configure(cornerRadius: profileImageView.frame.width / 2, contentMode: .scaleAspectFill)
     }
 

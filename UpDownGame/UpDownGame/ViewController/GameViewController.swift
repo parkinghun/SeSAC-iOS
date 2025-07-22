@@ -89,7 +89,7 @@ final class GameViewController: UIViewController {
         collectionView.reloadData()
         
         // TODO: - 특정 아이템들만 리로드
-//        let indexPath = IndexPath(item: <#T##Int#>, section: 0)
+//        collectionView.reloadItems(at: <#T##[IndexPath]#>)
     }
     
     private func setupStartButtonAction() {
@@ -137,7 +137,6 @@ extension GameViewController: UICollectionViewDelegate {
 
         // TODO: - 강제 언래핑 제거
         game!.selectedNumber = game!.numberArray[indexPath.item]
-        print(game?.selectedNumber ?? 0)
         resultButton.isEnabled = true
         resultButton.backgroundColor = .black
     }

@@ -8,8 +8,6 @@
 import UIKit
 
 final class MyChatCollectionViewCell: UICollectionViewCell {
-
-    static let id = String(describing: MyChatCollectionViewCell.self)
     
     @IBOutlet var bgView: UIView!
     @IBOutlet var messageLabel: UILabel!
@@ -30,5 +28,4 @@ final class MyChatCollectionViewCell: UICollectionViewCell {
         messageLabel.numberOfLines = 0
         dateLabel.configure(font: .systemFont(ofSize: 12), color: .gray)
     }
-
 }

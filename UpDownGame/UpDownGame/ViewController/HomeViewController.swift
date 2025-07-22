@@ -70,7 +70,7 @@ final class HomeViewController: UIViewController {
            let inputNumber = Int(text) {
             let randomNumber = Int.random(in: 1...inputNumber)
             vc.game = Game(inputNumber: inputNumber, randomNumber: randomNumber)
-            print(randomNumber)
+            print("랜덤 숫자 - ", randomNumber)
         }
         
         navigationController?.pushViewController(vc, animated: true)
@@ -81,7 +81,6 @@ final class HomeViewController: UIViewController {
     }
     
     @objc private func startButtonTapped() {
-        print(#function)
         if isValid {
             pushToGameVC()
         } else {

@@ -8,8 +8,6 @@
 import UIKit
 
 final class DateDividerCollectionViewCell: UICollectionViewCell {
-
-    static let id = String(describing: DateDividerCollectionViewCell.self)
     
     @IBOutlet var bgView: UIView!
     @IBOutlet var calendarImageView: UIImageView!
@@ -19,13 +17,8 @@ final class DateDividerCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         configureUI()
     }
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        bgView.configure(cornerRadius: bgView.frame.height / 2, bgColor: .black)
-    }
-    
-    func configureData(date: String) {
+
+    func configure(date: String) {
         dateLabel.text = date.toFormattedFullDate()
     }
     
@@ -34,5 +27,9 @@ final class DateDividerCollectionViewCell: UICollectionViewCell {
         calendarImageView.tintColor = .white
         dateLabel.configure(font: .systemFont(ofSize: 12), color: .white)
     }
-
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        bgView.configure(cornerRadius: bgView.frame.height / 2, bgColor: .black)
+    }
 }

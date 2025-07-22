@@ -9,8 +9,6 @@ import UIKit
 
 final class TravelTalkCollectionViewCell: UICollectionViewCell {
     
-    static let id = String(describing: TravelTalkCollectionViewCell.self)
-    
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var lastMessageLabel: UILabel!
@@ -37,7 +35,6 @@ final class TravelTalkCollectionViewCell: UICollectionViewCell {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
         profileImageView.configure(cornerRadius: profileImageView.frame.width / 2, contentMode: .scaleAspectFill)
     }
 
