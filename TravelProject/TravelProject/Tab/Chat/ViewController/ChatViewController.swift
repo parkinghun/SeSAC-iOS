@@ -180,6 +180,7 @@ extension ChatViewController: UITextViewDelegate {
     }
 }
 
+// 조건에 맞게 뷰를 새로 그리던지(addSubview), 다른 셀 더 그려서 대체하던지.
 // MARK: - ChatViewController+Extnension
 extension ChatViewController {
     enum ChatItem {

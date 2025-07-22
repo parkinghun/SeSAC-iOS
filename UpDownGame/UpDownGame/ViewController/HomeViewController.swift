@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: - 숫자가 아닐 때는 알럿 띄우기
 final class HomeViewController: UIViewController {
 
     @IBOutlet var titleLabel: UILabel!
@@ -38,11 +39,13 @@ final class HomeViewController: UIViewController {
         gameLabel.text = "GAME"
         logoImageView.image = DS.Image.image1
         logoImageView.contentMode = .scaleAspectFit
+        startButton.configure(title: "시작하기")
+        
         inputTextField.font = DS.Font.title3
         inputTextField.placeholder = placeholder
         inputTextField.textAlignment = .center
         inputTextField.borderStyle = .none
-        startButton.configure(title: "시작하기")
+        inputTextField.keyboardType = .numberPad
     }
     
     private func setupStartButtonAction() {
@@ -51,6 +54,18 @@ final class HomeViewController: UIViewController {
 
     @objc private func startButtonTapped() {
         print(#function)
+        let sb = UIStoryboard(name: "Game", bundle: nil)
+        // 이 때 인스턴스 생성이라서 그런지?
+        guard let vc = sb.instantiateViewController(withIdentifier: GameViewController.id) as? GameViewController else { return }
+        
+        if let text = inputTextField.text,
+           let inputNumber = Int(text) {
+            let randomNumber = Int.random(in: 1...inputNumber)
+            vc.game = Game(inputNumber: inputNumber, randomNumber: randomNumber)
+            print(randomNumber)
+        }
+
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     
