@@ -13,10 +13,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        
+        let tabBarController = UITabBarController()
+
+        let lottoVC = LottoViewController()
+        let boxOfficeVC = BoxOfficeViewController()
+        
+        tabBarController.setViewControllers([lottoVC, boxOfficeVC], animated: true)
+        tabBarController.tabBar.barTintColor = .gray
+        tabBarController.tabBar.tintColor = .black
+        
+        guard let items = tabBarController.tabBar.items else { return }
+        items[0].selectedImage = UIImage(systemName: "01.circle.fill")
+        items[0].image = UIImage(systemName: "01.circle")
+        items[0].title = "로또"
+        items[1].selectedImage = UIImage(systemName: "movieclapper.fill")
+        items[1].image = UIImage(systemName: "movieclapper")
+        items[1].title = "영화"
+        
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
