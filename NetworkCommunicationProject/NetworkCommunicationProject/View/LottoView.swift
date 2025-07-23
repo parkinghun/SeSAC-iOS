@@ -12,9 +12,6 @@ protocol LottoViewDelegate: AnyObject {
     func tappedView()
 }
 
-
-// TODO: - 탭 제스처 추가하기
-// TODO: - 프로토콜 델리겟 적용하기
 final class LottoView: UIView {
     typealias DS = DesignSystem
     private weak var delegate: LottoViewDelegate?
@@ -127,8 +124,10 @@ final class LottoView: UIView {
         bonusLabel.isHidden = false
         
         searchTextField.text = String(round)
-        resultLabel.text = "\(round)회 당첨결과"
         
+        resultLabel.text = "\(round)회 당첨결과"
+        resultLabel.asColor(targetString: "\(round)회", color: .orange)
+
         for (index, lottoNumber) in data.enumerated() {
             let label = numbserLabels[index]
             label.text = "\(lottoNumber.number)"
