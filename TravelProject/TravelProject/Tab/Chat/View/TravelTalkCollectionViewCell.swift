@@ -19,6 +19,11 @@ final class TravelTalkCollectionViewCell: UICollectionViewCell {
         configureUI()
     }
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        profileImageView.configure(cornerRadius: profileImageView.frame.width / 2, contentMode: .scaleAspectFill)
+    }
+    
     func configure(item: ChatRoom) {
         profileImageView.image = item.chatRoomUIImage
         nameLabel.text = item.chatroomName
@@ -32,10 +37,4 @@ final class TravelTalkCollectionViewCell: UICollectionViewCell {
         lastMessageLabel.textColor = .gray
         dateLabel.textColor = .gray
     }
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        profileImageView.configure(cornerRadius: profileImageView.frame.width / 2, contentMode: .scaleAspectFill)
-    }
-
 }
