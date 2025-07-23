@@ -51,7 +51,7 @@ final class BoxOfficeTableViewCell: UITableViewCell {
     func configure(row data: Movie, rank: Int) {
         rankLabel.text = String(rank)
         titleLabel.text = data.title
-        dateLabel.text = data.releaseDate
+        dateLabel.text = data.releaseDate.toFormattedDate()
     }
 }
 

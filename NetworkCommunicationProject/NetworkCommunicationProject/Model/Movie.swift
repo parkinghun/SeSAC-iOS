@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct MovieManager {
+    func shuffleMovies() -> [Movie] {
+        return MovieInfo.movies.shuffled()
+    }
+}
+
 struct Movie {
     let title: String
     let releaseDate: String

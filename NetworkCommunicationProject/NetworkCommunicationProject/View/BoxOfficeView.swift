@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol BoxOfficeViewDelegate: AnyObject {
+    func tappedSearchButton()
+}
+
 final class BoxOfficeView: UIView {
+    
+    weak var delegate: BoxOfficeViewDelegate?
     
     let searchTextField = {
         let textField = UITextField()
@@ -40,10 +46,19 @@ final class BoxOfficeView: UIView {
         configureHierachy()
         configureLayout()
         configureView()
+        setupActoin()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupActoin() {
+        searchButton.addTarget(self, action: #selector(tappedSearchButton), for: .touchUpInside)
+    }
+    
+    @objc private func tappedSearchButton() {
+        delegate?.tappedSearchButton()
     }
 }
 
