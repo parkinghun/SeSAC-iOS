@@ -8,11 +8,8 @@
 import UIKit
 import SnapKit
 
-// Delegate로 만들어서 연결할 때 주의해야 하는게 채택해서 함수만 구현한다고 되는게 아니라, 위임을 해줘야한다.
-// 이 부분 이해해보고 사용하자.
 protocol LottoViewDelegate: AnyObject {
-    func configureUI()
-    func updateLottoUI()
+    func tappedView()
 }
 
 
@@ -65,7 +62,7 @@ final class LottoView: UIView {
         }
         
         labels.forEach {
-            $0.configure(text: "40", font: DS.Font.title3Bold, color: .white, bgColor: .cyan, alignment: .center)
+            $0.configure(font: DS.Font.title3Bold, color: .white, alignment: .center)
         }
         return labels
     }()
@@ -99,6 +96,7 @@ final class LottoView: UIView {
         configureHierachy()
         configureLayout()
         configureView()
+        setupTapGesture()
     }
     
     override func layoutSubviews() {
@@ -128,6 +126,15 @@ final class LottoView: UIView {
             label.text = "\(lottoNumber.number)"
             label.backgroundColor = lottoNumber.color
         }
+    }
+    
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTapGesture() {
+        delegate?.tappedView()
     }
 }
 

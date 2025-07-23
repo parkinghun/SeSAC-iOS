@@ -59,14 +59,8 @@ extension LottoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension LottoViewController: LottoViewDelegate {
-    func updateLottoUI() {
-
-        
-    }
-    
-    
-    
-    func configureUI() {
-        
+    func tappedView() {
+        print(#function)
+        lottoView.searchTextField.resignFirstResponder()
     }
 }
