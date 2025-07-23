@@ -8,16 +8,22 @@
 import UIKit
 import SnapKit
 
+// Delegate로 만들어서 연결할 때 주의해야 하는게 채택해서 함수만 구현한다고 되는게 아니라, 위임을 해줘야한다.
+// 이 부분 이해해보고 사용하자.
+protocol LottoViewDelegate: AnyObject {
+    func configureUI()
+    func updateLottoUI()
+}
 
+
+// TODO: - 탭 제스처 추가하기
+// TODO: - 프로토콜 델리겟 적용하기
 final class LottoView: UIView {
     typealias DS = DesignSystem
+    private weak var delegate: LottoViewDelegate?
     
     // MARK: - UIComponents
-    let pickerView = {
-        let pickerView = UIPickerView()
-        // 1~1181
-        return pickerView
-    }()
+    let roundPickerView = UIPickerView()
     
     let searchTextField = {
         let tf = UITextField()
@@ -25,10 +31,6 @@ final class LottoView: UIView {
         tf.textAlignment = .center
         tf.placeholder = "회차를 입력해주세요"
         tf.borderStyle = .roundedRect
-        
-        let pickerView = UIPickerView()
-        
-        tf.inputView = pickerView
         return tf
     }()
     
@@ -80,6 +82,7 @@ final class LottoView: UIView {
         sv.spacing = 8
         sv.alignment = .center
         sv.distribution = .fillEqually
+        sv.isHidden = true
         return sv
     }()
     
@@ -98,7 +101,7 @@ final class LottoView: UIView {
         configureView()
     }
     
-    override func layoutIfNeeded() {
+    override func layoutSubviews() {
         super.layoutIfNeeded()
         numbserLabels.forEach {
             $0.layer.cornerRadius = $0.frame.width / 2
@@ -108,6 +111,23 @@ final class LottoView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureDelegation(_ delegate: LottoViewDelegate) {
+        self.delegate = delegate
+    }
+    
+    func configure(row data: [LottoNumber], round: Int) {
+        numberStackView.isHidden = false
+        
+        searchTextField.text = String(round)
+        resultLabel.text = "\(round)회 당첨결과"
+        
+        for (index, lottoNumber) in data.enumerated() {
+            let label = numbserLabels[index]
+            label.text = "\(lottoNumber.number)"
+            label.backgroundColor = lottoNumber.color
+        }
     }
 }
 
@@ -179,5 +199,7 @@ extension LottoView: ViewDesignProtocol {
     
     func configureView() {
         self.backgroundColor = .white
+        searchTextField.inputView = roundPickerView
+        
     }
 }
