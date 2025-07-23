@@ -30,6 +30,15 @@ final class LottoViewController: UIViewController {
     }
 }
 
+// MARK: - LottoViewDelegate
+extension LottoViewController: LottoViewDelegate {
+    func tappedView() {
+        print(#function)
+        lottoView.searchTextField.resignFirstResponder()
+    }
+}
+
+// MARK: - UIPickerViewDataSource, UIPickerViewDelegate
 extension LottoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -55,12 +64,5 @@ extension LottoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     private func updateLottoResult() {
         lottoNumbers = lottoManager.generateNumbers()
         lottoView.configure(row: lottoNumbers, round: selectedRound)
-    }
-}
-
-extension LottoViewController: LottoViewDelegate {
-    func tappedView() {
-        print(#function)
-        lottoView.searchTextField.resignFirstResponder()
     }
 }

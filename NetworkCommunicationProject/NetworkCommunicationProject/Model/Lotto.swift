@@ -11,7 +11,6 @@ struct LottoManager {
     private let lottoCount = 7
     let latestRound = 1181
 
-    
     var rounds: [Int] {
         return Array(1...latestRound)
     }
@@ -20,7 +19,6 @@ struct LottoManager {
         let randomNumbers = (1...45).shuffled().prefix(lottoCount).sorted()
         return randomNumbers.map { LottoNumber(number: $0) }
     }
-
 }
 
 struct LottoNumber {

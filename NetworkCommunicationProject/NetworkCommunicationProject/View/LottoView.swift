@@ -73,6 +73,13 @@ final class LottoView: UIView {
         return label
     }()
     
+    let bonusLabel = {
+        let label = UILabel()
+        label.configure(text: "보너스", font: DS.Font.subhead)
+        label.isHidden = true
+        return label
+    }()
+    
     let numberStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
@@ -117,6 +124,7 @@ final class LottoView: UIView {
     
     func configure(row data: [LottoNumber], round: Int) {
         numberStackView.isHidden = false
+        bonusLabel.isHidden = false
         
         searchTextField.text = String(round)
         resultLabel.text = "\(round)회 당첨결과"
@@ -149,6 +157,7 @@ extension LottoView: ViewDesignProtocol {
         resultWrapperView.addSubview(divider)
         resultWrapperView.addSubview(resultLabel)
         resultWrapperView.addSubview(numberStackView)
+        resultWrapperView.addSubview(bonusLabel)
         
         numbserLabels.forEach {
             numberStackView.addArrangedSubview($0)
@@ -170,7 +179,7 @@ extension LottoView: ViewDesignProtocol {
         resultWrapperView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(self).inset(16)
             $0.top.equalTo(searchTextField.snp.bottom).offset(16)
-            $0.height.equalTo(160)
+            $0.height.equalTo(200)
         }
         
         announceLabel.snp.makeConstraints {
@@ -194,6 +203,11 @@ extension LottoView: ViewDesignProtocol {
         
         numberStackView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(resultWrapperView).inset(16)
+            $0.bottom.equalTo(bonusLabel.snp.top).offset(-8)
+        }
+        
+        bonusLabel.snp.makeConstraints {
+            $0.trailing.equalTo(numberStackView)
             $0.bottom.equalTo(resultWrapperView).offset(-12)
         }
         

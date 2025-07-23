@@ -21,19 +21,19 @@ final class BoxOfficeTableViewCell: UITableViewCell {
     
     let rankLabel = {
         let label = UILabel()
-        label.configure(text: "1", font: DSFont.title3Bold, bgColor: .white, alignment: .center)
+        label.configure(font: DSFont.title3Bold, bgColor: .white, alignment: .center)
         return label
     }()
     
     let titleLabel = {
         let label = UILabel()
-        label.configure(text: "주디", font: DSFont.title3, color: .white, alignment: .left)
+        label.configure(font: DSFont.title3, color: .white, alignment: .left)
         return label
     }()
     
     let dateLabel = {
         let label = UILabel()
-        label.configure(text: "20140730", font: DSFont.footnote, color: .white, alignment: .left)
+        label.configure(font: DSFont.footnote, color: .white, alignment: .left)
         return label
     }()
     
@@ -89,6 +89,4 @@ extension BoxOfficeTableViewCell: ViewDesignProtocol {
     func configureView() {
         self.backgroundColor = .clear
     }
-    
-    
 }
