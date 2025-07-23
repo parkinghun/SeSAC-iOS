@@ -7,11 +7,18 @@
 
 import UIKit
 
-class LottoViewController: UIViewController {
+final class LottoViewController: UIViewController {
 
+    let lottoView = LottoView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        
+    }
+    
+    override func loadView() {
+        self.view = lottoView
+
     }
 
 
