@@ -39,7 +39,7 @@ final class LottoViewController: UIViewController {
         AF.request(url, method: .get)
             .responseDecodable(of: Lotto.self) { [weak self] response in
                 guard let self else { return }
-                print(response)
+                
                 switch response.result {
                 case .success(let lotto):
                     print(lotto)

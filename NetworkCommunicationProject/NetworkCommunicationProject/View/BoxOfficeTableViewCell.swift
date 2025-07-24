@@ -48,10 +48,10 @@ final class BoxOfficeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(row data: Movie, rank: Int) {
-        rankLabel.text = String(rank)
-        titleLabel.text = data.title
-        dateLabel.text = data.releaseDate.toFormattedDate()
+    func configure(from boxOffice: BoxOffice) {
+        rankLabel.text = boxOffice.rank
+        titleLabel.text = boxOffice.movieNm
+        dateLabel.text = boxOffice.openDt
     }
 }
 
@@ -78,12 +78,15 @@ extension BoxOfficeTableViewCell: ViewDesignProtocol {
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(rankLabel.snp.trailing).offset(12)
             $0.height.equalTo(rankLabel)
+            $0.trailing.equalTo(dateLabel.snp.leading).offset(-8)
         }
         
         dateLabel.snp.makeConstraints {
             $0.trailing.equalTo(wrapperView)
             $0.centerY.equalTo(titleLabel)
         }
+        
+        dateLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
     }
     
     func configureView() {

@@ -6,17 +6,22 @@
 //
 
 import UIKit
+import Alamofire
 
 final class BoxOfficeViewController: UIViewController {
     
     private let boxOfficeView = BoxOfficeView()
-    private let movieManager = MovieManager()
-    private var movies: [Movie] = MovieInfo.movies {
+    private var dailyBoxOfficeList: [BoxOffice] = [] {
         didSet {
             boxOfficeView.tableView.reloadData()
         }
     }
     
+    var yesterDay: String {
+        let now = Date()  //현재
+        let yesterday = now - 86400 //어제
+        return yesterday.toFormattedString()
+    }
     
     override func loadView() {
         self.view = boxOfficeView
@@ -26,52 +31,76 @@ final class BoxOfficeViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupDelegate()
+        callRequest(date: yesterDay)
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         boxOfficeView.tableView.delegate = self
         boxOfficeView.tableView.dataSource = self
         
         boxOfficeView.tableView.register(BoxOfficeTableViewCell.self, forCellReuseIdentifier: BoxOfficeTableViewCell.id)
-        
         boxOfficeView.tableView.rowHeight = 60
     }
     
-    func setupDelegate() {
+    private func setupDelegate() {
         boxOfficeView.delegate = self
         boxOfficeView.searchTextField.delegate = self
     }
-}
-
-extension BoxOfficeViewController: BoxOfficeViewDelegate {
-    func tappedSearchButton() {
-        print(#function)
-        movies = movieManager.shuffleMovies()
+    
+    private func callRequest(date: String) {
+        let url = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=\(Bundle.main.apiKey)&targetDt=\(date)"
+        
+        AF.request(url, method: .get)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: BoxOfficeResult.self) { [weak self] response in
+                guard let self else { return }
+                print(response)
+                
+                switch response.result {
+                case .success(let value):
+                    print("Success")
+                    dump(value.boxOfficeResult.dailyBoxOfficeList[0])
+                    self.dailyBoxOfficeList = value.boxOfficeResult.dailyBoxOfficeList
+                    
+                case .failure(let error):
+                    print("fail", error.localizedDescription)
+                }
+            }
     }
 }
 
-extension BoxOfficeViewController: UITableViewDataSource {
+// MARK: - BoxOfficeViewDelegate
+extension BoxOfficeViewController: BoxOfficeViewDelegate {
+    func tappedSearchButton() {
+        if let text = boxOfficeView.searchTextField.text {
+            callRequest(date: text)
+        }
+        boxOfficeView.searchTextField.resignFirstResponder()
+        print(#function)
+        
+    }
+}
+
+// MARK: - UITableViewDataSource / UITableViewDelegate
+extension BoxOfficeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return dailyBoxOfficeList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = boxOfficeView.tableView.dequeueReusableCell(withIdentifier: BoxOfficeTableViewCell.id, for: indexPath) as? BoxOfficeTableViewCell else { return UITableViewCell() }
-        
-        cell.configure(row: movies[indexPath.row], rank: indexPath.row + 1)
+        print(dailyBoxOfficeList[indexPath.row])
+        cell.configure(from: dailyBoxOfficeList[indexPath.row])
         return cell
     }
-    
 }
 
-extension BoxOfficeViewController: UITableViewDelegate {
-    
-}
-
+// MARK: - UITextFieldDelegate
 extension BoxOfficeViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print(#function)
-        movies = movieManager.shuffleMovies()
+        guard let text = textField.text else { return true }
+        callRequest(date: text)
         boxOfficeView.searchTextField.resignFirstResponder()
         return true
     }
