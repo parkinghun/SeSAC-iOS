@@ -153,6 +153,8 @@
 /* Begin XCBuildConfiguration section */
 		B5E6B7E72E30D20000FF6EB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = B5E6B7D52E30D1FD00FF6EB2 /* NetworkCommunicationProject */;
+			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -186,6 +188,8 @@
 		};
 		B5E6B7E82E30D20000FF6EB2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = B5E6B7D52E30D1FD00FF6EB2 /* NetworkCommunicationProject */;
+			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
