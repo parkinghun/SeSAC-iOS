@@ -7,21 +7,18 @@
 
 import UIKit
 
-struct LottoManager {
-    private let lottoCount = 7
-    let latestRound = 1181
-
-    var rounds: [Int] {
-        return Array(1...latestRound)
-    }
-    
-    func generateNumbers() -> [LottoNumber] {
-        let randomNumbers = (1...45).shuffled().prefix(lottoCount).sorted()
-        return randomNumbers.map { LottoNumber(number: $0) }
-    }
+struct Lotto: Decodable {
+    let drwNoDate: String
+    let drwtNo1: Int
+    let drwtNo2: Int
+    let drwtNo3: Int
+    let drwtNo4: Int
+    let drwtNo5: Int
+    let drwtNo6: Int
+    let bnusNo: Int
 }
 
-struct LottoNumber {
+struct LottoBall {
     let number: Int
     var color: UIColor {
         switch number {

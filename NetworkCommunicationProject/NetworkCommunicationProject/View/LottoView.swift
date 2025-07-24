@@ -25,6 +25,7 @@ final class LottoView: UIView {
         tf.textAlignment = .center
         tf.placeholder = "회차를 입력해주세요"
         tf.borderStyle = .roundedRect
+        tf.tintColor = .clear
         return tf
     }()
     
@@ -52,7 +53,7 @@ final class LottoView: UIView {
         return label
     }()
     
-    let numbserLabels: [UILabel] = {
+    let numberLabels: [UILabel] = {
         var labels: [UILabel] = []
         for _ in 0...6 {
             labels.append(UILabel())
@@ -73,7 +74,6 @@ final class LottoView: UIView {
     let bonusLabel = {
         let label = UILabel()
         label.configure(text: "보너스", font: DS.Font.subhead)
-        label.isHidden = true
         return label
     }()
     
@@ -83,7 +83,6 @@ final class LottoView: UIView {
         sv.spacing = 8
         sv.alignment = .center
         sv.distribution = .fillEqually
-        sv.isHidden = true
         return sv
     }()
     
@@ -105,7 +104,7 @@ final class LottoView: UIView {
     
     override func layoutSubviews() {
         super.layoutIfNeeded()
-        numbserLabels.forEach {
+        numberLabels.forEach {
             $0.layer.cornerRadius = $0.frame.width / 2
             $0.clipsToBounds = true
         }
@@ -119,19 +118,17 @@ final class LottoView: UIView {
         self.delegate = delegate
     }
     
-    func configure(row data: [LottoNumber], round: Int) {
-        numberStackView.isHidden = false
-        bonusLabel.isHidden = false
+    func configure(row lottoBalls: [LottoBall], round: Int, date: String) {
         
         searchTextField.text = String(round)
+        dateLabel.text = date.toFormattedDate()
         
         resultLabel.text = "\(round)회 당첨결과"
         resultLabel.asColor(targetString: "\(round)회", color: .orange)
-
-        for (index, lottoNumber) in data.enumerated() {
-            let label = numbserLabels[index]
-            label.text = "\(lottoNumber.number)"
-            label.backgroundColor = lottoNumber.color
+        
+        for (index, ball) in lottoBalls.enumerated() {
+            numberLabels[index].text = "\(ball.number)"
+            numberLabels[index].backgroundColor = ball.color
         }
     }
     
@@ -158,12 +155,12 @@ extension LottoView: ViewDesignProtocol {
         resultWrapperView.addSubview(numberStackView)
         resultWrapperView.addSubview(bonusLabel)
         
-        numbserLabels.forEach {
+        numberLabels.forEach {
             numberStackView.addArrangedSubview($0)
         }
         
-        if numbserLabels.count > 1 {
-            let boforeLastIndex = numbserLabels.count - 1
+        if numberLabels.count > 1 {
+            let boforeLastIndex = numberLabels.count - 1
             numberStackView.insertArrangedSubview(plusLabel, at: boforeLastIndex)
         }
     }
@@ -210,7 +207,7 @@ extension LottoView: ViewDesignProtocol {
             $0.bottom.equalTo(resultWrapperView).offset(-12)
         }
         
-        numbserLabels.forEach { label in
+        numberLabels.forEach { label in
             label.snp.makeConstraints {
                 $0.height.equalTo(label.snp.width).multipliedBy(1)
             }

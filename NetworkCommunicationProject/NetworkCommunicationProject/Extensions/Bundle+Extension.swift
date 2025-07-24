@@ -17,7 +17,7 @@ extension Bundle {
         guard let value = plistDict.object(forKey: "APIKey") as? String else {
             fatalError("Couldn't find key 'APIKey' in 'APIKey.plist'.")
         }
-        return value
         
+        return value
     }
 }
