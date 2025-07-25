@@ -27,7 +27,7 @@ final class ShoppingHomeViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        navigationController?.title = "쇼핑"
+        navigationItem.title = "쇼핑"
     }
 }
 

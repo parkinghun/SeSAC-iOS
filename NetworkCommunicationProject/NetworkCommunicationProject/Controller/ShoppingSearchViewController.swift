@@ -23,7 +23,7 @@ final class ShoppingSearchViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        navigationController?.title = "영캠러의 쇼핑쇼핑"
+        navigationItem.title = "영캠러의 쇼핑쇼핑"
     }
     
     private func configureDelegate() {
@@ -32,5 +32,15 @@ final class ShoppingSearchViewController: UIViewController {
 }
 
 extension ShoppingSearchViewController: UISearchBarDelegate {
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print(#function)
+        guard let text = searchBar.text, text.count >= 2 else {
+            self.showAlert(title: "입력 글자수 부족", message: "검색어는 두글자 이상 입력해주세요.")
+            return
+        }
+        
+        let nextVC = ShoppingResultViewController()
+        nextVC.setupNavigation(title: text)
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
 }
