@@ -22,7 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let lottoVC = LottoViewController()
         let boxOfficeVC = BoxOfficeViewController()
         
-        tabBarController.setViewControllers([lottoVC, boxOfficeVC], animated: true)
+        let shoppingVC = ShoppingViewController()
+        let shoppingNavigationVC = UINavigationController(rootViewController: shoppingVC)
+
+        tabBarController.setViewControllers([lottoVC, boxOfficeVC, shoppingNavigationVC], animated: true)
         tabBarController.tabBar.barTintColor = .gray
         tabBarController.tabBar.tintColor = .black
         
@@ -33,7 +36,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         items[1].selectedImage = UIImage(systemName: "movieclapper.fill")
         items[1].image = UIImage(systemName: "movieclapper")
         items[1].title = "영화"
-        
+        items[2].selectedImage = UIImage(systemName: "cart.fill")
+        items[2].image = UIImage(systemName: "cart")
+        items[2].title = "쇼핑"
+
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
