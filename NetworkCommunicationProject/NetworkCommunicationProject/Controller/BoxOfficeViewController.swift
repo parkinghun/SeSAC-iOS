@@ -48,7 +48,9 @@ final class BoxOfficeViewController: UIViewController {
     }
     
     private func callRequest(date: String) {
-        let url = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=\(Bundle.main.apiKey)&targetDt=\(date)"
+        let key = Bundle.getAPIKey(for: .movie)
+        
+        let url = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=\(key)&targetDt=\(date)"
         
         AF.request(url, method: .get)
             .validate(statusCode: 200..<300)

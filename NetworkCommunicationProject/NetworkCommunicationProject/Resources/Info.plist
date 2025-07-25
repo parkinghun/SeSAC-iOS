@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>APIKey</key>
+	<key>MovieKey</key>
 	<string>$(Movie_KEY)</string>
+	<key>NaverClientID</key>
+	<string>$(Naver_Client_ID)</string>
+	<key>NaverClientSecret</key>
+	<string>$(Naver_Client_Secret)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

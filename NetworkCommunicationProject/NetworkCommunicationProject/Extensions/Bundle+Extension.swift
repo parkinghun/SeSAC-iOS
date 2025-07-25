@@ -8,16 +8,24 @@
 import Foundation
 
 extension Bundle {
-    var apiKey: String {
+    
+    static func getAPIKey(for key: APIKeyType) -> String {
         guard let filePath = Bundle.main.path(forResource: "Info", ofType: "plist"),
               let plistDict = NSDictionary(contentsOfFile: filePath) else {
             fatalError("Couldn't find file 'Info.plist'.")
         }
         
-        guard let value = plistDict.object(forKey: "APIKey") as? String else {
-            fatalError("Couldn't find key 'APIKey' in 'APIKey.plist'.")
+        guard let value = plistDict.object(forKey: key.rawValue) as? String else {
+            fatalError("Couldn't find key '\(key.rawValue)' in 'Info.plist'.")
         }
         
         return value
+    }
+    
+    enum APIKeyType: String {
+        case movie = "MovieKey"
+        case naverClientID = "NaverClientID"
+        case naverClientSecret = "NaverClientSecret"
+        
     }
 }
