@@ -7,16 +7,35 @@
 
 import UIKit
 
-final class ShoppingViewController: UIViewController {
+final class ShoppingHomeViewController: UIViewController {
     
-//    override func loadView() {
-//        
-//    }
+    private let shoppingHomeView = ShoppingHomeView()
+    
+    override func loadView() {
+        self.view = shoppingHomeView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .yellow
+        configureDelegation()
+        setupNavigation()
     }
     
+    private func configureDelegation() {
+        shoppingHomeView.configureDelegation(self)
+    }
+    
+    private func setupNavigation() {
+        navigationController?.title = "쇼핑"
+    }
 }
+
+extension ShoppingHomeViewController: ShoppingHomeViewDelegate {
+    func tappedGoButton() {
+        print(#function)
+        navigationController?.pushViewController(ShoppingSearchViewController(), animated: true)
+    }
+}
+
+
