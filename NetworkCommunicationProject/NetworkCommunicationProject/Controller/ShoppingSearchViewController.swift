@@ -40,7 +40,7 @@ extension ShoppingSearchViewController: UISearchBarDelegate {
         }
         
         let nextVC = ShoppingResultViewController()
-        nextVC.setupNavigation(title: text)
+        nextVC.query = text
         navigationController?.pushViewController(nextVC, animated: true)
     }
 }

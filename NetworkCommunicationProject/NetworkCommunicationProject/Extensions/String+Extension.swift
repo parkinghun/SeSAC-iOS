@@ -15,4 +15,12 @@ extension String {
         
         return DateFormatter.dateOnlyFormatter.string(from: date)
     }
+    
+    func toFormattedDecimal() -> String? {
+        guard let decimal = NumberFormatter.decimalFormatter.string(for: self) else {
+            return nil
+        }
+        
+        return decimal
+    }
 }
