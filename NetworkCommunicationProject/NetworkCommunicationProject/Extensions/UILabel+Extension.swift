@@ -16,11 +16,12 @@ extension UILabel {
         attributedText = attributedString
     }
     
-    func configure(text: String? = nil, font: UIFont? = nil, color: UIColor? = nil, bgColor: UIColor? = nil, alignment: NSTextAlignment = .natural) {
+    func configure(text: String? = nil, font: UIFont? = nil, color: UIColor? = nil, bgColor: UIColor? = nil, alignment: NSTextAlignment = .natural, numberOfLines: Int? = nil) {
         if let text { self.text = text }
         if let font { self.font = font }
         if let color { self.textColor = color }
         if let bgColor { self.backgroundColor = bgColor }
         self.textAlignment = alignment
+        if let numberOfLines { self.numberOfLines = numberOfLines }
     }
 }

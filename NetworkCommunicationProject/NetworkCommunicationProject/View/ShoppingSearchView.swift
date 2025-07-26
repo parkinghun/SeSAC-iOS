@@ -52,7 +52,7 @@ extension ShoppingSearchView: ViewDesignProtocol {
         self.addSubview(mainImageView)
         self.addSubview(shoppingLabel)
     }
-
+    
     func configureLayout() {
         searchBar.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(12)

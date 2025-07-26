@@ -10,11 +10,14 @@
 		B5E6B82B2E30D3B100FF6EB2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B5E6B82A2E30D3B100FF6EB2 /* SnapKit */; };
 		B5EF79B92E320FEF00BB5D95 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B5EF79B82E320FEF00BB5D95 /* .gitignore */; };
 		B5EF79C42E32223200BB5D95 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B5EF79C32E32223200BB5D95 /* Alamofire */; };
+		B5F70A8C2E3483F90026786C /* File.txt in Resources */ = {isa = PBXBuildFile; fileRef = B5F70A8B2E3483F80026786C /* File.txt */; };
+		B5FB6ABF2E33E42200822445 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B5FB6ABE2E33E42200822445 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B5E6B7D32E30D1FD00FF6EB2 /* NetworkCommunicationProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkCommunicationProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EF79B82E320FEF00BB5D95 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B5F70A8B2E3483F80026786C /* File.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = File.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -43,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5FB6ABF2E33E42200822445 /* Kingfisher in Frameworks */,
 				B5E6B82B2E30D3B100FF6EB2 /* SnapKit in Frameworks */,
 				B5EF79C42E32223200BB5D95 /* Alamofire in Frameworks */,
 			);
@@ -57,6 +61,7 @@
 				B5EF79B82E320FEF00BB5D95 /* .gitignore */,
 				B5E6B7D52E30D1FD00FF6EB2 /* NetworkCommunicationProject */,
 				B5E6B7D42E30D1FD00FF6EB2 /* Products */,
+				B5F70A8B2E3483F80026786C /* File.txt */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +95,7 @@
 			packageProductDependencies = (
 				B5E6B82A2E30D3B100FF6EB2 /* SnapKit */,
 				B5EF79C32E32223200BB5D95 /* Alamofire */,
+				B5FB6ABE2E33E42200822445 /* Kingfisher */,
 			);
 			productName = NetworkCommunicationProject;
 			productReference = B5E6B7D32E30D1FD00FF6EB2 /* NetworkCommunicationProject.app */;
@@ -122,6 +128,7 @@
 			packageReferences = (
 				B5E6B8292E30D3B100FF6EB2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B5EF79C22E32223200BB5D95 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B5FB6ABD2E33E42200822445 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B5E6B7D42E30D1FD00FF6EB2 /* Products */;
@@ -138,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5F70A8C2E3483F90026786C /* File.txt in Resources */,
 				B5EF79B92E320FEF00BB5D95 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,6 +394,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		B5FB6ABD2E33E42200822445 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -398,6 +414,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B5EF79C22E32223200BB5D95 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		B5FB6ABE2E33E42200822445 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5FB6ABD2E33E42200822445 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

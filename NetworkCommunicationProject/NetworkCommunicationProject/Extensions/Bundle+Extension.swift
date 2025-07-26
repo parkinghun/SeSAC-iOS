@@ -25,7 +25,6 @@ extension Bundle {
     enum APIKeyType: String {
         case movie = "MovieKey"
         case naverClientID = "NaverClientID"
-        case naverClientSecret = "NaverClientSecret"
-        
+        case naverClientSecret = "NaverClientSecret"   
     }
 }
