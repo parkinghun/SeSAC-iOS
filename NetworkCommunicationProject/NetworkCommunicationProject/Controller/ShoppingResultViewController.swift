@@ -28,6 +28,7 @@ final class ShoppingResultViewController: UIViewController {
         
         setupNavigation()
         configureCollectionView()
+        configureDelegation()
         callRequest(query: query)
     }
     
@@ -40,6 +41,10 @@ final class ShoppingResultViewController: UIViewController {
         shoppingResultView.collectionView.dataSource = self
         
         shoppingResultView.collectionView.register(ShoppingResultCollectionViewCell.self, forCellWithReuseIdentifier: ShoppingResultCollectionViewCell.id)
+    }
+    
+    private func configureDelegation() {
+        shoppingResultView.configureDelegation(self)
     }
     
     private func callRequest(query: String?, display: Int = 100, sort: SortType = .accuracy) {
@@ -80,6 +85,28 @@ extension ShoppingResultViewController {
         case dateOrder = "date"
         case highPrice = "dsc"
         case lowPrice = "asc"
+    }
+}
+
+extension ShoppingResultViewController: ShoppingResultViewDelegate {
+    func tappedAccuracyButton() {
+        print(#function)
+        callRequest(query: query, sort: .accuracy)
+    }
+    
+    func tappedDateOrderButto() {
+        print(#function)
+        callRequest(query: query, sort: .dateOrder)
+    }
+    
+    func tappedHighPriceButto() {
+        print(#function)
+        callRequest(query: query, sort: .highPrice)
+    }
+    
+    func tappedLowPriceButton() {
+        print(#function)
+        callRequest(query: query, sort: .lowPrice)
     }
 }
 
