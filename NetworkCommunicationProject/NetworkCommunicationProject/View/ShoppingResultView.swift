@@ -26,10 +26,11 @@ final class ShoppingResultView: UIView {
         return label
     }()
     
-    let accuracyButton = FilterOptionButton(title: "정확도", titleColor: .black, backgroundColor: .white)
-    let dateOrderButton = FilterOptionButton(title: "날짜순")
-    let highPriceButton = FilterOptionButton(title: "가격높은순")
-    let lowPriceButton = FilterOptionButton(title: "가격낮은순")
+    //TODO: - 다른 방법으로
+    let accuracyButton = FilterOptionButton(title: "  정확도  ", titleColor: .black, backgroundColor: .white)
+    let dateOrderButton = FilterOptionButton(title: "  날짜순  ")
+    let highPriceButton = FilterOptionButton(title: "  가격높은순  ")
+    let lowPriceButton = FilterOptionButton(title: "  가격낮은순  ")
     
     lazy var buttonStackView = {
         let sv = UIStackView(arrangedSubviews: [accuracyButton, dateOrderButton, highPriceButton, lowPriceButton])

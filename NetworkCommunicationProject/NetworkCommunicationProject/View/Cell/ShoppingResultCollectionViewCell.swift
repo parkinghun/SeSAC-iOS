@@ -28,6 +28,7 @@ final class ShoppingResultCollectionViewCell: UICollectionViewCell {
         bt.setImage(UIImage(systemName: "heart"), for: .normal)
         bt.tintColor = .black
         bt.backgroundColor = .white
+        bt.imageView?.contentMode = .scaleAspectFill
         return bt
     }()
 
@@ -60,14 +61,22 @@ final class ShoppingResultCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.likeButton.layer.cornerRadius = likeButton.frame.width / 2
+            self.likeButton.clipsToBounds = true
+        }
+    }
+    
     func configure(item data: Product) {
         productImageView.downSampling(url: data.imageURL)
         mallLabel.text = data.mallName
         titleLable.text = data.title
         priceLabel.text = data.formattedPrice
     }
-    
-    
 }
 
 extension ShoppingResultCollectionViewCell: ViewDesignProtocol {
@@ -93,7 +102,7 @@ extension ShoppingResultCollectionViewCell: ViewDesignProtocol {
         }
         
         likeButton.snp.makeConstraints {
-            $0.bottom.trailing.equalTo(imageWrapperView).inset(12)
+            $0.bottom.trailing.equalTo(imageWrapperView).inset(8)
             $0.size.equalTo(44)
         }
         

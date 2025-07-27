@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let boxOfficeVC = BoxOfficeViewController()
         
         let shoppingVC = ShoppingHomeViewController()
-        let shoppingNavigationVC = UINavigationController(rootViewController: shoppingVC)
+        let shoppingNavigationVC = CustomNavigationController(rootViewController: shoppingVC)
         
         tabBarController.setViewControllers([lottoVC, boxOfficeVC, shoppingNavigationVC], animated: true)
         tabBarController.tabBar.barTintColor = .gray

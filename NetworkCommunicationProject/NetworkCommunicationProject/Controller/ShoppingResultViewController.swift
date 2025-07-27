@@ -25,7 +25,6 @@ final class ShoppingResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupNavigation()
         configureCollectionView()
         configureDelegation()
@@ -69,7 +68,6 @@ final class ShoppingResultViewController: UIViewController {
                 
                 switch response.result {
                 case let .success(value):
-                    dump(value.items[0])
                     self.shoppingList = value.items
                     self.shoppingResultView.configure(value)
                 case let .failure(error):
