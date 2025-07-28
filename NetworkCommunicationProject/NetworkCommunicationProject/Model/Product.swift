@@ -12,7 +12,7 @@ struct SearchResult: Decodable {
     let items: [Product]
     
     var formattedCount: String? {
-        return NumberFormatter.decimalFormatter.string(for: total)
+        return total.formatted()
     }
 }
 
@@ -24,7 +24,7 @@ struct Product: Decodable {
     
     var formattedPrice: String? {
         guard let price = Int(lprice) else { return nil }
-        return NumberFormatter.decimalFormatter.string(for: price)
+        return "\(price.formatted())원"
     }
     
     var imageURL: URL? {
