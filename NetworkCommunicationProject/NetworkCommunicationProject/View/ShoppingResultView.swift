@@ -26,7 +26,6 @@ final class ShoppingResultView: UIView {
         return label
     }()
     
-    //TODO: - 다른 방법으로
     let accuracyButton = FilterOptionButton(title: "정확도", foregroundColor: .black, backgroundColor: .white)
     let dateOrderButton = FilterOptionButton(title: "날짜순")
     let highPriceButton = FilterOptionButton(title: "가격높은순")
@@ -80,6 +79,7 @@ final class ShoppingResultView: UIView {
     }
     
     private func configureButtonActions() {
+        // TODO: - addAction 수정
         accuracyButton.addTarget(self, action: #selector(handleAccuracyButtonTapped(_:)), for: .touchUpInside)
         dateOrderButton.addTarget(self, action: #selector(handleDateOrderButtonTapped(_:)), for: .touchUpInside)
         highPriceButton.addTarget(self, action: #selector(handleHighPriceButtonTapped(_:)), for: .touchUpInside)

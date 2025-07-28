@@ -18,6 +18,12 @@ final class ShoppingResultViewController: UIViewController {
             shoppingResultView.collectionView.reloadData()
         }
     }
+    private var page = 1
+    private var total = 0
+    private let display = 30
+    private var isEnd: Bool {
+        return total > page * display ? false : true
+    }
     
     override func loadView() {
         self.view = shoppingResultView
@@ -28,7 +34,7 @@ final class ShoppingResultViewController: UIViewController {
         setupNavigation()
         configureCollectionView()
         configureDelegation()
-        callRequest(query: query)
+        callRequest(query: query, page: page)
     }
     
     private func setupNavigation() {
@@ -46,7 +52,7 @@ final class ShoppingResultViewController: UIViewController {
         shoppingResultView.configureDelegation(self)
     }
     
-    private func callRequest(query: String?, display: Int = 100, sort: SortType = .accuracy) {
+    private func callRequest(query: String?, page: Int, sort: SortType = .accuracy) {
         guard let query else { return }
         
         let baseURL = "https://openapi.naver.com/v1/search/shop.json"
@@ -58,6 +64,7 @@ final class ShoppingResultViewController: UIViewController {
         let parameters: Parameters = [
             "query": query,
             "display": display,
+            "start": page,
             "sort": sort.rawValue
         ]
         
@@ -68,12 +75,23 @@ final class ShoppingResultViewController: UIViewController {
                 
                 switch response.result {
                 case let .success(value):
-                    self.shoppingList = value.items
+                    self.shoppingList.append(contentsOf: value.items)
                     self.shoppingResultView.configure(value)
+
+                    if page == 1 {
+                        total = value.total
+                        shoppingResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                    }
+                    
                 case let .failure(error):
                     print("Failure", error)
                 }
             }
+    }
+    
+    private func resetShoppingList() {
+        shoppingList.removeAll()
+        page = 1
     }
 }
 
@@ -89,22 +107,26 @@ extension ShoppingResultViewController {
 extension ShoppingResultViewController: ShoppingResultViewDelegate {
     func tappedAccuracyButton() {
         print(#function)
-        callRequest(query: query, sort: .accuracy)
+        resetShoppingList()
+        callRequest(query: query, page: page, sort: .accuracy)
     }
     
     func tappedDateOrderButto() {
         print(#function)
-        callRequest(query: query, sort: .dateOrder)
+        resetShoppingList()
+        callRequest(query: query, page: page, sort: .dateOrder)
     }
     
     func tappedHighPriceButto() {
         print(#function)
-        callRequest(query: query, sort: .highPrice)
+        resetShoppingList()
+        callRequest(query: query, page: page, sort: .highPrice)
     }
     
     func tappedLowPriceButton() {
         print(#function)
-        callRequest(query: query, sort: .lowPrice)
+        resetShoppingList()
+        callRequest(query: query, page: page, sort: .lowPrice)
     }
 }
 
@@ -123,5 +145,13 @@ extension ShoppingResultViewController: UICollectionViewDataSource {
 }
 
 extension ShoppingResultViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+        guard let query else { return }
+        
+        if indexPath.item == (shoppingList.count - 5), !isEnd {
+            page += 1
+            callRequest(query: query, page: page)
+        }
+    }
 }
