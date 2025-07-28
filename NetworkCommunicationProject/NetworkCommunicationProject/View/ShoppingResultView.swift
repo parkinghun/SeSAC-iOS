@@ -79,7 +79,6 @@ final class ShoppingResultView: UIView {
     }
     
     private func configureButtonActions() {
-        // TODO: - addAction 수정
         accuracyButton.addTarget(self, action: #selector(handleAccuracyButtonTapped(_:)), for: .touchUpInside)
         dateOrderButton.addTarget(self, action: #selector(handleDateOrderButtonTapped(_:)), for: .touchUpInside)
         highPriceButton.addTarget(self, action: #selector(handleHighPriceButtonTapped(_:)), for: .touchUpInside)

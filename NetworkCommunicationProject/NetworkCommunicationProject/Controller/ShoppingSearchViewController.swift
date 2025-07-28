@@ -34,7 +34,9 @@ final class ShoppingSearchViewController: UIViewController {
 extension ShoppingSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print(#function)
-        guard let text = searchBar.text, text.count >= 2 else {
+        let trimmesText = searchBar.text?.trimmingCharacters(in: .whitespaces)
+
+        guard let text = trimmesText, text.count >= 2 else {
             self.showAlert(title: "입력 글자수 부족", message: "검색어는 두글자 이상 입력해주세요.")
             return
         }
