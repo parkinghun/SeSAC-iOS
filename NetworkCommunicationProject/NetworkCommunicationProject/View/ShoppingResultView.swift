@@ -27,10 +27,10 @@ final class ShoppingResultView: UIView {
     }()
     
     //TODO: - 다른 방법으로
-    let accuracyButton = FilterOptionButton(title: "  정확도  ", titleColor: .black, backgroundColor: .white)
-    let dateOrderButton = FilterOptionButton(title: "  날짜순  ")
-    let highPriceButton = FilterOptionButton(title: "  가격높은순  ")
-    let lowPriceButton = FilterOptionButton(title: "  가격낮은순  ")
+    let accuracyButton = FilterOptionButton(title: "정확도", foregroundColor: .black, backgroundColor: .white)
+    let dateOrderButton = FilterOptionButton(title: "날짜순")
+    let highPriceButton = FilterOptionButton(title: "가격높은순")
+    let lowPriceButton = FilterOptionButton(title: "가격낮은순")
     
     lazy var buttonStackView = {
         let sv = UIStackView(arrangedSubviews: [accuracyButton, dateOrderButton, highPriceButton, lowPriceButton])
@@ -91,11 +91,11 @@ final class ShoppingResultView: UIView {
         
         buttons.forEach {
             if $0 == button {
-                $0.setTitleColor(.black, for: .normal)
-                $0.backgroundColor = .white
+                $0.configuration?.baseForegroundColor = .black
+                $0.configuration?.baseBackgroundColor = .white
             } else {
-                $0.setTitleColor(.white, for: .normal)
-                $0.backgroundColor = .black
+                $0.configuration?.baseForegroundColor = .white
+                $0.configuration?.baseBackgroundColor = .black
             }
         }
     }
@@ -138,7 +138,6 @@ extension ShoppingResultView: ViewDesignProtocol {
         buttonStackView.snp.makeConstraints {
             $0.leading.equalTo(self).offset(8)
             $0.top.equalTo(resultCountLabel.snp.bottom).offset(8)
-            $0.height.equalTo(44)
         }
         
         collectionView.snp.makeConstraints {
