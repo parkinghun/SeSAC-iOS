@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol ShoppingResultCollectionViewCellDelegate: AnyObject {
+    func handleLikeButtonTapped(cell: ShoppingResultCollectionViewCell)
+}
 
 final class ShoppingResultCollectionViewCell: UICollectionViewCell {
     
     typealias DSFont = DesignSystem.Font
     static let id = "ShoppingResultCollectionViewCell"
 
+    weak var delegate: ShoppingResultCollectionViewCellDelegate?
+    
     let imageWrapperView = UIView()
 
     let productImageView = {
@@ -124,5 +129,10 @@ extension ShoppingResultCollectionViewCell: ViewDesignProtocol {
     
     func configureView() {
         self.backgroundColor = .clear
+        likeButton.addTarget(self, action: #selector(tappedLikeButton), for: .touchUpInside)
+    }
+    
+    @objc private func tappedLikeButton() {
+        delegate?.handleLikeButtonTapped(cell: self)
     }
 }
