@@ -18,6 +18,13 @@ final class ShoppingResultViewController: UIViewController {
             shoppingResultView.collectionView.reloadData()
         }
     }
+    
+    private var recommendList: [Product] = [] {
+        didSet {
+            shoppingResultView.horizontalCollectionView.reloadData()
+        }
+    }
+    
     private var start = 1
     private var total = 0
     private let display = 30
@@ -46,7 +53,12 @@ final class ShoppingResultViewController: UIViewController {
         shoppingResultView.collectionView.delegate = self
         shoppingResultView.collectionView.dataSource = self
         
+        shoppingResultView.horizontalCollectionView.delegate = self
+        shoppingResultView.horizontalCollectionView.dataSource = self
+        
         shoppingResultView.collectionView.register(ShoppingResultCollectionViewCell.self, forCellWithReuseIdentifier: ShoppingResultCollectionViewCell.id)
+        
+        shoppingResultView.horizontalCollectionView.register(ShoppingHorizontalCollectionViewCell.self, forCellWithReuseIdentifier: ShoppingHorizontalCollectionViewCell.id)
     }
     
     private func configureDelegation() {
@@ -151,16 +163,36 @@ extension ShoppingResultViewController: ShoppingResultViewDelegate {
 
 extension ShoppingResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shoppingList.count
+        if collectionView == shoppingResultView.collectionView {
+            return shoppingList.count
+        }
+        
+        if collectionView == shoppingResultView.horizontalCollectionView {
+            return 10
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = shoppingResultView.collectionView.dequeueReusableCell(withReuseIdentifier: ShoppingResultCollectionViewCell.id, for: indexPath) as? ShoppingResultCollectionViewCell else { return UICollectionViewCell() }
+        if collectionView == shoppingResultView.collectionView {
+            guard let cell = shoppingResultView.collectionView.dequeueReusableCell(withReuseIdentifier: ShoppingResultCollectionViewCell.id, for: indexPath) as? ShoppingResultCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.delegate = self  // 셀마다 델리겟 설정
+            cell.configure(item: shoppingList[indexPath.item])
+            
+            return cell
+        }
         
-        cell.delegate = self  // 셀마다 델리겟 설정
-        cell.configure(item: shoppingList[indexPath.item])
+        if collectionView == shoppingResultView.horizontalCollectionView {
+            guard let cell = shoppingResultView.horizontalCollectionView.dequeueReusableCell(withReuseIdentifier: ShoppingHorizontalCollectionViewCell.id, for: indexPath) as? ShoppingHorizontalCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.backgroundColor = .red
+//            cell.configure(item: recommendList[indexPath.row])
+            
+            return cell
+        }
         
-        return cell
+        return UICollectionViewCell()
     }
 }
 
@@ -187,24 +219,3 @@ extension ShoppingResultViewController: UICollectionViewDelegate {
         }
     }
 }
-
-//
-//enum ShoppingAPIError: Error {
-//    case authentication  // statusCode - 401
-//    case server
-//    case disallowed  //  403
-//    case noAPI  // 404
-//    
-//    var description: String {
-//        switch self {
-//        default: return ""
-//        }
-//    }
-//    
-//}
-//
-//enum NetworkError {
-//    case invalidURL
-//    case noData
-//    case decodingFailed
-//}

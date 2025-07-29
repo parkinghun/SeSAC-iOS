@@ -38,5 +38,10 @@ struct ShoppingErrorEntity: Decodable {
 }
 
 
+// 어떤게 클라이언트에 가까운지
+// HTTP StatusCode
+// 에러코드
 
-// 에러코드와 statusCode
+
+// 데이터 없음
+//

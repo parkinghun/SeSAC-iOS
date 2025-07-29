@@ -57,6 +57,19 @@ final class ShoppingResultView: UIView {
         return cv
     }()
     
+    let horizontalCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 8
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        layout.itemSize = CGSize(width: 120, height: 120)
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .black
+        return cv
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureHierachy()
@@ -123,7 +136,7 @@ final class ShoppingResultView: UIView {
 
 extension ShoppingResultView: ViewDesignProtocol {
     func configureHierachy() {
-        let components: [UIView] = [resultCountLabel, buttonStackView, collectionView]
+        let components: [UIView] = [resultCountLabel, buttonStackView, collectionView, horizontalCollectionView]
         components.forEach {
             self.addSubview($0)
         }
@@ -140,8 +153,14 @@ extension ShoppingResultView: ViewDesignProtocol {
         }
         
         collectionView.snp.makeConstraints {
-            $0.horizontalEdges.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
             $0.top.equalTo(buttonStackView.snp.bottom).offset(8)
+            $0.bottom.equalTo(horizontalCollectionView.snp.top).offset(-10)
+        }
+        
+        horizontalCollectionView.snp.makeConstraints {
+            $0.horizontalEdges.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.height.equalTo(120)
         }
     }
     
