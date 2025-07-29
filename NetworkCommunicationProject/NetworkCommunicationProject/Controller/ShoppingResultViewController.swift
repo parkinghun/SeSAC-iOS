@@ -42,7 +42,8 @@ final class ShoppingResultViewController: UIViewController {
         setupNavigation()
         configureCollectionView()
         configureDelegation()
-        callRequest(query: query, start: start)
+        callRequest(query: query)
+        callRequest(query: "맥북 프로", display: 10, collectionType: .recommend)
     }
     
     private func setupNavigation() {
@@ -65,7 +66,7 @@ final class ShoppingResultViewController: UIViewController {
         shoppingResultView.configureDelegation(self)
     }
     
-    private func callRequest(query: String?, start: Int) {
+    private func callRequest(query: String?, start: Int = 1, display: Int = 30, collectionType: CollectionType = .search) {
         guard let query else { return }
         
         let baseURL = "https://openapi.naver.com/v1/search/shop.json"
@@ -92,11 +93,15 @@ final class ShoppingResultViewController: UIViewController {
                     do {
                         let searchResult = try JSONDecoder().decode(SearchResult.self, from: response.data!)
                         
-                        self.shoppingList.append(contentsOf: searchResult.items)
-                        self.shoppingResultView.configure(searchResult)
-                        
-                        if start == 1 {
-                            self.total = searchResult.total
+                        if collectionType == .search {
+                            shoppingList.append(contentsOf: searchResult.items)
+                            shoppingResultView.configure(searchResult)
+                            
+                            if start == 1 {
+                            total = searchResult.total
+                        }
+                        } else {
+                            recommendList.append(contentsOf: searchResult.items)
                         }
                     } catch {
                         print("성공 - 디코딩 실패")
@@ -128,6 +133,11 @@ extension ShoppingResultViewController {
         case dateOrder = "date"
         case highPrice = "dsc"
         case lowPrice = "asc"
+    }
+    
+    enum CollectionType {
+        case search
+        case recommend
     }
 }
 
@@ -168,7 +178,7 @@ extension ShoppingResultViewController: UICollectionViewDataSource {
         }
         
         if collectionView == shoppingResultView.horizontalCollectionView {
-            return 10
+            return recommendList.count
         }
         return 0
     }
@@ -186,8 +196,7 @@ extension ShoppingResultViewController: UICollectionViewDataSource {
         if collectionView == shoppingResultView.horizontalCollectionView {
             guard let cell = shoppingResultView.horizontalCollectionView.dequeueReusableCell(withReuseIdentifier: ShoppingHorizontalCollectionViewCell.id, for: indexPath) as? ShoppingHorizontalCollectionViewCell else { return UICollectionViewCell() }
             
-            cell.backgroundColor = .red
-//            cell.configure(item: recommendList[indexPath.row])
+            cell.configure(item: recommendList[indexPath.row])
             
             return cell
         }

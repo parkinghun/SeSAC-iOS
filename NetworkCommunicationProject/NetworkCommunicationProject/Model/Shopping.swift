@@ -16,7 +16,7 @@ struct SearchResult: Decodable {
     }
 }
 
-struct Product: Decodable {
+struct Product: Decodable, Equatable {
     let title: String
     let image: String
     let lprice: String

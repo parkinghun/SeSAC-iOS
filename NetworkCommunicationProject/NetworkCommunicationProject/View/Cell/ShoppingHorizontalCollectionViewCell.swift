@@ -14,7 +14,6 @@ final class ShoppingHorizontalCollectionViewCell: UICollectionViewCell {
     
     let productImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "heart")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -48,6 +47,6 @@ extension ShoppingHorizontalCollectionViewCell: ViewDesignProtocol {
     }
     
     func configureView() {
-        self.backgroundColor = .red
+        self.backgroundColor = .clear
     }
 }

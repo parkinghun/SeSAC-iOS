@@ -63,10 +63,11 @@ final class ShoppingResultView: UIView {
         layout.minimumInteritemSpacing = 8
         layout.minimumLineSpacing = 8
         layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        layout.itemSize = CGSize(width: 120, height: 120)
+        layout.itemSize = CGSize(width: 100, height: 100)
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .black
+        cv.showsHorizontalScrollIndicator = false
         return cv
     }()
     
@@ -160,7 +161,7 @@ extension ShoppingResultView: ViewDesignProtocol {
         
         horizontalCollectionView.snp.makeConstraints {
             $0.horizontalEdges.bottom.equalTo(self.safeAreaLayoutGuide)
-            $0.height.equalTo(120)
+            $0.height.equalTo(100)
         }
     }
     
