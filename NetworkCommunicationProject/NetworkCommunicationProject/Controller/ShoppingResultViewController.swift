@@ -84,38 +84,39 @@ final class ShoppingResultViewController: UIViewController {
         
         AF.request(baseURL, method: .get, parameters: parameters, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseData { [weak self] response in
-                guard let self else { return }
-                guard let myResponse = response.response else { return }
-                
-                switch myResponse.statusCode {
+            .responseData { [weak self] afResponse in
+                guard let self,
+                      let urlResponse = afResponse.response,
+                      let data = afResponse.data else { return }
+
+                switch urlResponse.statusCode {
                 case 200..<300:  // 성공
                     do {
-                        let searchResult = try JSONDecoder().decode(SearchResult.self, from: response.data!)
+                        let searchResult = try JSONDecoder().decode(SearchResult.self, from: data)
                         
                         if collectionType == .search {
-                            shoppingList.append(contentsOf: searchResult.items)
-                            shoppingResultView.configure(searchResult)
+                            self.shoppingList.append(contentsOf: searchResult.items)
+                            self.shoppingResultView.configure(searchResult)
                             
                             if start == 1 {
-                            total = searchResult.total
-                        }
+                                self.total = searchResult.total
+                            }
                         } else {
-                            recommendList.append(contentsOf: searchResult.items)
+                            self.recommendList.append(contentsOf: searchResult.items)
                         }
                     } catch {
                         print("성공 - 디코딩 실패")
                     }
                 case 400..<600:  // 실패
                     do {
-                        let errorEntity = try JSONDecoder().decode(ShoppingErrorEntity.self, from: response.data!)
+                        let errorEntity = try JSONDecoder().decode(ShoppingErrorEntity.self, from: data)
                         showAlert(title: "에러코드 \(errorEntity.errorCode)", message: errorEntity.errorMessage)
                         print(errorEntity)
                     } catch {
                         print("에러 - 디코딩 실패")
                     }
                 default:
-                    print(myResponse.statusCode)
+                    print(urlResponse.statusCode)
                 }
             }
     }
