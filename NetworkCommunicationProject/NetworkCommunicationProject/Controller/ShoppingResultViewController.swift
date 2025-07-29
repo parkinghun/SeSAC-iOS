@@ -8,16 +8,6 @@
 import UIKit
 import Alamofire
 
-//TODO: - 로직 수정
-// ✅ 가격 높은순할 때, 중간에 가격 높은게 생김...
-// 스크롤이 위로 되는 과정에서 컬렉션뷰가 사라짐.. ->
-/*
- 1. shopping List reset (0개)
- 2. 스크롤이 위로 올라감 (index 100 -> 0)
- 3. 네트워크를 해서 30 이와중에 스크롤이 올라가 25 -> 네트워크 통신 한 번 더해 그러니까
- 
- 
- */
 final class ShoppingResultViewController: UIViewController {
     
     var query: String?
@@ -55,7 +45,7 @@ final class ShoppingResultViewController: UIViewController {
     private func configureCollectionView() {
         shoppingResultView.collectionView.delegate = self
         shoppingResultView.collectionView.dataSource = self
-
+        
         shoppingResultView.collectionView.register(ShoppingResultCollectionViewCell.self, forCellWithReuseIdentifier: ShoppingResultCollectionViewCell.id)
     }
     
@@ -71,7 +61,7 @@ final class ShoppingResultViewController: UIViewController {
             HTTPHeader(name: "X-Naver-Client-Id", value: Bundle.getAPIKey(for: .naverClientID)),
             HTTPHeader(name: "X-Naver-Client-Secret", value: Bundle.getAPIKey(for: .naverClientSecret))
         ]
-        
+        // TODO: - encodable
         let parameters: Parameters = [
             "query": query,
             "display": display,
@@ -81,22 +71,34 @@ final class ShoppingResultViewController: UIViewController {
         
         AF.request(baseURL, method: .get, parameters: parameters, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: SearchResult.self) { [weak self] response in
-                guard let self else{ return }
+            .responseData { [weak self] response in
+                guard let self else { return }
+                guard let myResponse = response.response else { return }
                 
-                switch response.result {
-                case let .success(value):
-                    self.total = value.total
-                    self.shoppingList.append(contentsOf: value.items)
-                    self.shoppingResultView.configure(value)
-                    
-                    if start == 1 {
-                        total = value.total
+                switch myResponse.statusCode {
+                case 200..<300:  // 성공
+                    do {
+                        let searchResult = try JSONDecoder().decode(SearchResult.self, from: response.data!)
+                        
+                        self.shoppingList.append(contentsOf: searchResult.items)
+                        self.shoppingResultView.configure(searchResult)
+                        
+                        if start == 1 {
+                            self.total = searchResult.total
+                        }
+                    } catch {
+                        print("성공 - 디코딩 실패")
                     }
-                    
-                case let .failure(error):
-                    print("Failure", error)
-                    // TODO: - 알럿 띄우기 (상태별 분기해서)
+                case 400..<600:  // 실패
+                    do {
+                        let errorEntity = try JSONDecoder().decode(ShoppingErrorEntity.self, from: response.data!)
+                        showAlert(title: "에러코드 \(errorEntity.errorCode)", message: errorEntity.errorMessage)
+                        print(errorEntity)
+                    } catch {
+                        print("에러 - 디코딩 실패")
+                    }
+                default:
+                    print(myResponse.statusCode)
                 }
             }
     }
@@ -167,7 +169,7 @@ extension ShoppingResultViewController: ShoppingResultCollectionViewCellDelegate
         // 셀로 인덱스 패스 구하기
         if let indexPath = shoppingResultView.collectionView.indexPath(for: cell) {
             print("\(indexPath)의 하트 버튼이 눌림")
-            // 하트 변경 로직 추가
+            // 하트 변경 로직 추가  -- 10만개만라면??
             
         }
     }
@@ -185,3 +187,24 @@ extension ShoppingResultViewController: UICollectionViewDelegate {
         }
     }
 }
+
+//
+//enum ShoppingAPIError: Error {
+//    case authentication  // statusCode - 401
+//    case server
+//    case disallowed  //  403
+//    case noAPI  // 404
+//    
+//    var description: String {
+//        switch self {
+//        default: return ""
+//        }
+//    }
+//    
+//}
+//
+//enum NetworkError {
+//    case invalidURL
+//    case noData
+//    case decodingFailed
+//}

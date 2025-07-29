@@ -31,3 +31,12 @@ struct Product: Decodable {
         return URL(string: image)
     }
 }
+
+struct ShoppingErrorEntity: Decodable {
+    let errorMessage: String
+    let errorCode: String
+}
+
+
+
+// 에러코드와 statusCode
