@@ -33,12 +33,14 @@ class BMIViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "키를 입력해주세요 (80 ~ 230 cm)"
         textField.borderStyle = .roundedRect
+        textField.keyboardType = .numberPad
         return textField
     }()
     let weightTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "몸무게를 입력해주세요 (20 ~ 160 kg)"
         textField.borderStyle = .roundedRect
+        textField.keyboardType = .numberPad
         return textField
     }()
     let resultButton: UIButton = {
@@ -115,11 +117,7 @@ class BMIViewController: UIViewController {
             
         } catch let error {
             resultLabel.text = "입력 에러! 다시 입력해주세요."
-            
-            let alert = UIAlertController(title: "BMI 입력 에러", message: error.message, preferredStyle: .alert)
-            let ok = UIAlertAction(title: "확인", style: .default)
-            alert.addAction(ok)
-            present(alert, animated: true)
+            showAlert(title: "BMI 입력 에러", message: error.message)
         }
         
         resetInput()
