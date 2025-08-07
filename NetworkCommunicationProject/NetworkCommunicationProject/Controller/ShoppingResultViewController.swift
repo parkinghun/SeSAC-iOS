@@ -69,6 +69,7 @@ final class ShoppingResultViewController: UIViewController {
     private func callRequest(query: String?, start: Int = 1, display: Int = 30, collectionType: CollectionType = .search) {
         guard let query else { return }
         
+        // 분리해서 버전별/.. 관리하는 방법 (버전이 100개 .. )
         let baseURL = "https://openapi.naver.com/v1/search/shop.json"
         let headers: HTTPHeaders = [
             HTTPHeader(name: "X-Naver-Client-Id", value: Bundle.getAPIKey(for: .naverClientID)),
@@ -88,7 +89,7 @@ final class ShoppingResultViewController: UIViewController {
                 guard let self,
                       let urlResponse = afResponse.response,
                       let data = afResponse.data else { return }
-
+                
                 switch urlResponse.statusCode {
                 case 200..<300:  // 성공
                     do {
@@ -218,6 +219,7 @@ extension ShoppingResultViewController: ShoppingResultCollectionViewCellDelegate
 }
 
 extension ShoppingResultViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         print("item index - ", indexPath.item)
         guard let query else { return }
@@ -229,3 +231,5 @@ extension ShoppingResultViewController: UICollectionViewDelegate {
         }
     }
 }
+
+

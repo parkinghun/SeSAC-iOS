@@ -1,13 +1,13 @@
+////
+////  NetworkManager.swift
+////  NetworkCommunicationProject
+////
+////  Created by 박성훈 on 7/29/25.
+////
 //
-//  NetworkManager.swift
-//  NetworkCommunicationProject
+//import Foundation
+//import Alamofire
 //
-//  Created by 박성훈 on 7/29/25.
-//
-
-import Foundation
-import Alamofire
-
 //protocol APIRequst {
 //    var baseURL: String { get }
 //    var paramters: Parameters { get }
@@ -20,7 +20,7 @@ import Alamofire
 //    
 //    private init() { }
 //    
-//    func fetchData<T: Decodable>(kind: APIType) {
+//    func fetchData(kind: APIType, info: API) {
 //        let api = kind.apiInfo
 //        
 //        AF.request(api.baseURL, method: .get, parameters: api.paramters, headers: api.headers)
@@ -32,13 +32,18 @@ import Alamofire
 //}
 //
 //extension NetworkManager {
+//    struct APIType {
+//        let info: APIInfo
+//        let type: APIType
+//    }
+//    
 //    struct APIInfo {
 //        let baseURL: String
 //        let headers: HTTPHeaders? = nil
 //        let paramters: Parameters
 //    }
 //    
-//    enum APIType {
+//    enum API {
 //        case lotto(round: Int)
 //        case movie(key: String, date: String)
 //        case naverShopping

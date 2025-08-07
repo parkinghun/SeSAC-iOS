@@ -8,6 +8,7 @@
 import Foundation
 
 extension DateFormatter {
+    // 연산프로퍼티 / 즉시실행핢수 차이
     static let simpleDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd"

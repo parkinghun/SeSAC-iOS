@@ -23,3 +23,4 @@ extension DesignSystem {
         static let caption2 = UIFont.systemFont(ofSize: 11, weight: .regular)
     }
 }
+// 구조체로 만들었을 때랑 어떤 예외처리를 ㅐㅎ야하는지 관점
