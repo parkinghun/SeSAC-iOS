@@ -8,45 +8,7 @@
 import UIKit
 import SnapKit
 
-enum BirthDayValidationError: Error {
-    case outOfYear
-    case outOfMonth
-    case outOfDay
-    case isNotNumber
-    case blankSpace
-    case isNotDate
-    
-    var message: String {
-        switch self {
-        case .outOfYear:
-            return "입력하신 정보가 년도의 범위를 벗어났습니다."
-        case .outOfMonth:
-            return "입력하신 정보가 달의 범위를 벗어났습니다."
-        case .outOfDay:
-            return "입력하신 정보가 날짜 범위를 벗어났습니다."
-        case .isNotNumber:
-            return "숫자가 아닙니다. 모두 숫자로 입력해주세요."
-        case .blankSpace:
-            return "생년월일을 모두 입력해주세요."
-        case .isNotDate:
-            return "날짜를 생성할 수 없습니다."
-        }
-    }
-}
-
-struct Birth {
-    var year: String
-    var month: String
-    var day: String
-    
-    var date: Date? {
-        DateFormatter.simpleFormatter.date(from: year + month + day)
-    }
-}
-
 class BirthDayViewController: UIViewController {
-    
-    var birth = Birth(year: "", month: "", day: "")
 
     let yearTextField: UITextField = {
         let textField = UITextField()
@@ -98,11 +60,13 @@ class BirthDayViewController: UIViewController {
         return label
     }()
         
+    private let viewModel = BirthdayViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
         configureLayout()
-        
+        setupClosure()
         resultButton.addTarget(self, action: #selector(resultButtonTapped), for: .touchUpInside)
     }
     
@@ -170,25 +134,26 @@ class BirthDayViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @objc func resultButtonTapped() {
-        
-        guard let year = yearTextField.text,
-              let month = monthTextField.text,
-              let day = dayTextField.text else { return }
-        
-        do {
-            let birthTuple = try validateBirthDaynput(year: year, month: month, day: day)
-            self.birth = getBirthString(year: birthTuple.year, month: birthTuple.month, day: birthTuple.day)
-            
-            let gap = try calculateDate(birth: birth.date)
-            
-            resultLabel.text = "D+\(gap)"
-        } catch let error {
-            resultLabel.text = "입력 에러! 다시 입력해주세요."
-            showAlert(title: "입력 에러", message: error.message)
+    private func setupClosure() {
+        viewModel.closure = { [weak self] in
+            guard let self else { return }
+
+            if self.viewModel.outputShowAlert {
+                self.showAlert(title: "생년월일 입력 에러", message: self.viewModel.outputText) {
+                    self.resetInput()
+                }
+            } else {
+                resultLabel.text = self.viewModel.outputText
+            }
         }
-        
-        resetInput()
+    }
+    
+    @objc func resultButtonTapped() {
+        resultLabel.text = ""
+        viewModel.inputBirth = .init(year: yearTextField.text,
+                                     month: monthTextField.text,
+                                     day: dayTextField.text)
+
         view.endEditing(true)
     }
     
@@ -199,48 +164,4 @@ class BirthDayViewController: UIViewController {
         
         yearTextField.becomeFirstResponder()
     }
-    
-    private func validateBirthDaynput<T: StringProtocol>(year: T, month: T, day: T) throws(BirthDayValidationError) -> (year: Int, month: Int, day: Int) {
-        guard !year.isEmpty, !month.isEmpty, !day.isEmpty else {
-            throw .blankSpace
-        }
-        
-        guard let year = Int(year),
-              let month = Int(month),
-              let day = Int(day) else {
-            throw .isNotNumber
-        }
-        
-        guard year >= 1, year <= 2025 else {  // 0 2026 해보기
-            throw .outOfYear
-        }
-        
-        guard month >= 1, month <= 12 else {
-            throw .outOfMonth
-        }
-        
-        guard day >= 1, day <= 31 else {
-            throw .outOfDay
-        }
-        
-        return (year, month, day)
-    }
-    
-    private func getBirthString(year: Int, month: Int, day: Int) -> Birth {
-        birth.year = String(format: "%04d", year)
-        birth.month = String(format: "%02d", month)
-        birth.day = String(format: "%02d", day)
-        return birth
-    }
-    
-    private func calculateDate(birth: Date?) throws(BirthDayValidationError) -> Int {
-        guard let birth else {
-            throw .isNotDate
-        }
-        
-        let gap = Calendar.current.getDateGap(from: birth, to: .now)
-        return gap
-    }
-    
-    
 }

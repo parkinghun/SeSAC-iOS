@@ -8,9 +8,11 @@
 import UIKit
 
 extension UIViewController {
-    func showAlert(title: String, message: String) {
+    func showAlert(title: String, message: String, actionHandler: (() -> Void)? = nil)  {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "확인", style: .default)
+        let ok = UIAlertAction(title: "확인", style: .default) { _ in
+            actionHandler?()
+        }
         alert.addAction(ok)
         present(alert, animated: true)
     }
