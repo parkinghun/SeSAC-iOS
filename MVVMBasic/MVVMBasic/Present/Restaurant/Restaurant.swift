@@ -15,9 +15,21 @@ struct Restaurant {
     let name: String
     let address: String
     let phoneNumber: String
-    let category: String
+    let category: RestaurantType
     let price: Int
     let type: Int
+}
+
+extension Restaurant {
+    enum RestaurantType: String {
+        case korean
+        case chinese
+        case japanese
+        case western
+        case lightWestern
+        case snack
+        case cafe
+    }
 }
 
 struct RestaurantList {
@@ -32,7 +44,7 @@ struct RestaurantList {
             name: "24시전주명가콩나물국밥 문래점",
             address: "서울 영등포구 선유로 33 문래대림아파트",
             phoneNumber: "02-2677-6339",
-            category: "한식",
+            category: .korean,
             price: 5000,
             type: 300
         ),
@@ -43,7 +55,7 @@ struct RestaurantList {
             name: "데일리 푸드",
             address: "서울 영등포구 선유로3길 10 하우스디비즈 지하1층 B101호",
             phoneNumber: "02-2675-7462",
-            category: "한식",
+            category: .korean,
             price: 1000,
             type: 100
         ),
@@ -54,7 +66,7 @@ struct RestaurantList {
             name: "에이스한식셀프",
             address: "서울 영등포구 선유로13길 25",
             phoneNumber: "02-2257-8338",
-            category: "한식",
+            category: .korean,
             price: 5000000,
             type: 200
         ),
@@ -65,7 +77,7 @@ struct RestaurantList {
             name: "쉬즈베이글 문래점",
             address: "서울 영등포구 선유로9길 10 SK V1 center 1층 109",
             phoneNumber: "0507-877-3884",
-            category: "카페",
+            category: .cafe,
             price: 98564200,
             type: 200
         ),
@@ -76,7 +88,7 @@ struct RestaurantList {
             name: "탐라순대국감자탕 문래점",
             address: "서울 영등포구 선유로9길 10 1층",
             phoneNumber: "0507-1345-3738",
-            category: "한식",
+            category: .korean,
             price: 10,
             type: 100
         ),
@@ -87,7 +99,7 @@ struct RestaurantList {
             name: "홍대교동짬뽕",
             address: "서울 영등포구 선유로 34",
             phoneNumber: "02-2679-4559",
-            category: "중식",
+            category: .chinese,
             price: 3333,
             type: 200
         ),
@@ -98,7 +110,7 @@ struct RestaurantList {
             name: "종로김밥 문래점",
             address: "서울 영등포구 선유로13길 25 에이스하이테크시티2",
             phoneNumber: "02-2257-8191",
-            category: "분식",
+            category: .snack,
             price: 94290,
             type: 300
         ),
@@ -109,7 +121,7 @@ struct RestaurantList {
             name: "본설렁탕 문래점",
             address: "서울 영등포구 선유로13길 25 117호",
             phoneNumber: "0507-1313-8110",
-            category: "한식",
+            category: .korean,
             price: 9867123467,
             type: 200
         ),
@@ -120,7 +132,7 @@ struct RestaurantList {
             name: "영일분식",
             address: "서울 영등포구 도림로141가길 34-1",
             phoneNumber: "02-2636-9817",
-            category: "분식",
+            category: .snack,
             price: 20000,
             type: 100
         ),
@@ -131,7 +143,7 @@ struct RestaurantList {
             name: "문래동 훈카츠",
             address: "서울 영등포구 선유로9길 10 1층128호",
             phoneNumber: "02-2677-0225",
-            category: "일식",
+            category: .japanese,
             price: 84438,
             type: 100
         ),
@@ -142,7 +154,7 @@ struct RestaurantList {
             name: "문래동 돈까스",
             address: "서울 영등포구 도림로147길 2 문래동돈까스",
             phoneNumber: "0507-1390-1007",
-            category: "경양식",
+            category: .lightWestern,
             price: 112376,
             type: 100
         ),
@@ -153,7 +165,7 @@ struct RestaurantList {
             name: "선식당 문래점",
             address: "서울 영등포구 선유로 33 문래대림아파트101동 1층상가",
             phoneNumber: "0507-1391-0135",
-            category: "양식",
+            category: .western,
             price: 16900,
             type: 100
         ),
@@ -164,7 +176,7 @@ struct RestaurantList {
             name: "오복순대국",
             address: "서울 영등포구 도림로 465",
             phoneNumber: "0507-1408-4183",
-            category: "한식",
+            category: .korean,
             price: 38000,
             type: 100
         ),
@@ -175,7 +187,7 @@ struct RestaurantList {
             name: "제주올래국수",
             address: "서울 영등포구 선유로11길 12 문래파라곤",
             phoneNumber: "02-2632-5677",
-            category: "한식",
+            category: .korean,
             price: 7612,
             type: 100
         ),
@@ -186,7 +198,7 @@ struct RestaurantList {
             name: "백채김치찌개 문래점",
             address: "서울 영등포구 도림로 489",
             phoneNumber: "02-2635-5206",
-            category: "한식",
+            category: .korean,
             price: 112358500,
             type: 200
         ),
@@ -197,7 +209,7 @@ struct RestaurantList {
             name: "오타루소바우동",
             address: "서울 영등포구 도림로 491-2",
             phoneNumber: "02-2634-5460",
-            category: "일식",
+            category: .japanese,
             price: 658,
             type: 300
         )

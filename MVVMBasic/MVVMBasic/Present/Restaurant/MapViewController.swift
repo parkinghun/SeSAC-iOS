@@ -10,17 +10,24 @@ import MapKit
 import SnapKit
 
 class MapViewController: UIViewController {
-     
     private let mapView = MKMapView()
-     
+    private let viewModel = MapViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupMapView()
-        addSeoulStationAnnotation()
+        createAnnotation(filteredList: viewModel.list)
+        
+        viewModel.outputRestaurantList.lazyBind { [weak self] list in
+            guard let self else { return }
+            createAnnotation(filteredList: list)
+        }
     }
-     
-    private func setupUI() {
+}
+
+private extension MapViewController {
+    func setupUI() {
         view.backgroundColor = .systemBackground
         title = "지도"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -37,46 +44,70 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func setupMapView() {
+    func setupMapView() {
         mapView.delegate = self
-        mapView.mapType = .standard
-        mapView.showsUserLocation = true
-        mapView.userTrackingMode = .none
+        mapView.mapType = .standard  // 기본지도
+        mapView.showsUserLocation = true  // 위치 사용시 사용자 현재 위치 표시
+        mapView.userTrackingMode = .none  // 사용자 위치 추적 x
          
-        let seoulStationCoordinate = CLLocationCoordinate2D(latitude: 37.5547, longitude: 126.9706)
-        let region = MKCoordinateRegion(
-            center: seoulStationCoordinate,
-            latitudinalMeters: 2000,
-            longitudinalMeters: 2000
-        )
+        createAnnotation(filteredList: viewModel.list)
+    }
+
+    func createAnnotation(filteredList: [Restaurant]) {
+        mapView.removeAnnotations(mapView.annotations)
+
+        var annotations: [MKAnnotation] = []
+        filteredList.forEach {
+            let annotation = CustomAnnotation(title: $0.name, coordinate: .init(latitude: $0.latitude, longitude: $0.longitude))
+            mapView.addAnnotation(annotation)
+            annotations.append(annotation)
+        }
+        
+        let center = centerCoordinate(for: annotations)
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.setRegion(region, animated: true)
     }
-    
-    private func addSeoulStationAnnotation() {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 37.5547, longitude: 126.9706)
-        annotation.title = "서울역"
-        annotation.subtitle = "대한민국 서울특별시"
-        mapView.addAnnotation(annotation)
-    }
      
-    @objc private func rightBarButtonTapped() {
+    func centerCoordinate(for annotations: [MKAnnotation]) -> CLLocationCoordinate2D {
+        guard !annotations.isEmpty else { return kCLLocationCoordinate2DInvalid }
+
+        var averageLat: CLLocationDegrees = 0
+        var averageLon: CLLocationDegrees = 0
+
+        for annotation in annotations {
+            averageLat += annotation.coordinate.latitude
+            averageLon += annotation.coordinate.longitude
+        }
+
+        averageLat /= CLLocationDegrees(annotations.count)
+        averageLon /= CLLocationDegrees(annotations.count)
+
+        return CLLocationCoordinate2D(latitude: averageLat, longitude: averageLon)
+    }
+    
+    @objc func rightBarButtonTapped() {
         let alertController = UIAlertController(
             title: "메뉴 선택",
             message: "원하는 옵션을 선택하세요",
             preferredStyle: .actionSheet
         )
         
-        let alert1Action = UIAlertAction(title: "얼럿 1", style: .default) { _ in
+        let alert1Action = UIAlertAction(title: "전체", style: .default) { [weak self] _ in
+            guard let self else { return }
             print("얼럿 1이 선택되었습니다.")
+            viewModel.inputAllMenuAction.value = ()
         }
         
-        let alert2Action = UIAlertAction(title: "얼럿 2", style: .default) { _ in
+        let alert2Action = UIAlertAction(title: "한식", style: .default) { [weak self] _ in
+            guard let self else { return }
             print("얼럿 2가 선택되었습니다.")
+            viewModel.inputKoreanMenuAction.value = ()
         }
         
-        let alert3Action = UIAlertAction(title: "얼럿 3", style: .default) { _ in
+        let alert3Action = UIAlertAction(title: "양식", style: .default) { [weak self] _ in
+            guard let self else { return }
             print("얼럿 3이 선택되었습니다.")
+            viewModel.inputWesternMenuAction.value = ()
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
