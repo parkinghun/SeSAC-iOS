@@ -12,7 +12,7 @@ final class CurrencyViewController: UIViewController {
     
     private let exchangeRateLabel: UILabel = {
         let label = UILabel()
-        label.text = "현재 환율: 1 USD = 1,350 KRW"
+        label.text = "현재 환율: 1 USD = 1,391.3 KRW"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 16, weight: .medium)
         return label
@@ -53,7 +53,11 @@ final class CurrencyViewController: UIViewController {
         setupUI()
         setupConstraints()
         setupActions()
-        setupClosure()
+        
+        viewModel.outputText.bind { [weak self] text in
+            guard let self else { return }
+            resultLabel.text = text
+        }
     }
      
     private func setupUI() {
@@ -61,13 +65,6 @@ final class CurrencyViewController: UIViewController {
         
         [exchangeRateLabel, amountTextField, convertButton, resultLabel].forEach {
             view.addSubview($0)
-        }
-    }
-    
-    private func setupClosure() {
-        viewModel.closureText = { [weak self] in
-            guard let self else { return }
-            self.resultLabel.text = self.viewModel.outputText
         }
     }
     
@@ -100,6 +97,6 @@ final class CurrencyViewController: UIViewController {
     }
      
     @objc private func convertButtonTapped() {
-        viewModel.inputField = amountTextField.text
+        viewModel.inputField.value = amountTextField.text
     }
 }
