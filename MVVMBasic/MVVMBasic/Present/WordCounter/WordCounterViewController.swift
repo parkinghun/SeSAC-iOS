@@ -36,7 +36,11 @@ final class WordCounterViewController: UIViewController {
         setupUI()
         setupConstraints()
         setupTextView()
-        setupClosure()
+        
+        viewModel.outputText.bind { [weak self] text in
+            guard let self else { return }
+            countLabel.text = text
+        }
     }
      
     private func setupUI() {
@@ -64,17 +68,10 @@ final class WordCounterViewController: UIViewController {
     private func setupTextView() {
         textView.delegate = self
     }
-     
-    private func setupClosure() {
-        viewModel.closure = { [weak self] in
-            guard let self else { return }
-            self.countLabel.text = self.viewModel.outputText
-        }
-    }
 }
  
 extension WordCounterViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        viewModel.inputText = textView.text
+        viewModel.inputText.value = textView.text
     }
 }

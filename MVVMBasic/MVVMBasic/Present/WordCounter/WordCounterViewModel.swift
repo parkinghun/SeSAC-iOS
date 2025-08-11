@@ -8,28 +8,20 @@
 import Foundation
 
 final class WordCounterViewModel {
-    var inputText: String? = "" {
-        didSet {
-            print(#function)
-            updateCharacterCount()
+    
+    var inputText: Observable<String?> = Observable("")
+    var outputText = Observable("")
+    
+    init() {
+        inputText.bind { [weak self] text in
+            guard let self, let text else { return }
+            outputText.value = updateCharacterCount(text: text)
         }
     }
-    
-    var outputText: String = "" {
-        didSet {
-            closure?()
-        }
+}
+
+private extension WordCounterViewModel {
+    func updateCharacterCount(text: String) -> String {
+        return "현재까지 \(text.count)글자 작성중"
     }
-    
-    var closure: (() -> Void)?
-    
-    private func updateCharacterCount() {
-        guard let inputText else {
-            outputText = ""
-            return
-        }
-        outputText = "현재까지 \(inputText.count)글자 작성중"
-    }
-    
-    
 }
