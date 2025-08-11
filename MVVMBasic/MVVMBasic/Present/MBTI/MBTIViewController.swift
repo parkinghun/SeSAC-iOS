@@ -14,6 +14,7 @@ final class MBTIViewController: UIViewController {
         view.contentMode = .scaleAspectFill
         view.layer.borderWidth = 6
         view.layer.borderColor = Colors.btEnabledColor.cgColor
+        view.clipsToBounds = true
         return view
     }()
     let photoImageView = {
@@ -62,7 +63,7 @@ final class MBTIViewController: UIViewController {
         sv.distribution = .fillEqually
         return sv
     }()
-
+    
     let completeButton = {
         let bt = UIButton()
         bt.setTitle("완료", for: .normal)
@@ -80,14 +81,15 @@ final class MBTIViewController: UIViewController {
         setupNavgation()
         configureHierarchy()
         configureLayout()
-        setupClosure()
+        configureView()
+        setupDelegate()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            self.configureUI()
+            self.configureRadius()
         }
     }
     
@@ -136,7 +138,6 @@ final class MBTIViewController: UIViewController {
         }
         hStackView.snp.makeConstraints { make in
             make.top.equalTo(mbtiLabel)
-//            make.leading.equalTo(mbtiLabel.snp.trailing).offset(20)
             make.trailing.equalToSuperview().inset(16)
             make.width.equalTo(44 * 4 + 12 * 3)
             make.height.equalTo(44 * 2 + 12)
@@ -148,17 +149,28 @@ final class MBTIViewController: UIViewController {
         }
     }
     
-    private func configureUI() {
+    
+    private func configureView() {
+        profileImageView.image = UIImage(named: viewModel.randomImageName)
+    }
+    
+    private func configureRadius() {
         profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
         photoImageView.layer.cornerRadius = photoImageView.bounds.width / 2
         completeButton.layer.cornerRadius = completeButton.bounds.height / 2
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    private func setupClosure() {
-        
+    private func setupDelegate() {
+        nicknameTextField.delegate = self
     }
+}
+
+extension MBTIViewController: UITextFieldDelegate {
+//    override class func didChangeValue(forKey key: String) {
+//        self.viewModel.inputNickname = self.nicknameTextField.text
+//    }
 }

@@ -36,17 +36,28 @@ final class AgeViewController: UIViewController {
         super.viewDidLoad()
         configureHierarchy()
         configureLayout()
-        setupClosure()
+        
         resultButton.addTarget(self, action: #selector(resultButtonTapped), for: .touchUpInside)
+        
+        viewModel.outputText.bind { [weak self] result in
+            guard let self else { return }
+            label.text = result
+        }
     }
     
-    private func configureHierarchy() {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+}
+
+private extension AgeViewController {
+    func configureHierarchy() {
         view.addSubview(textField)
         view.addSubview(resultButton)
         view.addSubview(label)
     }
     
-    private func configureLayout() {
+    func configureLayout() {
         textField.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.horizontalEdges.equalToSuperview().inset(20)
@@ -66,20 +77,9 @@ final class AgeViewController: UIViewController {
         }
     }
     
-    private func setupClosure() {
-        viewModel.closure = { [weak self] in
-            guard let self else { return }
-            self.label.text = viewModel.outputText
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(#function)
-        view.endEditing(true)
-    }
-    
     @objc func resultButtonTapped() {
-        viewModel.inputAge = textField.text
+        guard let text = textField.text else { return }
+        viewModel.inputAge.value = text // 이 때마다 bind를 해주는건 말이 안됨
         view.endEditing(true)
     }
 }
