@@ -9,68 +9,58 @@ import Foundation
 
 final class BMIViewModel {
     typealias BMIResult = Result<String, BMIValidationError>
-    var closure: (() -> Void)?
-
-    var inputBMI = BMI(height: "", weight: "") {
-        didSet {
-            result = getBMIResult()
-        }
-    }
     
-    var outputText = ""
-    var outputShowAlert = false
+    // 값을 튜플로 한 번에 받아 inputBMI의 바인드를 여러번 호출하는 것을 방지
+    var inputTexts: Observable<(String?, String?)> = Observable(("", ""))
+    private var inputBMI = Observable(BMI(height: "", weight: ""))
     
-    private var result: BMIResult = .success("") {
-        didSet {
-            setupOutput(result: result)
-            closure?()
-        }
-    }
+    var outputResult = Observable(BMIResult.success(""))
     
-    private func setupOutput(result: BMIResult) {
-        do {
-            outputText = try result.get()
-            outputShowAlert = false
-        } catch let error {
-            outputText = error.message
-            outputShowAlert = true
-        }
-    }
-    
-    private func getBMIResult() -> BMIResult {
-        do {
-            let input = try validateBMIInput()
-            let bmi = inputBMI.getBmi(height: input.height, weight: input.weight)
-            let state = inputBMI.getBMIState(bmi: bmi)
+    init() {
+        inputTexts.lazyBind { [weak self] (height, weight) in
+            guard let self, let height, let weight else { return }
             
-            return .success("BMI 지수: \(bmi) \n\(state)")
+            inputBMI.value = .init(height: height, weight: weight)
+        }
+        inputBMI.lazyBind { [weak self] value in
+            guard let self else { return }
+            getBMIResult(bmi: inputBMI.value)
+        }
+    }
+}
+
+private extension BMIViewModel {
+    func getBMIResult(bmi: BMI) {
+        do {
+            let bmiTuple = try validateBMIInput(bmi: bmi)
+            
+            let bmiIndex = bmi.getBmi(height: bmiTuple.height, weight: bmiTuple.weight)
+            let state = bmi.getBMIState(bmi: bmiIndex)
+            
+            outputResult.value = .success("BMI 지수: \(bmiIndex) \n\(state)")
         } catch let error {
-            return .failure(error)
+            outputResult.value = .failure(error)
         }
     }
     
-    private func validateBMIInput() throws(BMIValidationError) -> (height: Double, weight: Double) {
-        guard let height = inputBMI.height,
-              let weight  = inputBMI.weight else {
-            throw .invalidInput
-        }
+    func validateBMIInput(bmi: BMI) throws(BMIValidationError) -> (height: Double, weight: Double) {
+        let height = bmi.height
+        let weight = bmi.weight
         
         guard !height.isEmpty, !weight.isEmpty else {
             throw .blankSpace
         }
-
+        
         guard let height = Double(height),
               let weight = Double(weight) else {
             throw .isNotDouble
         }
-
-        guard height >= inputBMI.heightLimit.min,
-              height <= inputBMI.heightLimit.max else {
+        
+        guard (bmi.heightLimit.min...bmi.heightLimit.max).contains(height) else {
             throw .outOfRangeHeight
         }
         
-        guard weight >= inputBMI.weightLimit.min,
-              weight <= inputBMI.heightLimit.max else {
+        guard (bmi.weightLimit.min...bmi.weightLimit.max).contains(weight) else {
             throw .outOfRangeWeight
         }
         
@@ -78,10 +68,11 @@ final class BMIViewModel {
     }
 }
 
+// 사실은 모델 영역인듯
 extension BMIViewModel {
     struct BMI {
-        var height: String?
-        var weight: String?
+        var height: String
+        var weight: String
         
         var heightLimit: (min: Double, max: Double) {
             return (80, 230)
@@ -90,7 +81,7 @@ extension BMIViewModel {
         var weightLimit: (min: Double, max: Double) {
             return (20, 160)
         }
- 
+        
         func getBmi(height: Double, weight: Double) -> Double {
             var bmi = weight / (height * height) * 10000
             bmi = round(bmi * 10) / 10

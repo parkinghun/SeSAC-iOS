@@ -39,7 +39,7 @@ final class AgeViewController: UIViewController {
         
         resultButton.addTarget(self, action: #selector(resultButtonTapped), for: .touchUpInside)
         
-        viewModel.outputText.bind { [weak self] result in
+        viewModel.outputText.lazyBind { [weak self] result in
             guard let self else { return }
             label.text = result
         }
@@ -79,7 +79,7 @@ private extension AgeViewController {
     
     @objc func resultButtonTapped() {
         guard let text = textField.text else { return }
-        viewModel.inputAge.value = text // 이 때마다 bind를 해주는건 말이 안됨
+        viewModel.inputAgeText.value = text
         view.endEditing(true)
     }
 }

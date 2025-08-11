@@ -43,8 +43,20 @@ final class BMIViewController: UIViewController {
         super.viewDidLoad()
         configureHierarchy()
         configureLayout()
-        setupClosure()
         resultButton.addTarget(self, action: #selector(resultButtonTapped), for: .touchUpInside)
+        
+        viewModel.outputResult.bind { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let text):
+                self.resultLabel.text = text
+            case .failure(let error):
+                self.showAlert(title: "BMI Error", message: error.message) {
+                    self.resetInput()
+                }
+            }
+        }
     }
     
     private func configureHierarchy() {
@@ -83,24 +95,9 @@ final class BMIViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
-    private func setupClosure() {
-        viewModel.closure = { [weak self] in
-            guard let self else { return }
-            
-            if self.viewModel.outputShowAlert {
-                self.showAlert(title: "BMI Error", message: self.viewModel.outputText) {
-                    self.resetInput()
-                }
-            } else {
-                self.resultLabel.text = self.viewModel.outputText
-            }
-        }
-    }
-    
-    @objc func resultButtonTapped() {
-        viewModel.inputBMI = .init(height: heightTextField.text, weight: weightTextField.text)
-        
+
+    @objc private func resultButtonTapped() {
+        viewModel.inputTexts.value = (heightTextField.text, weightTextField.text)
         view.endEditing(true)
     }
     

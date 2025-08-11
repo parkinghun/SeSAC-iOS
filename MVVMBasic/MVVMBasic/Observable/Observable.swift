@@ -25,4 +25,8 @@ final class Observable<T> {
         closure(value)  // vlaue의 초기값으로 먼저 실행시키기 위함
         self.closure = closure
     }
+    
+    func lazyBind(closure: @escaping (T) -> Void) {
+        self.closure = closure
+    }
 }
