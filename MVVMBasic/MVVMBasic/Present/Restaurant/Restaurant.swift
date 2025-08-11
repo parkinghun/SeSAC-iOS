@@ -22,13 +22,14 @@ struct Restaurant {
 
 extension Restaurant {
     enum RestaurantType: String {
-        case korean
-        case chinese
-        case japanese
-        case western
-        case lightWestern
-        case snack
-        case cafe
+        case all = "전체"
+        case korean = "한식"
+        case chinese = "중식"
+        case japanese = "일식"
+        case western = "양식"
+        case lightWestern = "경양식"
+        case snack = "분식"
+        case cafe = "카페"
     }
 }
 

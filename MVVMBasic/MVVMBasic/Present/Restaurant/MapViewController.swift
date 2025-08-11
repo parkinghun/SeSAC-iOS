@@ -17,11 +17,10 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupMapView()
-        createAnnotation(filteredList: viewModel.list)
         
         viewModel.outputRestaurantList.lazyBind { [weak self] list in
             guard let self else { return }
-            createAnnotation(filteredList: list)
+            createAnnotation(for: list)
         }
     }
 }
@@ -50,14 +49,17 @@ private extension MapViewController {
         mapView.showsUserLocation = true  // 위치 사용시 사용자 현재 위치 표시
         mapView.userTrackingMode = .none  // 사용자 위치 추적 x
          
-        createAnnotation(filteredList: viewModel.list)
+        createAnnotation(for: viewModel.list)
     }
 
-    func createAnnotation(filteredList: [Restaurant]) {
+    
+    /// 레스토랑 정보로 annotation 생성 후 카메라 중앙에 위치
+    /// - Parameter filteredList: 레스토랑 배열
+    func createAnnotation(for list: [Restaurant]) {
         mapView.removeAnnotations(mapView.annotations)
 
         var annotations: [MKAnnotation] = []
-        filteredList.forEach {
+        list.forEach {
             let annotation = CustomAnnotation(title: $0.name, coordinate: .init(latitude: $0.latitude, longitude: $0.longitude))
             mapView.addAnnotation(annotation)
             annotations.append(annotation)
@@ -95,19 +97,19 @@ private extension MapViewController {
         let alert1Action = UIAlertAction(title: "전체", style: .default) { [weak self] _ in
             guard let self else { return }
             print("얼럿 1이 선택되었습니다.")
-            viewModel.inputAllMenuAction.value = ()
+            viewModel.inputActionSheetAction.value = .all
         }
         
         let alert2Action = UIAlertAction(title: "한식", style: .default) { [weak self] _ in
             guard let self else { return }
             print("얼럿 2가 선택되었습니다.")
-            viewModel.inputKoreanMenuAction.value = ()
+            viewModel.inputActionSheetAction.value = .korean
         }
         
         let alert3Action = UIAlertAction(title: "양식", style: .default) { [weak self] _ in
             guard let self else { return }
             print("얼럿 3이 선택되었습니다.")
-            viewModel.inputWesternMenuAction.value = ()
+            viewModel.inputActionSheetAction.value = .western
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
