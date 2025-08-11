@@ -9,79 +9,63 @@ import Foundation
 
 final class BirthdayViewModel {
     typealias BirthResult = Result<String, BirthDayValidationError>
-    var closure: (() -> Void)?
     
-    var inputBirth: Birth = .init(year: "", month: "", day: "") {
-        didSet {
-            outputResult = validateBirthDayInput()
+    var inputBirth = Observable(Birth(year: "", month: "", day: ""))
+    var outputResult = Observable(BirthResult.success(""))
+    
+    init() {
+        inputBirth.bind { [weak self] _ in
+            guard let self else { return }
+            outputResult.value = validateResult(birth: inputBirth.value)
         }
     }
-    
-    var outputText: String = ""
-    var outputShowAlert = false
-    
-    private var outputResult: BirthResult = .success("") {
-        didSet {
-            setupOutput(result: outputResult)
-            closure?()
-        }
-    }
-    
-    private func setupOutput(result: BirthResult) {
+}
+
+private extension BirthdayViewModel {
+    func validateResult(birth: Birth) -> BirthResult {
         do {
-            outputText = try outputResult.get()
-            outputShowAlert = false
+            let _ = try validateBirthDayInput(birth: birth)
+            let gap = try calculateDateGap(birth: birth.date)
+            return .success("D+\(gap)")
         } catch let error {
-            outputText = error.message
-            outputShowAlert = true
+            return .failure(error)
         }
     }
     
-    private func validateBirthDayInput() -> BirthResult {
-        guard let year = inputBirth.year, let month = inputBirth.month, let day = inputBirth.day else {
-            return BirthResult.failure(.validateError)
+    func validateBirthDayInput(birth: Birth) throws(BirthDayValidationError) -> Void {
+        guard let year = birth.year, let month = birth.month, let day = birth.day else {
+            throw BirthDayValidationError.validateError
         }
         
-        do {
-            let _ = try validateBirthDayInput(year: year, month: month, day: day)
-            let gap = try calculateDateGap(birth: inputBirth.date)
-            
-            return BirthResult.success("D+\(gap)")
-        } catch let error {
-            return BirthResult.failure(error)
-        }
-    }
-    
-    private func validateBirthDayInput<T: StringProtocol>(year: T, month: T, day: T) throws(BirthDayValidationError) {
         guard !year.isEmpty, !month.isEmpty, !day.isEmpty else {
-            throw .blankSpace
+            throw BirthDayValidationError.blankSpace
         }
         
         guard let year = Int(year), let month = Int(month), let day = Int(day) else {
-            throw .isNotNumber
+            throw BirthDayValidationError.isNotNumber
         }
         
-        guard (inputBirth.yearLimit.min...inputBirth.yearLimit.max).contains(year) else {
-            throw .outOfYear
+        guard (birth.yearLimit.min...birth.yearLimit.max).contains(year) else {
+            throw BirthDayValidationError.outOfYear
         }
         
-        guard (inputBirth.monthLimit.min...inputBirth.monthLimit.max).contains(month) else {
-            throw .outOfMonth
+        guard (birth.monthLimit.min...birth.monthLimit.max).contains(month) else {
+            throw BirthDayValidationError.outOfMonth
         }
         
-        guard (inputBirth.dayLimit.min...inputBirth.dayLimit.max).contains(day) else {
-            throw .outOfDay
+        guard (birth.dayLimit.min...birth.dayLimit.max).contains(day) else {
+            throw BirthDayValidationError.outOfDay
         }
     }
     
-    private func calculateDateGap(birth: Date?) throws(BirthDayValidationError) -> Int {
+    func calculateDateGap(birth: Date?) throws(BirthDayValidationError) -> Int {
         guard let birth,
               let gap = Calendar.current.getDateGap(from: birth) else {
             throw .isNotDate
         }
+        
         return gap
     }
-    
 }
 
 extension BirthdayViewModel {

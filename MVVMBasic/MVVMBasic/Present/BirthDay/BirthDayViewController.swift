@@ -66,8 +66,20 @@ class BirthDayViewController: UIViewController {
         super.viewDidLoad()
         configureHierarchy()
         configureLayout()
-        setupClosure()
         resultButton.addTarget(self, action: #selector(resultButtonTapped), for: .touchUpInside)
+        
+        viewModel.outputResult.lazyBind { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let text):
+                resultLabel.text = text
+            case .failure(let error):
+                showAlert(title: "생년월일 입력 에러", message: error.message) { [weak self] in
+                    guard let self else { return }
+                    resetInput()
+                }
+            }
+        }
     }
     
     func configureHierarchy() {
@@ -134,23 +146,9 @@ class BirthDayViewController: UIViewController {
         view.endEditing(true)
     }
     
-    private func setupClosure() {
-        viewModel.closure = { [weak self] in
-            guard let self else { return }
-
-            if self.viewModel.outputShowAlert {
-                self.showAlert(title: "생년월일 입력 에러", message: self.viewModel.outputText) {
-                    self.resetInput()
-                }
-            } else {
-                resultLabel.text = self.viewModel.outputText
-            }
-        }
-    }
-    
     @objc func resultButtonTapped() {
         resultLabel.text = ""
-        viewModel.inputBirth = .init(year: yearTextField.text,
+        viewModel.inputBirth.value = .init(year: yearTextField.text,
                                      month: monthTextField.text,
                                      day: dayTextField.text)
 
