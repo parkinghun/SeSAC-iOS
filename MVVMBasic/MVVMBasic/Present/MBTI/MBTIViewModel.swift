@@ -85,6 +85,8 @@ final class MBTIViewModel {
 }
 
 extension MBTIViewModel {
+     
+    
     enum EnergyType: String, CaseIterable {
         case e = "E"
         case i = "I"

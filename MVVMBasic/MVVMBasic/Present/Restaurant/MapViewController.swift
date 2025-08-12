@@ -120,7 +120,6 @@ private extension MapViewController {
         alertController.addAction(alert2Action)
         alertController.addAction(alert3Action)
         alertController.addAction(cancelAction)
-         
         present(alertController, animated: true, completion: nil)
     }
 }
