@@ -10,6 +10,7 @@ import UIKit
 final class ShoppingHomeViewController: UIViewController {
     
     private let shoppingHomeView = ShoppingHomeView()
+    private let viewModel = ShoppingHomeViewModel()
     
     override func loadView() {
         self.view = shoppingHomeView
@@ -17,24 +18,33 @@ final class ShoppingHomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureDelegation()
         setupNavigation()
+        bindData()
     }
-    
-    private func configureDelegation() {
+}
+
+private extension ShoppingHomeViewController {
+    func configureDelegation() {
         shoppingHomeView.configureDelegation(self)
     }
     
-    private func setupNavigation() {
-        navigationItem.title = "쇼핑"
+    func setupNavigation() {
+        navigationItem.title = viewModel.title
+    }
+    
+    func bindData() {
+        viewModel.outputPushVCTrigger.lazyBind { [weak self] _ in
+            guard let self else { return }
+            navigationController?.pushViewController(ShoppingSearchViewController(), animated: true)
+        }
     }
 }
 
 extension ShoppingHomeViewController: ShoppingHomeViewDelegate {
     func tappedGoButton() {
         print(#function)
-        navigationController?.pushViewController(ShoppingSearchViewController(), animated: true)
+        viewModel.inputGoButtonTrigger.value = ()
     }
 }
 
