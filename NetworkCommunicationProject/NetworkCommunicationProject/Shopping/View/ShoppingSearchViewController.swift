@@ -27,7 +27,7 @@ final class ShoppingSearchViewController: UIViewController {
 
 private extension ShoppingSearchViewController {
     func bindData() {
-        viewModel.outputQuery.lazyBind { [weak self] value in
+        viewModel.output.query.lazyBind { [weak self] value in
             guard let self else { return }
             guard let value else {
                 showAlert(title: viewModel.alertTitle, message: viewModel.alertMessage)
@@ -50,6 +50,6 @@ private extension ShoppingSearchViewController {
 
 extension ShoppingSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.inputSearchText.value = searchBar.text
+        viewModel.input.searchText.value = searchBar.text
     }
 }

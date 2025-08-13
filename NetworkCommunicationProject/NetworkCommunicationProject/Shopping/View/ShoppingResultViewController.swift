@@ -35,15 +35,15 @@ final class ShoppingResultViewController: UIViewController {
     }
     
     private func bindData() {
-        viewModel.outputShoppingList.bind { [weak self] _ in
+        viewModel.output.shoppingList.bind { [weak self] _ in
             guard let self else { return }
             shoppingResultView.collectionView.reloadData()
         }
-        viewModel.outputRecommendList.bind { [weak self] _ in
+        viewModel.output.recommendList.bind { [weak self] _ in
             guard let self else { return }
             shoppingResultView.horizontalCollectionView.reloadData()
         }
-        viewModel.outputErrorEntity.lazyBind { [weak self] value in
+        viewModel.output.errorEntity.lazyBind { [weak self] value in
             guard let self else { return }
             guard let error = value else { return }
             
@@ -52,7 +52,7 @@ final class ShoppingResultViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        navigationItem.title = viewModel.inputQuery.value
+        navigationItem.title = viewModel.input.query.value
     }
     
     private func configureCollectionView() {
@@ -75,7 +75,7 @@ final class ShoppingResultViewController: UIViewController {
 extension ShoppingResultViewController: ShoppingResultViewDelegate {
     func didSelectSort(_ sort: Sort) {
         upToScroll()
-        viewModel.inputSort.value = sort
+        viewModel.input.sort.value = sort
     }
     
     private func upToScroll() {
@@ -86,11 +86,11 @@ extension ShoppingResultViewController: ShoppingResultViewDelegate {
 extension ShoppingResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == shoppingResultView.collectionView {
-            return viewModel.outputShoppingList.value.count
+            return viewModel.output.shoppingList.value.count
         }
         
         if collectionView == shoppingResultView.horizontalCollectionView {
-            return viewModel.outputRecommendList.value.count
+            return viewModel.output.recommendList.value.count
         }
         return 0
     }
@@ -100,7 +100,7 @@ extension ShoppingResultViewController: UICollectionViewDataSource {
             guard let cell = shoppingResultView.collectionView.dequeueReusableCell(withReuseIdentifier: ShoppingResultCollectionViewCell.id, for: indexPath) as? ShoppingResultCollectionViewCell else { return UICollectionViewCell() }
 
             cell.delegate = self
-            cell.configure(item: viewModel.outputShoppingList.value[indexPath.item])
+            cell.configure(item: viewModel.output.shoppingList.value[indexPath.item])
             
             return cell
         }
@@ -108,7 +108,7 @@ extension ShoppingResultViewController: UICollectionViewDataSource {
         if collectionView == shoppingResultView.horizontalCollectionView {
             guard let cell = shoppingResultView.horizontalCollectionView.dequeueReusableCell(withReuseIdentifier: ShoppingHorizontalCollectionViewCell.id, for: indexPath) as? ShoppingHorizontalCollectionViewCell else { return UICollectionViewCell() }
 
-            cell.configure(item: viewModel.outputRecommendList.value[indexPath.row])
+            cell.configure(item: viewModel.output.recommendList.value[indexPath.row])
             
             return cell
         }
@@ -120,7 +120,7 @@ extension ShoppingResultViewController: UICollectionViewDataSource {
 extension ShoppingResultViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         
-        viewModel.inputIndexPaths.value = indexPaths
+        viewModel.input.indexPaths.value = indexPaths
     }
 }
 

@@ -8,17 +8,27 @@
 import Foundation
 
 final class ShoppingHomeViewModel {
-    var inputGoButtonTrigger = Observable(())
-    private(set) var outputPushVCTrigger = Observable(())
     
+    struct Input {
+        var goButtonTrigger = Observable(())
+    }
+    struct Output {
+        private(set) var pushVCTrigger = Observable(())
+    }
+    
+    var input: Input
+    var output: Output
     var title: String {
         return "쇼핑"
     }
     
     init() {
-        inputGoButtonTrigger.lazyBind { [weak self] _ in
+        input = Input()
+        output = Output()
+        
+        input.goButtonTrigger.lazyBind { [weak self] _ in
             guard let self else { return }
-            outputPushVCTrigger.value = ()
+            output.pushVCTrigger.value = ()
         }
     }
 }

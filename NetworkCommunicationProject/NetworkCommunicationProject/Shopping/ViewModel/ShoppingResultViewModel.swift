@@ -8,51 +8,55 @@
 import Foundation
 
 final class ShoppingResultViewModel {
-    var inputQuery: Observable<String?> = Observable(nil)
-    var inputIndexPaths: Observable<[IndexPath]> = Observable([])
-    var inputSort: Observable<Sort> = Observable(.sim)
+    struct Input {
+        var query: Observable<String?> = Observable(nil)
+        var indexPaths: Observable<[IndexPath]> = Observable([])
+        var sort: Observable<Sort> = Observable(.sim)
+    }
     
-    private(set) var outputShoppingList: Observable<[Product]> = Observable([])
-    private(set) var outputRecommendList: Observable<[Product]> = Observable([])
-    private(set) var outputErrorEntity: Observable<ShoppingManager.ShoppingAPIError?> = Observable(nil)
+    struct Output {
+        private(set) var shoppingList: Observable<[Product]> = Observable([])
+        private(set) var recommendList: Observable<[Product]> = Observable([])
+        private(set) var errorEntity: Observable<ShoppingManager.ShoppingAPIError?> = Observable(nil)
+    }
+    
+    
+    var input: Input
+    var output: Output
+    
     
     private var start = 1
     private(set) var total = 0
     private(set) var display = 20
     var isEnd: Bool {
-        return total <= outputShoppingList.value.count
+        return total <= output.shoppingList.value.count
     }
     
-    /*  95
-     if scrollIndex == (outputShoppingList.value.count - 5), !isEnd {
-     start += display
-     fetchProducts(query: query, display: display , sort: sort, type: .search)
-     print("새로운 네트워크 요청")
-     }
-     */
-    
     init(query: String?) {
-        inputQuery.value = query
+        input = Input()
+        output = Output()
         
-        inputQuery.bind { [weak self] value in
+        input.query.value = query
+        
+        input.query.bind { [weak self] value in
             guard let self else { return }
-            fetchProducts(query: value, display: display, sort: inputSort.value, type: .search)
+            fetchProducts(query: value, display: display, sort: input.sort.value, type: .search)
         }
-        inputIndexPaths.lazyBind { [weak self] value in
+        input.indexPaths.lazyBind { [weak self] value in
             guard let self else { return }
             
-            self.pagination(query: query, sort: inputSort.value, indexPaths: value)
+            self.pagination(query: query, sort: input.sort.value, indexPaths: value)
             
         }
-        inputSort.lazyBind { [weak self] value in
+        input.sort.lazyBind { [weak self] value in
             guard let self else { return }
             start = 1
-            outputShoppingList.value.removeAll()
+            output.shoppingList.value.removeAll()
             
-            fetchProducts(query: inputQuery.value, display: display, sort: value, type: .search)
+            fetchProducts(query: input.query.value, display: display, sort: value, type: .search)
         }
         
-        fetchProducts(query: "맥북", display: display, sort: inputSort.value, type: .remommend)
+        fetchProducts(query: "맥북", display: display, sort: input.sort.value, type: .remommend)
     }
 }
 
@@ -72,22 +76,22 @@ private extension ShoppingResultViewModel {
                 switch type {
                 case .search:
                     total = result.total
-                    outputShoppingList.value.append(contentsOf: result.items)
+                    output.shoppingList.value.append(contentsOf: result.items)
                 case .remommend:
-                    outputRecommendList.value = result.items
+                    output.recommendList.value = result.items
                 }
             case let .failure(shoppingError):
-                outputErrorEntity.value = shoppingError
+                output.errorEntity.value = shoppingError
             }
         }
     }
-
+    
     func pagination(query: String?, sort: Sort, indexPaths: [IndexPath]) {
         print("indexPaths", indexPaths)
         for item in indexPaths {
             print("item", item)
             
-            if !isEnd && item.row == outputShoppingList.value.count - 4 {
+            if !isEnd && item.row == output.shoppingList.value.count - 4 {
                 start += display
                 fetchProducts(query: query, display: display , sort: sort, type: .search)
                 print("새로운 네트워크 요청")

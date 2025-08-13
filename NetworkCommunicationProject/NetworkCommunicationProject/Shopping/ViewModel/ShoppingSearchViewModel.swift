@@ -8,10 +8,17 @@
 import Foundation
 
 final class ShoppingSearchViewModel {
-
-    var inputSearchText: Observable<String?> = Observable(nil)
-    private(set) var outputQuery: Observable<String?> = Observable(nil)
-
+    struct Input {
+        var searchText: Observable<String?> = Observable(nil)
+    }
+    
+    struct Output {
+        private(set) var query: Observable<String?> = Observable(nil)
+    }
+    
+    var input: Input
+    var output: Output
+    
     var title: String {
         return "영캠러의 쇼핑쇼핑"
     }
@@ -23,7 +30,10 @@ final class ShoppingSearchViewModel {
     }
     
     init() {
-        inputSearchText.lazyBind { value in
+        input = Input()
+        output = Output()
+        
+        input.searchText.lazyBind { value in
             self.validation(input: value)
         }
     }
@@ -33,18 +43,18 @@ private extension ShoppingSearchViewModel {
     func validation(input: String?) {
         print(#function)
         guard let input else {
-            outputQuery.value = nil
+            output.query.value = nil
             return
         }
         
         let trimmesText = input.trimmingCharacters(in: .whitespaces)
 
         guard trimmesText.count >= 2 else {
-            outputQuery.value = nil
+            output.query.value = nil
             return
         }
         
-        outputQuery.value = trimmesText
+        output.query.value = trimmesText
     }
 }
 

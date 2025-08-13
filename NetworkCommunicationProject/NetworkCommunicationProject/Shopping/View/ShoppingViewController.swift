@@ -34,7 +34,7 @@ private extension ShoppingHomeViewController {
     }
     
     func bindData() {
-        viewModel.outputPushVCTrigger.lazyBind { [weak self] _ in
+        viewModel.output.pushVCTrigger.lazyBind { [weak self] _ in
             guard let self else { return }
             navigationController?.pushViewController(ShoppingSearchViewController(), animated: true)
         }
@@ -44,7 +44,7 @@ private extension ShoppingHomeViewController {
 extension ShoppingHomeViewController: ShoppingHomeViewDelegate {
     func tappedGoButton() {
         print(#function)
-        viewModel.inputGoButtonTrigger.value = ()
+        viewModel.input.goButtonTrigger.value = ()
     }
 }
 
