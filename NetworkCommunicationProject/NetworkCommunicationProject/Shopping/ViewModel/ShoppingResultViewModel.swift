@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 final class ShoppingResultViewModel {
     struct Input {
@@ -20,11 +21,9 @@ final class ShoppingResultViewModel {
         private(set) var errorEntity: Observable<ShoppingManager.ShoppingAPIError?> = Observable(nil)
     }
     
-    
     var input: Input
     var output: Output
-    
-    
+
     private var start = 1
     private(set) var total = 0
     private(set) var display = 20
@@ -69,7 +68,7 @@ private extension ShoppingResultViewModel {
     func fetchProducts(query: String?, display: Int, sort: Sort, type: ListType) {
         guard let query else { return }
         
-        ShoppingManager.shared.callRequest(query: query, display: display , start: start, sort: sort) { [weak self] result in
+        ShoppingManager.shared.callRequest(api: .search(parameters: .init(query: query, display: display, start: start, sort: sort)), type: SearchResult.self) { [weak self] result in
             guard let self else { return }
             switch result {
             case let .success(result):
@@ -91,6 +90,9 @@ private extension ShoppingResultViewModel {
         for item in indexPaths {
             print("item", item)
             
+            // prefetch cancel
+            // prefetch는 이미지가 엄청 뜸 이미지 용량이 크면 안볼 이미지는 cancel prefetch를 써야함
+            // 페이지네이션보다 빠르게 스크롤할 때 다운 필요 없을 떄 취소시키는 것
             if !isEnd && item.row == output.shoppingList.value.count - 4 {
                 start += display
                 fetchProducts(query: query, display: display , sort: sort, type: .search)

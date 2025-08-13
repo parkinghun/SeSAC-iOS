@@ -122,6 +122,10 @@ extension ShoppingResultViewController: UICollectionViewDataSourcePrefetching {
         
         viewModel.input.indexPaths.value = indexPaths
     }
+    
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        //TODO: - 이걸 잘 써야 prefetch가 의미가 있음
+    }
 }
 
 extension ShoppingResultViewController: ShoppingResultCollectionViewCellDelegate {

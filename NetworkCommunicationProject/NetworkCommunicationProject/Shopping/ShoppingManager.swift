@@ -8,24 +8,18 @@
 import Foundation
 import Alamofire
 
-enum Sort: String, Encodable, CaseIterable {
-    case sim, date, dsc, asc
-}
-
 final class ShoppingManager {
     static let shared = ShoppingManager()
     
-    private let baseURL = "https://openapi.naver.com/v1/search/shop.json"
-    private let headers: HTTPHeaders = [
-        HTTPHeader(name: "X-Naver-Client-Id", value: Bundle.getAPIKey(for: .naverClientID)),
-        HTTPHeader(name: "X-Naver-Client-Secret", value: Bundle.getAPIKey(for: .naverClientSecret))
-    ]
-    
     private init() { }
-    
-    func callRequest(query: String, display: Int = 20, start: Int = 1, sort: Sort, completion: @escaping (Result<SearchResult, ShoppingAPIError>) -> Void) {
-        let params = SearchParameters(query: query, display: display, start: start, sort: sort)
-        AF.request(baseURL, method: .get, parameters: params, encoder: URLEncodedFormParameterEncoder.default, headers: headers)
+        
+    func callRequest<T: Decodable>(api: ShoppingRouter, type: T.Type, completion: @escaping (Result<SearchResult, ShoppingAPIError>) -> Void) {
+        
+        AF.request(api.enidPoint,
+                   method: api.method,
+                   parameters: api.parameters,
+                   encoder: URLEncodedFormParameterEncoder.default,
+                   headers: api.headers)
             .responseDecodable(of: SearchResult.self) { response in
                 switch response.result {
                 case let .success(value):
@@ -59,13 +53,6 @@ final class ShoppingManager {
 }
 
 extension ShoppingManager {
-    struct SearchParameters: Encodable {
-        let query: String
-        let display: Int
-        let start: Int
-        let sort: Sort
-    }
-    
     enum ShoppingAPIError: Error {
         case incorrectQueryRequest    // SE01
         case invalidDisplayValue      // SE02
