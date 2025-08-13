@@ -11,7 +11,7 @@ final class ShoppingSearchViewController: UIViewController {
     
     private let shoppingSearchView = ShoppingSearchView()
     
-    let viewModel = SearchViewModel()
+    let viewModel = ShoppingSearchViewModel()
     
     override func loadView() {
         self.view = shoppingSearchView
@@ -34,8 +34,7 @@ private extension ShoppingSearchViewController {
                 return
             }
             
-            let nextVC = ShoppingResultViewController()
-            nextVC.query = value
+            let nextVC = ShoppingResultViewController(viewModel: .init(query: value))
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
     }

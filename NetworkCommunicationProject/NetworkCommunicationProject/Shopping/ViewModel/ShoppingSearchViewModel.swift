@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SearchViewModel {
+final class ShoppingSearchViewModel {
 
     var inputSearchText: Observable<String?> = Observable(nil)
     private(set) var outputQuery: Observable<String?> = Observable(nil)
@@ -29,7 +29,7 @@ final class SearchViewModel {
     }
 }
 
-private extension SearchViewModel {
+private extension ShoppingSearchViewModel {
     func validation(input: String?) {
         print(#function)
         guard let input else {

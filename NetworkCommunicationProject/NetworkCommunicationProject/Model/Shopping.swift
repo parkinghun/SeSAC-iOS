@@ -36,12 +36,3 @@ struct ShoppingErrorEntity: Decodable {
     let errorMessage: String
     let errorCode: String
 }
-
-
-// 어떤게 클라이언트에 가까운지
-// HTTP StatusCode
-// 에러코드
-
-
-// 데이터 없음
-//

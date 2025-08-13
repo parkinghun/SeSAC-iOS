@@ -9,10 +9,7 @@ import UIKit
 import SnapKit
 
 protocol ShoppingResultViewDelegate: AnyObject {
-    func tappedAccuracyButton()
-    func tappedDateOrderButto()
-    func tappedHighPriceButto()
-    func tappedLowPriceButton()
+    func didSelectSort(_ sort: Sort)
 }
 
 final class ShoppingResultView: UIView {
@@ -93,10 +90,12 @@ final class ShoppingResultView: UIView {
     }
     
     private func configureButtonActions() {
-        accuracyButton.addTarget(self, action: #selector(handleAccuracyButtonTapped(_:)), for: .touchUpInside)
-        dateOrderButton.addTarget(self, action: #selector(handleDateOrderButtonTapped(_:)), for: .touchUpInside)
-        highPriceButton.addTarget(self, action: #selector(handleHighPriceButtonTapped(_:)), for: .touchUpInside)
-        lowPriceButton.addTarget(self, action: #selector(handleLowPriceButtonTapped(_:)), for: .touchUpInside)
+        let buttons = [accuracyButton, dateOrderButton, highPriceButton, lowPriceButton]
+        
+        for (index, button) in buttons.enumerated() {
+            button.tag = index
+            button.addTarget(self, action: #selector(handleSortButtonTapped(_:)), for: .touchUpInside)
+        }
     }
     
     private func updateButtonUI(_ button: UIButton) {
@@ -113,26 +112,12 @@ final class ShoppingResultView: UIView {
         }
     }
     
-    @objc private func handleAccuracyButtonTapped(_ sender: UIButton) {
+    @objc private func handleSortButtonTapped(_ sender: UIButton) {
         updateButtonUI(sender)
-        delegate?.tappedAccuracyButton()
+        
+        let sorts = Sort.allCases
+        delegate?.didSelectSort(sorts[sender.tag])
     }
-    
-    @objc private func handleDateOrderButtonTapped(_ sender: UIButton) {
-        updateButtonUI(sender)
-        delegate?.tappedDateOrderButto()
-    }
-    
-    @objc private func handleHighPriceButtonTapped(_ sender: UIButton) {
-        updateButtonUI(sender)
-        delegate?.tappedHighPriceButto()
-    }
-    
-    @objc private func handleLowPriceButtonTapped(_ sender: UIButton) {
-        updateButtonUI(sender)
-        delegate?.tappedLowPriceButton()
-    }
-    
 }
 
 extension ShoppingResultView: ViewDesignProtocol {
