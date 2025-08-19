@@ -12,9 +12,9 @@ import RxCocoa
 
 final class NumbersViewController: UIViewController {
     
-    private lazy var number1 = makeTextField(text: "1")
-    private lazy var number2 = makeTextField(text: "2")
-    private lazy var number3 = makeTextField(text: "3")
+    private lazy var number1 = RoundTextField(text: "1", alignment: .right)
+    private lazy var number2 = RoundTextField(text: "2", alignment: .right)
+    private lazy var number3 = RoundTextField(text: "3", alignment: .right)
     private let plusLabel = {
         let label = UILabel()
         label.text = "+"
@@ -53,14 +53,6 @@ final class NumbersViewController: UIViewController {
 }
 
 private extension NumbersViewController {
-    func makeTextField(text: String) -> UITextField {
-        let tf = UITextField()
-        tf.text = text
-        tf.font = .systemFont(ofSize: 14)
-        tf.textAlignment = .right
-        tf.borderStyle = .roundedRect
-        return tf
-    }
     
     func configureHierachy() {
         view.addSubview(number1)
