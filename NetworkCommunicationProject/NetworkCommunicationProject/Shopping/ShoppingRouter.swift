@@ -12,7 +12,7 @@ enum Sort: String, Encodable, CaseIterable {
     case sim, date, dsc, asc
 }
 
-enum ShoppingRouter {
+enum ShoppingRouter { 
     case search(parameters: Parameters)
     
     private var baseURL: String {

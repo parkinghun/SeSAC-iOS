@@ -9,23 +9,7 @@ import UIKit
 import SnapKit
 
 final class MBTIViewController: UIViewController {
-    let profileImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.layer.borderWidth = 6
-        view.layer.borderColor = Colors.btEnabledColor.cgColor
-        view.clipsToBounds = true
-        return view
-    }()
-    let photoImageView = {
-        let view = UIImageView()
-        view.image = UIImage(systemName: "camera.circle.fill")
-        view.tintColor = Colors.btEnabledColor
-        view.contentMode = .scaleAspectFill
-        view.backgroundColor = .white
-        view.clipsToBounds = true
-        return view
-    }()
+    let profileView = ProfileView()
     let nicknameTextField = {
         let tf = UITextField()
         tf.placeholder = "닉네임을 입력해주세요 :)"
@@ -39,7 +23,6 @@ final class MBTIViewController: UIViewController {
     }()
     let stateLabel = {
         let label = UILabel()
-        label.text = "123"
         label.font = .systemFont(ofSize: 12)
         return label
     }()
@@ -49,21 +32,7 @@ final class MBTIViewController: UIViewController {
         label.font = .boldSystemFont(ofSize: 18)
         return label
     }()
-    
-    let energyView = MBTIPairView(type: MBTIViewModel.EnergyType.self)
-    let perceptionView = MBTIPairView(type: MBTIViewModel.PerceptionType.self)
-    let judgmentView = MBTIPairView(type: MBTIViewModel.JudgmentType.self)
-    let lifestyleView = MBTIPairView(type: MBTIViewModel.LifestyleType.self)
-    
-    lazy var hStackView = {
-        let sv = UIStackView(arrangedSubviews: [energyView, perceptionView, judgmentView, lifestyleView])
-        sv.axis = .horizontal
-        sv.spacing = 12
-        sv.alignment = .fill
-        sv.distribution = .fillEqually
-        return sv
-    }()
-    
+    let mbtiView = MBTIView()
     let completeButton = {
         let bt = UIButton()
         bt.setTitle("완료", for: .normal)
@@ -74,7 +43,7 @@ final class MBTIViewController: UIViewController {
         return bt
     }()
     
-    private let viewModel = MBTIViewModel()
+    let viewModel = MBTIViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +51,9 @@ final class MBTIViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         configureView()
-        setupDelegate()
+        configureAction()
+        bindData()
+        setupClosure()
     }
     
     override func viewDidLayoutSubviews() {
@@ -93,34 +64,53 @@ final class MBTIViewController: UIViewController {
         }
     }
     
+    private func bindData() {
+        viewModel.output.profileTapped.lazyBind { _ in
+            print("이미지 눌림")
+            // 네비게이션 컨트롤러로 프로필 세팅뷰 이동
+        }
+        viewModel.output.stateMessage.lazyBind { [weak self] value in
+            guard let self else { return }
+            stateLabel.text = value
+        }
+        viewModel.output.nicknameValidate.lazyBind { [weak self] value in
+            guard let self else { return }
+            stateLabel.textColor = value ? Colors.labelEnabledColor : Colors.labelDisabledColor
+        }
+        //TODO: - MBTI
+        // mbtiView의 로직을 실행
+        viewModel.output.tappedButtonIndex.lazyBind { [weak self] value in
+            guard let self else { return }
+            mbtiView.updateBT(index: value)
+        }
+        
+        //TODO: - 완료버튼
+    }
+    
     private func setupNavgation() {
         navigationItem.title = "PROFILE SETTING"
         // BackButton
     }
     
     private func configureHierarchy() {
-        view.addSubview(profileImageView)
-        view.addSubview(photoImageView)
+        view.addSubview(profileView)
         view.addSubview(nicknameTextField)
         view.addSubview(textFieldBorderView)
         view.addSubview(stateLabel)
         view.addSubview(mbtiLabel)
-        view.addSubview(hStackView)
+        view.addSubview(mbtiView)
         view.addSubview(completeButton)
     }
     
     private func configureLayout() {
-        profileImageView.snp.makeConstraints { make in
+        profileView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.size.equalTo(100)
         }
-        photoImageView.snp.makeConstraints { make in
-            make.center.equalTo(profileImageView).offset(35)
-            make.size.equalTo(40)
-        }
+
         nicknameTextField.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(40)
+            make.top.equalTo(profileView.snp.bottom).offset(40)
             make.horizontalEdges.equalToSuperview().inset(16)
         }
         textFieldBorderView.snp.makeConstraints { make in
@@ -136,7 +126,7 @@ final class MBTIViewController: UIViewController {
             make.leading.equalTo(nicknameTextField)
             make.top.equalTo(stateLabel.snp.bottom).offset(30)
         }
-        hStackView.snp.makeConstraints { make in
+        mbtiView.snp.makeConstraints { make in
             make.top.equalTo(mbtiLabel)
             make.trailing.equalToSuperview().inset(16)
             make.width.equalTo(44 * 4 + 12 * 3)
@@ -151,12 +141,10 @@ final class MBTIViewController: UIViewController {
     
     
     private func configureView() {
-        profileImageView.image = UIImage(named: viewModel.randomImageName)
+        profileView.profileImageView.image = UIImage(named: viewModel.randomImageName)
     }
     
     private func configureRadius() {
-        profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
-        photoImageView.layer.cornerRadius = photoImageView.bounds.width / 2
         completeButton.layer.cornerRadius = completeButton.bounds.height / 2
     }
 
@@ -164,13 +152,28 @@ final class MBTIViewController: UIViewController {
         view.endEditing(true)
     }
     
-    private func setupDelegate() {
-        nicknameTextField.delegate = self
+    private func configureAction() {
+        let profileTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        profileView.addGestureRecognizer(profileTapGestureRecognizer)
+        
+        nicknameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
-}
-
-extension MBTIViewController: UITextFieldDelegate {
-//    override class func didChangeValue(forKey key: String) {
-//        self.viewModel.inputNickname = self.nicknameTextField.text
-//    }
+    
+    @objc private func didTapView(_ sender: UITapGestureRecognizer) {
+        print(#function)
+        viewModel.input.profileTapped.value = ()
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        print(#function)
+        viewModel.input.nicknameText.value = textField.text
+    }
+    
+    private func setupClosure() {
+        mbtiView.closure = { [weak self] index in
+            guard let self else { return }
+            viewModel.input.mbtiTapped.value = index
+            
+        }
+    }
 }
