@@ -29,10 +29,8 @@ final class SimpleTableViewController: UIViewController {
         configureLayout()
         bind()
     }
-}
-
-private extension SimpleTableViewController {
-    func bind() {
+    
+    private func bind() {
         items
             .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { row, element, cell in
                 var content = cell.defaultContentConfiguration()
@@ -57,7 +55,9 @@ private extension SimpleTableViewController {
             }
             .disposed(by: disposeBag)
     }
-    
+}
+
+private extension SimpleTableViewController {
     func configureHierachy() {
         view.addSubview(tableView)
     }
