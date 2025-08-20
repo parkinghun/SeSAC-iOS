@@ -59,14 +59,15 @@ final class SimpleValidationViewController: UIViewController {
         super.viewDidLoad()
         configureHierachy()
         configureLayout()
-        configureView()
         bind()
+        let rxBt = doSomethingOutlet.rx
+            .tap
     }
     
     private func bind() {
         let usernameValid = usernameOutlet.rx.text.orEmpty
             .map { $0.count >= minimalUsernameLength }
-            .share(replay: 1)
+            .share(replay: 1)  // cold -> hot
         
         let passwordValid = passwordOutlet.rx.text.orEmpty
             .map { $0.count >= minimalPasswordLength }
@@ -74,13 +75,6 @@ final class SimpleValidationViewController: UIViewController {
         
         let everythingValid = Observable.combineLatest(usernameValid, passwordValid) { $0 && $1 }
             .share(replay: 1)
-        
-//        usernameValid
-//            .bind(with: self) { owner, value in
-//                owner.passwordOutlet.isEnabled = value
-//                owner.usernameValidOutlet.isHidden = value
-//            }
-//            .disposed(by: disposeBag)
         
         usernameValid
             .bind(to: passwordOutlet.rx.isEnabled)
@@ -150,9 +144,4 @@ private extension SimpleValidationViewController {
             make.height.equalTo(44)
         }
     }
-    
-    func configureView() {
-//        passwordOutlet.isEnabled = false
-    }
-    
 }

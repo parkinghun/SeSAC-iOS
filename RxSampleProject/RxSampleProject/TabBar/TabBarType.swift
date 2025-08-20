@@ -7,10 +7,11 @@
 
 import UIKit
 
-enum TabBarType {
+enum TabBarType: CaseIterable {
     case tableView
     case numbers
     case validation
+    case home
     
 //    var navigationController: UINavigationController {
 //        return BaseNavigationController(rootViewController: viewController)
@@ -30,6 +31,10 @@ enum TabBarType {
             let vc = SimpleValidationViewController()
             vc.tabBarItem = self.tabBarItem
             return vc
+        case .home:
+            let vc = HomeworkViewController()
+            vc.tabBarItem = self.tabBarItem
+            return vc
         }
     }
     
@@ -41,6 +46,8 @@ enum TabBarType {
             return UITabBarItem(title: "넘버", image: itemImage, tag: 1)
         case .validation:
             return UITabBarItem(title: "유효성", image: itemImage, tag: 2)
+        case .home:
+            return UITabBarItem(title: "홈", image: itemImage, tag: 3)
         }
     }
     
@@ -52,6 +59,8 @@ enum TabBarType {
             return UIImage(systemName: "numbers")
         case .validation:
             return UIImage(systemName: "text.page.badge.magnifyingglass")
+        case .home:
+            return UIImage(systemName: "house")
         }
     }
 }
