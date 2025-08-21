@@ -76,18 +76,21 @@ final class SimpleValidationViewController: UIViewController {
             .disposed(by: disposeBag)
         
         output.usernameValid
-            .bind(with: self) { owner, valid in
+            .asDriver()
+            .drive(with: self) { owner, valid in
                 owner.passwordOutlet.isEnabled = valid
                 owner.usernameValidOutlet.isHidden = valid
             }
             .disposed(by: disposeBag)
         
         output.passwordValid
-            .bind(to: passwordValidOutlet.rx.isHidden)
+            .asDriver()
+            .drive(passwordValidOutlet.rx.isHidden)
             .disposed(by: disposeBag)
         
         output.everythingValid
-            .bind(to: doSomethingOutlet.rx.isEnabled)
+            .asDriver()
+            .drive(doSomethingOutlet.rx.isEnabled)
             .disposed(by: disposeBag)
         
         output.showAlert

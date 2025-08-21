@@ -36,7 +36,8 @@ final class HomeworkViewController: UIViewController {
         let output = viewModel.transform(input: input)
         
         output.users
-            .bind(to: tableView.rx.items(cellIdentifier: PersonTableViewCell.identifier, cellType: PersonTableViewCell.self)) { [weak self] row, element, cell in
+            .asDriver()
+            .drive(tableView.rx.items(cellIdentifier: PersonTableViewCell.identifier, cellType: PersonTableViewCell.self)) { [weak self] row, element, cell in
                 guard let self else { return }
                 cell.configure(row: element)
                 
@@ -52,7 +53,8 @@ final class HomeworkViewController: UIViewController {
         
         
         output.selectedUsers
-            .bind(to: collectionView.rx.items(cellIdentifier: UserCollectionViewCell.identifier, cellType: UserCollectionViewCell.self)) { item, element, cell in
+            .asDriver()
+            .drive(collectionView.rx.items(cellIdentifier: UserCollectionViewCell.identifier, cellType: UserCollectionViewCell.self)) { item, element, cell in
                 cell.configure(item: element)
             }
             .disposed(by: disposeBag)

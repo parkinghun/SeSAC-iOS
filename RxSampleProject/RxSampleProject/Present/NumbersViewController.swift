@@ -48,7 +48,8 @@ final class NumbersViewController: UIViewController {
         let output = viewModel.transorm(input: input)
         
         output.addText
-            .bind(to: result.rx.text)
+            .asDriver()
+            .drive(result.rx.text)
             .disposed(by: disposeBag)
     }
 }
