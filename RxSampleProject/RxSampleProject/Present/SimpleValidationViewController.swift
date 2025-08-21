@@ -21,7 +21,6 @@ final class SimpleValidationViewController: UIViewController {
     private let usernameOutlet = RoundTextField(text: "")
     private let usernameValidOutlet = {
         let label = UILabel()
-        label.text = "Username has to be at least 5 characters"
         label.textColor = .red
         return label
     }()
@@ -34,7 +33,6 @@ final class SimpleValidationViewController: UIViewController {
     private var passwordOutlet =  RoundTextField(text: "")
     private let passwordValidOutlet = {
         let label = UILabel()
-        label.text = "Password has to be at least 5 characters"
         label.textColor = .red
         return label
     }()
@@ -68,6 +66,14 @@ final class SimpleValidationViewController: UIViewController {
             buttonTap: doSomethingOutlet.rx.tap)
         
         let output = viewModel.transform(input: input)
+        
+        output.usernameValidText
+            .bind(to: usernameValidOutlet.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.passwordValidText
+            .bind(to: passwordValidOutlet.rx.text)
+            .disposed(by: disposeBag)
         
         output.usernameValid
             .bind(with: self) { owner, valid in

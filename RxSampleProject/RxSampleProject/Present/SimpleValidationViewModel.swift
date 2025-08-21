@@ -21,23 +21,29 @@ final class SimpleValidationViewModel {
         let passwordValid: BehaviorRelay<Bool>
         let everythingValid: BehaviorRelay<Bool>
         let showAlert: BehaviorRelay<Void>
+        let usernameValidText: Observable<String>
+        let passwordValidText: Observable<String>
     }
     
     private let disposeBag = DisposeBag()
     
+    private let minimalUsernameLength = 5
+    private let minimalPasswordLength = 5
+    
     init() { }
     
     func transform(input: Input) -> Output {
-        let minimalUsernameLength = 5
-        let minimalPasswordLength = 5
-        
+
         let nameValid = BehaviorRelay(value: false)
         let passwordValid = BehaviorRelay(value: false)
         let everythingValid = BehaviorRelay(value: false)
         let showAlert = BehaviorRelay(value: ())
-
+        let nameText = Observable.just("Username has to be at least \(minimalUsernameLength) characters")
+        let passwordText = Observable.just("Password has to be at least \(minimalPasswordLength) characters")
+        
         input.usernameText
-            .map { $0.count >= minimalUsernameLength }
+            .withUnretained(self)
+            .map { $1.count >= self.minimalUsernameLength }
             .share(replay: 1)
             .bind(with: self) { owner, valid in
                 nameValid.accept(valid)
@@ -46,7 +52,8 @@ final class SimpleValidationViewModel {
             .disposed(by: disposeBag)
         
         input.passwordText
-            .map { $0.count >= minimalPasswordLength }
+            .withUnretained(self)
+            .map { $1.count >= self.minimalPasswordLength }
             .share(replay: 1)
             .bind(with: self) { owner, valid in
                 passwordValid.accept(valid)
@@ -71,7 +78,9 @@ final class SimpleValidationViewModel {
         return Output(usernameValid: nameValid,
                       passwordValid: passwordValid,
                       everythingValid: everythingValid,
-                      showAlert: showAlert)
+                      showAlert: showAlert,
+                      usernameValidText: nameText,
+                      passwordValidText: passwordText)
     }
 }
 
