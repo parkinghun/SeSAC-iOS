@@ -28,6 +28,7 @@ final class NumbersViewController: UIViewController {
         return label
     }()
     
+    private let viewModel = NumbersViewModel()
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -39,17 +40,17 @@ final class NumbersViewController: UIViewController {
     }
     
     private func bind() {
-        Observable.combineLatest(number1.rx.text.orEmpty,
-                                 number2.rx.text.orEmpty,
-                                 number3.rx.text.orEmpty) {
-            textValue1, textValue2, textValue3 -> Int in
-            return (Int(textValue1) ?? 0) + (Int(textValue2) ?? 0) + (Int(textValue3) ?? 0)
-        }
-                                 .map { $0.description }
-                                 .bind(to: result.rx.text)
-                                 .disposed(by: disposeBag)
+        let input = NumbersViewModel.Input(
+            number1: number1.rx.text.orEmpty,
+            number2: number2.rx.text.orEmpty,
+            number3: number3.rx.text.orEmpty)
+        
+        let output = viewModel.transorm(input: input)
+        
+        output.addText
+            .bind(to: result.rx.text)
+            .disposed(by: disposeBag)
     }
-    
 }
 
 private extension NumbersViewController {
@@ -72,7 +73,7 @@ private extension NumbersViewController {
             make.top.equalTo(number1.snp.bottom).offset(8)
             make.trailing.equalTo(number3)
             make.size.equalTo(CGSize(width: 97, height: 30))
-
+            
         }
         number3.snp.makeConstraints { make in
             make.top.equalTo(number2.snp.bottom).offset(8)
