@@ -52,7 +52,6 @@ final class SimpleValidationViewController: UIViewController {
         return bt
     }()
     
-
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -60,8 +59,6 @@ final class SimpleValidationViewController: UIViewController {
         configureHierachy()
         configureLayout()
         bind()
-        let rxBt = doSomethingOutlet.rx
-            .tap
     }
     
     private func bind() {

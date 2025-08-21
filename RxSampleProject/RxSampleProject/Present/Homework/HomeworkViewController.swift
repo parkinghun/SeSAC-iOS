@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-struct Person: Identifiable {
+struct Person: Identifiable, Equatable {
     let id = UUID()
     let name: String
     let email: String
@@ -76,6 +76,7 @@ final class HomeworkViewController: UIViewController {
         Person(name: "Ralph", email: "ralph.cox@example.com", profileImage: "https://randomuser.me/api/portraits/thumb/men/26.jpg"),
         Person(name: "Ann", email: "ann.howard@example.com", profileImage: "https://randomuser.me/api/portraits/thumb/women/25.jpg")
     ]
+    
     private lazy var users = BehaviorSubject<[Person]>(value: sampleUsers)
     private lazy var selectUsers = BehaviorSubject<[Person]>(value: [])
     
@@ -95,6 +96,12 @@ final class HomeworkViewController: UIViewController {
         users
             .bind(to: tableView.rx.items(cellIdentifier: PersonTableViewCell.identifier, cellType: PersonTableViewCell.self)) { row, element, cell in
                 cell.configure(row: element)
+                cell.closure = { [weak self] in
+                    guard let self else { return }
+                    let vc = DetailViewController()
+                    vc.configure(name: element.name)
+                    navigationController?.pushViewController(vc, animated: true)
+                }
             }
             .disposed(by: disposeBag)
         
@@ -102,7 +109,8 @@ final class HomeworkViewController: UIViewController {
             .subscribe(with: self) { owner, value in
                 do {  // 구독이 끊겨있거나 고의로 예외를 만들 수 있어서 throw 함
                     var temp = try owner.selectUsers.value()
-                    temp.append(value)
+                    temp = temp.filter { $0 != value }
+                    temp.insert(value, at: 0)
 
                     owner.selectUsers.onNext(temp)
                 } catch {
@@ -131,6 +139,18 @@ final class HomeworkViewController: UIViewController {
                 
             }
             .disposed(by: disposeBag)
+        
+        collectionView.rx.modelSelected(Person.self)
+            .bind(with: self) { owner, value in
+                do {
+                    var temp = try owner.selectUsers.value()
+                    temp.removeAll { $0 == value }
+                    owner.selectUsers.onNext(temp)
+                } catch {
+                    print("collection ModelSelected Fail")
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func makeUser(keyword: String) -> Person {
@@ -143,10 +163,10 @@ final class HomeworkViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(searchBar)
         
-        navigationItem.titleView = searchBar
+//        navigationItem.titleView = searchBar
          
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(self.view.safeAreaLayoutGuide )
             make.horizontalEdges.equalToSuperview()
         }
         

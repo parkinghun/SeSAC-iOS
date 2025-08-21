@@ -21,7 +21,7 @@
 		B53D23A42E54723300407D24 /* Exceptions for "RxSampleProject" folder in "RxSampleProject" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = B53D23912E54723100407D24 /* RxSampleProject */;
 		};
@@ -167,7 +167,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VDAQLM4XLQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RxSampleProject/Info.plist;
+				INFOPLIST_FILE = RxSampleProject/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -200,7 +200,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VDAQLM4XLQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RxSampleProject/Info.plist;
+				INFOPLIST_FILE = RxSampleProject/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

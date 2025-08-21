@@ -13,9 +13,9 @@ enum TabBarType: CaseIterable {
     case validation
     case home
     
-//    var navigationController: UINavigationController {
-//        return BaseNavigationController(rootViewController: viewController)
-//    }
+    var navigationController: UINavigationController {
+        return BaseNavigationController(rootViewController: viewController)
+    }
     
     var viewController: UIViewController {
         switch self {

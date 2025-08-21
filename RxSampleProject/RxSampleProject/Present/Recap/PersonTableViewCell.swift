@@ -31,13 +31,15 @@ final class PersonTableViewCell: UITableViewCell {
     
     let detailButton: UIButton = {
         let button = UIButton()
-        button.setTitle("받기", for: .normal)
+        button.setTitle("더보기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.isUserInteractionEnabled = true
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 16
         return button
     }()
+    
+    var closure: (() -> Void)?
       
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -78,6 +80,12 @@ final class PersonTableViewCell: UITableViewCell {
             $0.height.equalTo(32)
             $0.width.equalTo(72)
         }
+        
+        detailButton.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func detailButtonTapped() {
+        closure?()
     }
 }
 
