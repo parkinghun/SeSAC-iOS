@@ -10,9 +10,6 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-private let minimalUsernameLength = 5
-private let minimalPasswordLength = 5
-
 final class SimpleValidationViewController: UIViewController {
     
     private let containerView = UIView()
@@ -23,8 +20,8 @@ final class SimpleValidationViewController: UIViewController {
     }()
     private let usernameOutlet = RoundTextField(text: "")
     private let usernameValidOutlet = {
-       let label = UILabel()
-        label.text = "Username has to be at least \(minimalUsernameLength) characters"
+        let label = UILabel()
+        label.text = "Username has to be at least 5 characters"
         label.textColor = .red
         return label
     }()
@@ -34,13 +31,13 @@ final class SimpleValidationViewController: UIViewController {
         label.text = "Password"
         return label
     }()
-    private let passwordOutlet =  RoundTextField(text: "")
+    private var passwordOutlet =  RoundTextField(text: "")
     private let passwordValidOutlet = {
         let label = UILabel()
-        label.text = "Password has to be at least \(minimalPasswordLength) characters"
-         label.textColor = .red
-         return label
-     }()
+        label.text = "Password has to be at least 5 characters"
+        label.textColor = .red
+        return label
+    }()
     
     private let doSomethingOutlet = {
         let bt = UIButton()
@@ -52,7 +49,9 @@ final class SimpleValidationViewController: UIViewController {
         return bt
     }()
     
+    private let viewModel = SimpleValidationViewModel()
     private let disposeBag = DisposeBag()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,34 +61,33 @@ final class SimpleValidationViewController: UIViewController {
     }
     
     private func bind() {
-        let usernameValid = usernameOutlet.rx.text.orEmpty
-            .map { $0.count >= minimalUsernameLength }
-            .share(replay: 1)  // cold -> hot
+        // driver는 vc에서만 쓰는건지(main에서 사용하니까)
+        let input = SimpleValidationViewModel.Input(
+            usernameText: usernameOutlet.rx.text.orEmpty,
+            passwordText: passwordOutlet.rx.text.orEmpty,
+            buttonTap: doSomethingOutlet.rx.tap)
         
-        let passwordValid = passwordOutlet.rx.text.orEmpty
-            .map { $0.count >= minimalPasswordLength }
-            .share(replay: 1)
+        let output = viewModel.transform(input: input)
         
-        let everythingValid = Observable.combineLatest(usernameValid, passwordValid) { $0 && $1 }
-            .share(replay: 1)
-        
-        usernameValid
-            .bind(to: passwordOutlet.rx.isEnabled)
+        output.usernameValid
+            .bind(with: self) { owner, valid in
+                owner.passwordOutlet.isEnabled = valid
+                owner.usernameValidOutlet.isHidden = valid
+            }
             .disposed(by: disposeBag)
-        usernameValid
-            .bind(to: usernameValidOutlet.rx.isHidden)
-            .disposed(by: disposeBag)
-        passwordValid
+        
+        output.passwordValid
             .bind(to: passwordValidOutlet.rx.isHidden)
             .disposed(by: disposeBag)
-        everythingValid
+        
+        output.everythingValid
             .bind(to: doSomethingOutlet.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        doSomethingOutlet.rx.tap
-            .subscribe(with: self, onNext:  { owner, _ in
+        output.showAlert
+            .bind(with: self) { owner, valid in
                 owner.presentAlert("This is wonderful")
-            })
+            }
             .disposed(by: disposeBag)
     }
 }
