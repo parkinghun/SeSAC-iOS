@@ -25,9 +25,7 @@ final class NumbersViewModel {
     init() { }
     
     func transorm(input: Input) -> Output {
-        
-        // Output의 addText를 바로 사용하지 않고, 얘를 사용하는 이유
-        // output에 접근할 수 가 없음(초기화 전)
+
         let resultText = BehaviorRelay(value: "")
         
         Observable.combineLatest(input.number1, input.number2, input.number3) { value1, value2, value3 -> Int in

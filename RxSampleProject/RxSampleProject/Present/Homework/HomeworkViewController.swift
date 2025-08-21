@@ -22,6 +22,7 @@ final class HomeworkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        setupNaivgation()
         bind()
     }
     
@@ -62,9 +63,7 @@ final class HomeworkViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(collectionView)
         view.addSubview(searchBar)
-        
-        //        navigationItem.titleView = searchBar
-        
+                
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide )
             make.horizontalEdges.equalToSuperview()
@@ -93,5 +92,9 @@ final class HomeworkViewController: UIViewController {
         layout.itemSize = CGSize(width: 80, height: 40)
         layout.scrollDirection = .horizontal
         return layout
+    }
+    
+    private func setupNaivgation() {
+        navigationItem.backButtonDisplayMode = .minimal
     }
 }

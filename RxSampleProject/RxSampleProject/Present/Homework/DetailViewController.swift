@@ -23,8 +23,12 @@ final class DetailViewController: UIViewController {
             make.center.equalToSuperview()
         }
     }
-    
     func configure(name: String) {
+        setupNavigation(title: name)
         label.text = name
+    }
+    
+    private func setupNavigation(title: String) {
+        navigationItem.title = title
     }
 }
