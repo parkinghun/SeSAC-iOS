@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Title-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="SettingViewController" id="Y6W-OH-hqX" customClass="NameSettingViewController" customModule="Tamagotchi" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="axB-Lt-Wxu">
+                                <rect key="frame" x="0.0" y="118" width="393" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="4jo-b6-R7r"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAJ-gh-4NM">
+                                <rect key="frame" x="24" y="143" width="345" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jI6-hH-WaW">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="nameTextFieldDidEndOnExit:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="TU2-cn-Pvr"/>
+                                        </connections>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfG-lL-4np">
+                                        <rect key="frame" x="0.0" y="43" width="345" height="1"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="bZV-Ga-1ef"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="jI6-hH-WaW" secondAttribute="trailing" id="70q-pu-PrI"/>
+                                    <constraint firstItem="yfG-lL-4np" firstAttribute="leading" secondItem="JAJ-gh-4NM" secondAttribute="leading" id="DX0-e5-4Om"/>
+                                    <constraint firstAttribute="trailing" secondItem="yfG-lL-4np" secondAttribute="trailing" id="ObB-ab-8OB"/>
+                                    <constraint firstAttribute="bottom" secondItem="jI6-hH-WaW" secondAttribute="bottom" id="gKc-K4-5EX"/>
+                                    <constraint firstItem="jI6-hH-WaW" firstAttribute="leading" secondItem="JAJ-gh-4NM" secondAttribute="leading" id="iVy-jS-jRm"/>
+                                    <constraint firstAttribute="bottom" secondItem="yfG-lL-4np" secondAttribute="bottom" id="s6U-Qk-m5O"/>
+                                    <constraint firstItem="jI6-hH-WaW" firstAttribute="top" secondItem="JAJ-gh-4NM" secondAttribute="top" id="yjf-NF-nd5"/>
+                                    <constraint firstAttribute="height" constant="44" id="zr9-Z3-N5W"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="0.86247583780000003" green="0.96558585860000001" blue="0.98823529480000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="axB-Lt-Wxu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="2QM-o7-cwC"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="axB-Lt-Wxu" secondAttribute="trailing" id="BL1-Dt-5fG"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="JAJ-gh-4NM" secondAttribute="trailing" constant="24" id="WUq-JA-8Bu"/>
+                            <constraint firstItem="JAJ-gh-4NM" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="24" id="byR-jV-iPD"/>
+                            <constraint firstItem="axB-Lt-Wxu" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="mx5-qF-NBm"/>
+                            <constraint firstItem="JAJ-gh-4NM" firstAttribute="top" secondItem="axB-Lt-Wxu" secondAttribute="bottom" constant="24" id="sKa-fl-lhU"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ZbW-w9-RzH" appends="YES" id="pyl-6Z-rnl"/>
+                        </connections>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="Xty-Za-R5l">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="H05-xd-b0v">
+                            <connections>
+                                <action selector="saveBarButtonItemTapped:" destination="Y6W-OH-hqX" id="VaO-DZ-sqF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="nameTextField" destination="jI6-hH-WaW" id="1pp-Nk-4Pa"/>
+                        <outlet property="saveBarButtonItem" destination="H05-xd-b0v" id="dqS-ma-GCD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ZbW-w9-RzH">
+                    <connections>
+                        <action selector="viewTapped:" destination="Y6W-OH-hqX" id="fZ6-rR-ERR"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="132" y="-28"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
