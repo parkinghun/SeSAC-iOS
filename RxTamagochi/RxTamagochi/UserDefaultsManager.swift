@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: - PropertyWrapper를 이용해 리팩토링하기
 final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
     private let defaults = UserDefaults.standard
@@ -16,7 +15,7 @@ final class UserDefaultsManager {
         static let tamagochi = "tamagochi"
     }
     
-    private init() {}
+    private init() { }
     
     func saveTamagochi(_ tamagochi: Tamagochi) {
         let encoder = JSONEncoder()
@@ -29,5 +28,9 @@ final class UserDefaultsManager {
         guard let data = defaults.data(forKey: Key.tamagochi) else { return nil }
         let decoder = JSONDecoder()
         return try? decoder.decode(Tamagochi.self, from: data)
+    }
+    
+    func deleteTamagochi() {
+        defaults.removeObject(forKey: Key.tamagochi)
     }
 }

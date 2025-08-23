@@ -88,9 +88,14 @@ class HomeViewController: UIViewController {
     
     
     @objc func presentSettingView() {
+
         print(#function)
     }
     
+    @IBAction func settingButtonTapped(_ sender: UIBarButtonItem) {
+        let vc = SettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     @IBAction func riceButtonTapped(_ sender: UIButton) {
         print(#function)

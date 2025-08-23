@@ -50,6 +50,8 @@ final class Tamagochi: Codable {
     var randomMessage: String {
         messageList.randomElement() ?? "\(name)님 안녕하세요"
     }
+    
+    static let dummy = Tamagochi(name: "", type: .smile, rice: 0, water: 0, level: 0)
 }
 
 final class TamagochiManager {
@@ -57,18 +59,24 @@ final class TamagochiManager {
     static let shared = TamagochiManager()
     
     private init() {
-        load()
+//        load()
+    }
+
+    var tamagochi: Tamagochi {  // 데이터가 있으면 그대로 보여주고 없으면 가져오게?
+        return UserDefaultsManager.shared.loadTamagochi() ?? Tamagochi(name: "unnkown", type: .smile, rice: 0, water: 0, level: 0)
     }
     
-    var tamagochi = Tamagochi()
-    
-    func load() {
-        if let saved = UserDefaultsManager.shared.loadTamagochi() {
-            self.tamagochi = saved
-        }
-    }
+//    func load() {
+//        if let saved = UserDefaultsManager.shared.loadTamagochi() {
+//            self.tamagochi = saved
+//        }
+//    }
     
     func save() {
         UserDefaultsManager.shared.saveTamagochi(tamagochi)
+    }
+    
+    func delete() {
+        UserDefaultsManager.shared.deleteTamagochi()
     }
 }

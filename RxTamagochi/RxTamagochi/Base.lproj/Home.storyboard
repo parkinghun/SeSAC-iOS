@@ -179,7 +179,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.86247583781264092" green="0.96558585864212121" blue="0.98823529480000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.86274509803921573" green="0.96470588450000005" blue="0.98823529480000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="JI0-x5-3Ye" firstAttribute="top" secondItem="Y1I-cO-Z5U" secondAttribute="bottom" constant="12" id="8Tm-fR-HVt"/>
@@ -204,7 +204,7 @@
                     <navigationItem key="navigationItem" title="Title" id="QYe-SY-nOY">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="PPX-sb-zud">
                             <connections>
-                                <segue destination="TKt-kM-TUO" kind="show" id="iwW-cl-Ift"/>
+                                <action selector="settingButtonTapped:" destination="BYZ-38-t0r" id="VVy-SG-aJW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -231,16 +231,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1979.3893129770991" y="-34.507042253521128"/>
-        </scene>
-        <!--SettingViewController-->
-        <scene sceneID="1k0-8X-Kch">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="SettingViewController" storyboardName="NameSetting" referencedIdentifier="SettingViewController" id="TKt-kM-TUO" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="rQD-6F-cZr"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Snd-ta-3Eu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2625.9541984732823" y="-244.36619718309859"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bc3-5N-5fm">

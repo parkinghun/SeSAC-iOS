@@ -11,7 +11,7 @@
         <!--Title-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="SettingViewController" id="Y6W-OH-hqX" customClass="NameSettingViewController" customModule="Tamagotchi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NameSettingViewController" id="Y6W-OH-hqX" customClass="NameSettingViewController" customModule="RxTamagochi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,15 +54,24 @@
                                     <constraint firstAttribute="height" constant="44" id="zr9-Z3-N5W"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZS-ZP-BzX">
+                                <rect key="frame" x="24" y="199" width="345" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" red="0.86247583780000003" green="0.96558585860000001" blue="0.98823529480000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.86274509803921573" green="0.96470588235294119" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="axB-Lt-Wxu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="2QM-o7-cwC"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="axB-Lt-Wxu" secondAttribute="trailing" id="BL1-Dt-5fG"/>
+                            <constraint firstItem="lZS-ZP-BzX" firstAttribute="leading" secondItem="jI6-hH-WaW" secondAttribute="leading" id="KgA-aN-h72"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="JAJ-gh-4NM" secondAttribute="trailing" constant="24" id="WUq-JA-8Bu"/>
                             <constraint firstItem="JAJ-gh-4NM" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="24" id="byR-jV-iPD"/>
+                            <constraint firstItem="lZS-ZP-BzX" firstAttribute="top" secondItem="JAJ-gh-4NM" secondAttribute="bottom" constant="12" id="i6o-k0-sCu"/>
+                            <constraint firstItem="lZS-ZP-BzX" firstAttribute="trailing" secondItem="jI6-hH-WaW" secondAttribute="trailing" id="iYl-P9-MRF"/>
                             <constraint firstItem="axB-Lt-Wxu" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="mx5-qF-NBm"/>
                             <constraint firstItem="JAJ-gh-4NM" firstAttribute="top" secondItem="axB-Lt-Wxu" secondAttribute="bottom" constant="24" id="sKa-fl-lhU"/>
                         </constraints>
@@ -82,6 +91,7 @@
                     <connections>
                         <outlet property="nameTextField" destination="jI6-hH-WaW" id="1pp-Nk-4Pa"/>
                         <outlet property="saveBarButtonItem" destination="H05-xd-b0v" id="dqS-ma-GCD"/>
+                        <outlet property="validLabel" destination="lZS-ZP-BzX" id="CLx-jB-v9m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
