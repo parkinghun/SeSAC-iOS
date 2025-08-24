@@ -13,23 +13,24 @@ final class SettingViewModel: ConfigureViewModelProtocol {
     
     struct Input {
         let selectedSetting: ControlEvent<Setting>
-        // alert ok 버튼 클릭
     }
     
     struct Output {
         let cellData: Observable<[Setting]>
-        
-        let nameSetting: PublishRelay<Void>  // Tamagochi 넘겨줘야함
-        let changeTamagochi: PublishRelay<Void>  // ??
-        let resetData: PublishRelay<AlertStyle>  // 알럿 타이틀 메시지(웅/아냐!)
+        let nameSetting: PublishRelay<Void>
+        let changeTamagochi: PublishRelay<Void>
+        let resetData: PublishRelay<AlertStyle>
+//        let tamagochiState: Observable<TamagochiState>
+        // 삭제시 뷰 변경하기
     }
     
-//    private let setting = Setting.allCases
+    private let store: TamagochiStore
     private let disposeBag = DisposeBag()
-    init() { }
+    init(store: TamagochiStore) {
+        self.store = store
+    }
     
     func transform(input: Input) -> Output {
-        
         let setting = Observable.just(Setting.allCases)
         let nameSetting = PublishRelay<Void>()
         let changeTamagochi = PublishRelay<Void>()
@@ -43,13 +44,19 @@ final class SettingViewModel: ConfigureViewModelProtocol {
                 case .change:
                     changeTamagochi.accept(())
                 case .reset:
-                    resetData.accept(.init(title: "데이터 초기화", message: "정말 다시 처음부터 시작하실 건가용?", ok: "웅", cancel: "아냐!", handler: {
-                        owner.resetData()
-                    }))
+                    resetData.accept(.init(
+                        title: "데이터 초기화",
+                        message: "정말 다시 처음부터 시작하실 건가용?",
+                        ok: "웅",
+                        cancel: "아냐!",
+                        handler: {
+                            owner.sendReset()
+                        }
+                    ))
                 }
             }
             .disposed(by: disposeBag)
-            
+        
         
         return Output(cellData: setting,
                       nameSetting: nameSetting,
@@ -59,8 +66,8 @@ final class SettingViewModel: ConfigureViewModelProtocol {
 }
 
 private extension SettingViewModel {
-    func resetData() {
-        TamagochiManager.shared.delete()
+    func sendReset() {
+        _ = store.transform(input: .init(action: .just(.reset)))
     }
 }
 
@@ -86,9 +93,12 @@ enum Setting: CaseIterable {
     }
     
     var rightTitle: String {
-        switch self {
-        case .name: return TamagochiManager.shared.tamagochi.name
-        default: return ""
+        let state = TamagochiManager.shared.state
+        
+        if case .active(let tamagochi) = state, self == .name {
+            return tamagochi.name
+        } else {
+            return ""
         }
     }
 }

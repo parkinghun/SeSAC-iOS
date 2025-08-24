@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     @IBOutlet var settingButton: UIBarButtonItem!
     @IBOutlet var characterNameView: UIView!
     
-    let tamagochi = TamagochiManager.shared.tamagochi
+    let tamagochi = TamagochiManager.shared.state
     
     var statusDescription: String {
         return "LV\(tamagochi.level) ∙ 밥알 \(tamagochi.rice)개 ∙ 물방울 \(tamagochi.water)개"

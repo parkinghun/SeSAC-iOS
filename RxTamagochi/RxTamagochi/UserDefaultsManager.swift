@@ -10,27 +10,25 @@ import Foundation
 final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
     private let defaults = UserDefaults.standard
-    
-    private enum Key {
-        static let tamagochi = "tamagochi"
-    }
-    
+  
     private init() { }
     
-    func saveTamagochi(_ tamagochi: Tamagochi) {
+    func saveData<T: UserDefaultsStorable & Codable>(_ value: T) {
         let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(tamagochi) {
-            defaults.set(encoded, forKey: Key.tamagochi)
+        if let encoded = try? encoder.encode(value) {
+            defaults.set(encoded, forKey: T.key)
         }
     }
 
-    func loadTamagochi() -> Tamagochi? {
-        guard let data = defaults.data(forKey: Key.tamagochi) else { return nil }
-        let decoder = JSONDecoder()
-        return try? decoder.decode(Tamagochi.self, from: data)
+    func loadData<T: UserDefaultsStorable & Codable>(_ type: T.Type) -> T? {
+
+        guard let data = defaults.data(forKey: T.key),
+              let value = try? JSONDecoder().decode(T.self, from: data) else { return nil }
+        
+        return value
     }
     
-    func deleteTamagochi() {
-        defaults.removeObject(forKey: Key.tamagochi)
+    func deleteData<T: UserDefaultsStorable>(_ type: T.Type) {
+        defaults.removeObject(forKey: T.key)
     }
 }

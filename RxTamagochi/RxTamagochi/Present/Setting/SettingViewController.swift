@@ -19,8 +19,17 @@ final class SettingViewController: UIViewController, ConfigureViewControllerProt
         return tv
     }()
     
-    private let viewModel = SettingViewModel()
+    private let viewModel: SettingViewModel
     private let disposeBag = DisposeBag()
+    
+    init(viewModel: SettingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +56,9 @@ final class SettingViewController: UIViewController, ConfigureViewControllerProt
         output.nameSetting
             .asDriver(onErrorJustReturn: ())
             .drive(with: self) { owner, _ in
-                guard let vc = UIStoryboard(name: "NameSetting", bundle: nil).instantiateViewController(withIdentifier: "NameSettingViewController") as? NameSettingViewController else { return }
+                let storyboard = UIStoryboard(name: "NameSetting", bundle: nil)
+                guard let vc = storyboard.instantiateViewController(withIdentifier: "NameSettingViewController") as? NameSettingViewController else { return }
+                vc.viewModel = NameSettingViewModel(store: viewModel.store)
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)

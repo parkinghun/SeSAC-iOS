@@ -15,23 +15,29 @@ final class NameSettingViewController: UIViewController, ConfigureViewController
     @IBOutlet var validLabel: UILabel!
     @IBOutlet var saveBarButtonItem: UIBarButtonItem!
     
-    private let viewModel = NameSettingViewModel()
+    var viewModel: NameSettingViewModel!
     private let disposeBag = DisposeBag()
+    
+    required init?(coder: NSCoder, viewModel: NameSettingViewModel) {
+        self.viewModel = viewModel
+        super.init(coder: coder)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-        setupNavigation()
+        configureUI()
         bind()
     }
     
-    private func setUI() {
-        //        nameTextField.text = tamagochi.name
+    private func configureUI() {
+        saveBarButtonItem.title = "저장"
         nameTextField.borderStyle = .none
-    }
-    
-    private func setupNavigation() {
-        //        saveBarButtonItem.title = "대장님 이름 정하기"
     }
     
     private func bind() {
@@ -48,53 +54,32 @@ final class NameSettingViewController: UIViewController, ConfigureViewController
             .bind(to: nameTextField.rx.placeholder)
             .disposed(by: disposeBag)
         
+        output.validResult
+            .asDriver(onErrorJustReturn: false)
+            .map { $0 ? UIColor.blue : UIColor.red }
+            .drive(validLabel.rx.textColor)
+            .disposed(by: disposeBag)
+        
+        output.validResult
+            .asDriver(onErrorJustReturn: false)
+            .drive(saveBarButtonItem.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.validText
+            .asDriver(onErrorJustReturn: "")
+            .drive(validLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.toast
+            .drive(with: self) { owner, value in
+                owner.navigationController?.showToastMessage(value)
+            }
+            .disposed(by: disposeBag)
     }
-    
-    @IBAction func saveBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        print(#function)
-        
-        //        guard let name = nameTextField.text else { return }
-        
-        //        if isValid(name: name) {
-        //            tamagochi.name = name
-        //            saveNameToUserDefault()
-        //            self.navigationController?.popViewController(animated: true)
-        //        }
-        //    }
-        
-        //    private func isValid(name: String) -> Bool {
-        //        guard tamagochi.name != (nameTextField.text ?? "") else {
-        //            showAlert(message: "동일한 이름으로 변경이 불가능합니다.")
-        //            return false
-        //        }
-        //        guard name.count >= 2, name.count <= 6 else {
-        //            showAlert(message: "이름은 2글자 이상 6글자 이하로 작성해주세요.")
-        //            return false
-        //        }
-        //        guard !name.contains(" ") else {
-        //            showAlert(message: "이름에 띄어쓰기는 불가능합니다.")
-        //            return false
-        //        }
-        //        return true
-        //    }
-        
-        //    private func saveNameToUserDefault() {
-        //        TamagochiManager.shared.save()
-        //    }
-        
-        //    private func showAlert(message: String) {
-        //        let alert = UIAlertController(title: "대장 이름 에러", message: message, preferredStyle: .alert)
-        //        let ok = UIAlertAction(title: "OK", style: .default)
-        //        alert.addAction(ok)
-        //        present(alert, animated: true)
-        //    }
-        
-        //    @IBAction func nameTextFieldDidEndOnExit(_ sender: UITextField) {
-        //        print(#function)
-        //    }
+ 
         
         //    @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
         //        self.view.endEditing(true)
         //    }
-    }
+    
 }
