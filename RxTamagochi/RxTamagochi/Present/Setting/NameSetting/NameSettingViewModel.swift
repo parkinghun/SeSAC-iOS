@@ -10,6 +10,10 @@ import RxSwift
 import RxCocoa
 
 final class NameSettingViewModel {
+    enum Route {
+        case goRoot
+    }
+    
     struct Input {
         let saveButtonTapped: ControlEvent<Void>
         let changeName: ControlProperty<String>
@@ -20,10 +24,12 @@ final class NameSettingViewModel {
         let navigationTitle: Observable<String>
         let placeholder: Observable<String>
         let validResult: BehaviorRelay<Bool>
-        let validText: PublishRelay<String>
+        let validText: BehaviorRelay<String>
         let toast: Driver<Toast>
+        let currentName: Driver<String>
     }
     
+    let routes = PublishRelay<Route>()
     private let store: TamagochiStore
     private let disposeBag = DisposeBag()
     
@@ -35,9 +41,13 @@ final class NameSettingViewModel {
         let navigationTitle = Observable.just("대장님 이름 정하기")
         let placeholder = Observable.just("이름을 입력해주세요")
         let validResult = BehaviorRelay(value: false)
-        let validText = PublishRelay<String>()
+        let validText = BehaviorRelay<String>(value: "동일한 이름으로 변경이 불가능합니다.")
         let toast = PublishRelay<Toast>()
         
+        let currentName = store.current?.name ?? ""
+        let name = Observable.just(currentName)
+            .asDriver(onErrorJustReturn: "")
+            
         let saveAction = input.saveButtonTapped
             .withLatestFrom(input.changeName)
             .map { TamagochiAction.changeName($0) }
@@ -47,6 +57,8 @@ final class NameSettingViewModel {
         
         saveAction
             .bind(with: self) { owner, _ in
+                owner.routes.accept(.goRoot)
+                
                 toast.accept(.init(status: .check, message: "닉네임이 성공적으로 변경되었습니다."))
             }
             .disposed(by: disposeBag)
@@ -71,7 +83,8 @@ final class NameSettingViewModel {
                       placeholder: placeholder,
                       validResult: validResult,
                       validText: validText,
-                      toast: toast.asDriver(onErrorJustReturn: .init(status: .warning, message: "")))
+                      toast: toast.asDriver(onErrorJustReturn: .init(status: .warning, message: "")),
+                      currentName: name)
     }
 }
 

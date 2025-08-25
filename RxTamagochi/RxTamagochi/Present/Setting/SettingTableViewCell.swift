@@ -54,9 +54,16 @@ final class SettingTableViewCell: UITableViewCell, ReuseViewProtocol {
         disposeBag = DisposeBag()
     }
     
-    func configure(row setting: Setting) {
-        leftImageView.image = UIImage(systemName: setting.image)
-        titleLabel.text = setting.title
+    func configure(row setting: SettingRow) {
+        leftImageView.image = UIImage(systemName: setting.kind.image)
+        titleLabel.text = setting.kind.title
+        
+        switch setting.kind {
+        case .name:
+            nameLabel.text = ""
+        default: break
+        }
+
         nameLabel.text = setting.rightTitle
     }
 }

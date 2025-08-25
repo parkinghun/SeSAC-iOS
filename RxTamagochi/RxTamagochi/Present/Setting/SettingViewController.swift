@@ -44,34 +44,16 @@ final class SettingViewController: UIViewController, ConfigureViewControllerProt
     
     func bind() {
         let input = SettingViewModel.Input(
-            selectedSetting: tableView.rx.modelSelected(Setting.self))
+            selectedSetting: tableView.rx.modelSelected(SettingRow.self))
         let output = viewModel.transform(input: input)
         
         output.cellData
-            .bind(to: tableView.rx.items(cellIdentifier: SettingTableViewCell.identifier, cellType: SettingTableViewCell.self)) { row, element, cell in
+            .drive(tableView.rx.items(cellIdentifier: SettingTableViewCell.identifier, cellType: SettingTableViewCell.self)) { row, element, cell in
                 cell.configure(row: element)
             }
             .disposed(by: disposeBag)
         
-        output.nameSetting
-            .asDriver(onErrorJustReturn: ())
-            .drive(with: self) { owner, _ in
-                let storyboard = UIStoryboard(name: "NameSetting", bundle: nil)
-                guard let vc = storyboard.instantiateViewController(withIdentifier: "NameSettingViewController") as? NameSettingViewController else { return }
-                vc.viewModel = NameSettingViewModel(store: viewModel.store)
-                owner.navigationController?.pushViewController(vc, animated: true)
-            }
-            .disposed(by: disposeBag)
-        
-        output.changeTamagochi
-            .asDriver(onErrorJustReturn: ())
-            .drive(with: self) { owner, _ in
-                let vc = UIViewController()
-                owner.navigationController?.pushViewController(vc, animated: true)
-            }
-            .disposed(by: disposeBag)
-        
-        output.resetData
+        output.deleteAlert
             .asDriver(onErrorJustReturn: .init(title: "", message: "", ok: "", cancel: ""))
             .drive(with: self) { owner, alert in
                 owner.showAlert(alertStyle: alert)

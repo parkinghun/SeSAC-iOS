@@ -50,6 +50,10 @@ final class NameSettingViewController: UIViewController, ConfigureViewController
             .bind(to: navigationItem.rx.title)
             .disposed(by: disposeBag)
         
+        output.currentName
+            .drive(nameTextField.rx.text)
+            .disposed(by: disposeBag)
+        
         output.placeholder
             .bind(to: nameTextField.rx.placeholder)
             .disposed(by: disposeBag)
@@ -75,11 +79,5 @@ final class NameSettingViewController: UIViewController, ConfigureViewController
                 owner.navigationController?.showToastMessage(value)
             }
             .disposed(by: disposeBag)
-    }
- 
-        
-        //    @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
-        //        self.view.endEditing(true)
-        //    }
-    
+    }    
 }

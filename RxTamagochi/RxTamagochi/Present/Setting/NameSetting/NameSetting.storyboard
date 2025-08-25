@@ -75,9 +75,6 @@
                             <constraint firstItem="axB-Lt-Wxu" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="mx5-qF-NBm"/>
                             <constraint firstItem="JAJ-gh-4NM" firstAttribute="top" secondItem="axB-Lt-Wxu" secondAttribute="bottom" constant="24" id="sKa-fl-lhU"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="ZbW-w9-RzH" appends="YES" id="pyl-6Z-rnl"/>
-                        </connections>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="Xty-Za-R5l">
@@ -95,11 +92,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="ZbW-w9-RzH">
-                    <connections>
-                        <action selector="viewTapped:" destination="Y6W-OH-hqX" id="fZ6-rR-ERR"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ZbW-w9-RzH"/>
             </objects>
             <point key="canvasLocation" x="132" y="-28"/>
         </scene>

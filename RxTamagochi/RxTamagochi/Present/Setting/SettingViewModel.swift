@@ -10,20 +10,20 @@ import RxSwift
 import RxCocoa
 
 final class SettingViewModel: ConfigureViewModelProtocol {
-    
+    enum Route {
+        case goNameSetting
+        case goChangeTamagochi
+    }
     struct Input {
-        let selectedSetting: ControlEvent<Setting>
+        let selectedSetting: ControlEvent<SettingRow>
     }
     
     struct Output {
-        let cellData: Observable<[Setting]>
-        let nameSetting: PublishRelay<Void>
-        let changeTamagochi: PublishRelay<Void>
-        let resetData: PublishRelay<AlertStyle>
-//        let tamagochiState: Observable<TamagochiState>
-        // 삭제시 뷰 변경하기
+        let cellData: Driver<[SettingRow]>
+        let deleteAlert: PublishRelay<AlertStyle>
     }
     
+    let routes = PublishRelay<Route>()
     private let store: TamagochiStore
     private let disposeBag = DisposeBag()
     init(store: TamagochiStore) {
@@ -31,20 +31,29 @@ final class SettingViewModel: ConfigureViewModelProtocol {
     }
     
     func transform(input: Input) -> Output {
-        let setting = Observable.just(Setting.allCases)
-        let nameSetting = PublishRelay<Void>()
-        let changeTamagochi = PublishRelay<Void>()
-        let resetData = PublishRelay<AlertStyle>()
+
+        let state = store.transform(input: .init(action: .empty())).state
+        
+        let rows = state
+            .compactMap { $0 }
+            .map { tamagochi in
+                Setting.allCases.map { kind in
+                    let title = (kind == .name) ? tamagochi.name : ""
+                    return SettingRow(kind: kind, rightTitle: title)
+                }
+            }
+        
+        let deleteAlert = PublishRelay<AlertStyle>()
         
         input.selectedSetting
-            .bind(with: self) { owner, setting in
-                switch setting {
+            .bind(with: self) { owner, row in
+                switch row.kind {
                 case .name:
-                    nameSetting.accept(())
+                    owner.routes.accept(.goNameSetting)
                 case .change:
-                    changeTamagochi.accept(())
+                    owner.routes.accept(.goChangeTamagochi)
                 case .reset:
-                    resetData.accept(.init(
+                    deleteAlert.accept(.init(
                         title: "데이터 초기화",
                         message: "정말 다시 처음부터 시작하실 건가용?",
                         ok: "웅",
@@ -58,10 +67,8 @@ final class SettingViewModel: ConfigureViewModelProtocol {
             .disposed(by: disposeBag)
         
         
-        return Output(cellData: setting,
-                      nameSetting: nameSetting,
-                      changeTamagochi: changeTamagochi,
-                      resetData: resetData)
+        return Output(cellData: rows,
+                      deleteAlert: deleteAlert)
     }
 }
 
@@ -69,6 +76,11 @@ private extension SettingViewModel {
     func sendReset() {
         _ = store.transform(input: .init(action: .just(.reset)))
     }
+}
+
+struct SettingRow {
+    let kind: Setting
+    let rightTitle: String
 }
 
 enum Setting: CaseIterable {
@@ -89,16 +101,6 @@ enum Setting: CaseIterable {
         case .name: return "pencil"
         case .change: return "moon.fill"
         case .reset: return "arrow.clockwise"
-        }
-    }
-    
-    var rightTitle: String {
-        let state = TamagochiManager.shared.state
-        
-        if case .active(let tamagochi) = state, self == .name {
-            return tamagochi.name
-        } else {
-            return ""
         }
     }
 }

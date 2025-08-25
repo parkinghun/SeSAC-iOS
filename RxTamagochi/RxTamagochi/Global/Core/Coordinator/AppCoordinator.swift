@@ -14,11 +14,13 @@ final class AppCoordinator: Coordinator {
         case main
     }
     
+    var childCoordinators: [Coordinator] = []
+    
     private let window: UIWindow
-    private let nav = BaseViewController()
+    private let nav = BaseNavigationController()
     private let store = TamagochiStore()
     private var current: Coordinator?
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     
     init(window: UIWindow) {
         self.window = window
@@ -27,6 +29,8 @@ final class AppCoordinator: Coordinator {
     func start() {
         window.rootViewController = nav
         window.makeKeyAndVisible()
+        
+        switchFlow(.main)
         
         let output = store.transform(input: .init(action: .empty()))
         output.state
@@ -39,7 +43,7 @@ final class AppCoordinator: Coordinator {
     }
     
     func stop() {
-        
+        disposeBag = DisposeBag()
     }
 }
 
@@ -49,11 +53,14 @@ private extension AppCoordinator {
         
         switch flow {
         case .start:
-            print("첫 화면 전환")
-//            let coordinator = StartCoordinator(nav: nav, store: store)
+            let coordinator = StartCoordinator(nav: nav, store: store)
+            nav.setViewControllers([], animated: false)
+            current = coordinator
+            coordinator.start()
         case .main:
             let coordinator = MainCoordinator(nav: nav, store: store)
             current = coordinator
+            nav.setViewControllers([], animated: false)
             coordinator.start()
         }
     }

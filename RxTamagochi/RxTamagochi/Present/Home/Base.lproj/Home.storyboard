@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DBF-gq-CJl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
@@ -107,9 +107,6 @@
                                                 <rect key="frame" x="194" y="0.0" width="119" height="44"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                                <connections>
-                                                    <action selector="riceButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wsb-LT-tXQ"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -153,9 +150,6 @@
                                                 <rect key="frame" x="194" y="0.0" width="119" height="44"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                                <connections>
-                                                    <action selector="waterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rMj-Gt-oFU"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -165,7 +159,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b76-w2-m8q">
-                                <rect key="frame" x="0.0" y="162" width="393" height="1"/>
+                                <rect key="frame" x="0.0" y="118" width="393" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="jwf-zE-3Gp"/>
@@ -232,31 +226,10 @@
             </objects>
             <point key="canvasLocation" x="1979.3893129770991" y="-34.507042253521128"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="bc3-5N-5fm">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DBF-gq-CJl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="house" catalog="system" selectedImage="house.fill" id="MU3-2h-UGL"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="d9X-Bz-aaY">
-                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="i5I-hg-Ox5"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="laE-Uo-tE8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1052.6717557251909" y="-34.507042253521128"/>
-        </scene>
     </scenes>
     <resources>
         <image name="2-1" width="152" height="151"/>
         <image name="bubble" width="222" height="142"/>
-        <image name="house" catalog="system" width="128" height="104"/>
-        <image name="house.fill" catalog="system" width="128" height="104"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
