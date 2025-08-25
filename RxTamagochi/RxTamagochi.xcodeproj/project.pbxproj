@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B53A977E2E5CCE1E006A8A89 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B53A977D2E5CCE1E006A8A89 /* .gitignore */; };
 		B556A6492E5CAEE8008BBEC9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B556A6482E5CAEE8008BBEC9 /* Alamofire */; };
 		B586FE1A2E58402400CB31AF /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B586FE192E58402400CB31AF /* RxCocoa */; };
 		B586FE1C2E58402400CB31AF /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B586FE1B2E58402400CB31AF /* RxSwift */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B53A977D2E5CCE1E006A8A89 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B586FDAF2E57EE9F00CB31AF /* RxTamagochi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxTamagochi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -56,6 +58,7 @@
 		B586FDA62E57EE9F00CB31AF = {
 			isa = PBXGroup;
 			children = (
+				B53A977D2E5CCE1E006A8A89 /* .gitignore */,
 				B586FDB12E57EE9F00CB31AF /* RxTamagochi */,
 				B586FDB02E57EE9F00CB31AF /* Products */,
 			);
@@ -142,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53A977E2E5CCE1E006A8A89 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

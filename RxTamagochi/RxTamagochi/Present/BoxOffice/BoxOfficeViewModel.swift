@@ -22,4 +22,9 @@ final class BoxOfficeViewModel: ConfigureViewModelProtocol {
         return Output()
     }
     
+    let baseURL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
+}
+
+private extension BoxOfficeViewModel {
+    
 }
