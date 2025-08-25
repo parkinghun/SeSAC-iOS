@@ -35,7 +35,7 @@ final class SelecteDetailViewModel: ConfigureViewModelProtocol {
     private let selectedType: TamagochiType
     private let store: TamagochiStore
     private let state: State
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     init(store: TamagochiStore, selectedType: TamagochiType, state: State) {
         self.store = store
@@ -46,7 +46,6 @@ final class SelecteDetailViewModel: ConfigureViewModelProtocol {
     func transform(input: Input) -> Output {
         
         let toast = PublishRelay<Toast>()
-        let tamagochi = store.current
         let navigationTitle = PublishRelay<String>()
         switch state {
         case .start:

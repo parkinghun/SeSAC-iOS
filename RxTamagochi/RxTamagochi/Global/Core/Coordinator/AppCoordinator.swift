@@ -11,7 +11,7 @@ import RxSwift
 final class AppCoordinator: Coordinator {
     enum Flow {
         case start
-        case main
+        case tab
     }
     
     var childCoordinators: [Coordinator] = []
@@ -19,9 +19,10 @@ final class AppCoordinator: Coordinator {
     private let window: UIWindow
     private let nav = BaseNavigationController()
     private let store = TamagochiStore()
-    private var current: Coordinator?
     private var disposeBag = DisposeBag()
-    
+
+    private var current: Coordinator?
+
     init(window: UIWindow) {
         self.window = window
     }
@@ -30,11 +31,11 @@ final class AppCoordinator: Coordinator {
         window.rootViewController = nav
         window.makeKeyAndVisible()
         
-        switchFlow(.main)
+//        switchFlow(.main)
         
         let output = store.transform(input: .init(action: .empty()))
         output.state
-            .map { $0 == nil ? Flow.start : Flow.main }
+            .map { $0 == nil ? Flow.start : Flow.tab }
             .distinctUntilChanged()
             .drive(with: self) { owner, flow in
                 owner.switchFlow(flow)
@@ -57,8 +58,9 @@ private extension AppCoordinator {
             nav.setViewControllers([], animated: false)
             current = coordinator
             coordinator.start()
-        case .main:
-            let coordinator = MainCoordinator(nav: nav, store: store)
+        case .tab:
+            let coordinator = TabBarCoordinator(store: store)
+            window.rootViewController = coordinator.tabBarController
             current = coordinator
             nav.setViewControllers([], animated: false)
             coordinator.start()

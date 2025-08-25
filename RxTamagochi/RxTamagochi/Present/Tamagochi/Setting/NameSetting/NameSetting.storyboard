@@ -30,9 +30,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="nameTextFieldDidEndOnExit:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="TU2-cn-Pvr"/>
-                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfG-lL-4np">
                                         <rect key="frame" x="0.0" y="43" width="345" height="1"/>
@@ -78,11 +75,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="Xty-Za-R5l">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="H05-xd-b0v">
-                            <connections>
-                                <action selector="saveBarButtonItemTapped:" destination="Y6W-OH-hqX" id="VaO-DZ-sqF"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="H05-xd-b0v"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>

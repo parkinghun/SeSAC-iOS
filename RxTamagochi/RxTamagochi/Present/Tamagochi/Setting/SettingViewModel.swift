@@ -25,7 +25,7 @@ final class SettingViewModel: ConfigureViewModelProtocol {
     
     let routes = PublishRelay<Route>()
     private let store: TamagochiStore
-    private let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     init(store: TamagochiStore) {
         self.store = store
     }

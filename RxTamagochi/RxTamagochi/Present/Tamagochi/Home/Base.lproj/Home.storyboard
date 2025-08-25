@@ -196,11 +196,7 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="QYe-SY-nOY">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="PPX-sb-zud">
-                            <connections>
-                                <action selector="settingButtonTapped:" destination="BYZ-38-t0r" id="VVy-SG-aJW"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="PPX-sb-zud"/>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>

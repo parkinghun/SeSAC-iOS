@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B556A6492E5CAEE8008BBEC9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B556A6482E5CAEE8008BBEC9 /* Alamofire */; };
 		B586FE1A2E58402400CB31AF /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B586FE192E58402400CB31AF /* RxCocoa */; };
 		B586FE1C2E58402400CB31AF /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B586FE1B2E58402400CB31AF /* RxSwift */; };
 		B586FE212E5845FF00CB31AF /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B586FE202E5845FF00CB31AF /* SnapKit */; };
@@ -43,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B586FE212E5845FF00CB31AF /* SnapKit in Frameworks */,
+				B556A6492E5CAEE8008BBEC9 /* Alamofire in Frameworks */,
 				B586FE1C2E58402400CB31AF /* RxSwift in Frameworks */,
 				B586FE1A2E58402400CB31AF /* RxCocoa in Frameworks */,
 			);
@@ -90,6 +92,7 @@
 				B586FE192E58402400CB31AF /* RxCocoa */,
 				B586FE1B2E58402400CB31AF /* RxSwift */,
 				B586FE202E5845FF00CB31AF /* SnapKit */,
+				B556A6482E5CAEE8008BBEC9 /* Alamofire */,
 			);
 			productName = RxTamagochi;
 			productReference = B586FDAF2E57EE9F00CB31AF /* RxTamagochi.app */;
@@ -122,6 +125,7 @@
 			packageReferences = (
 				B586FE182E58402400CB31AF /* XCRemoteSwiftPackageReference "RxSwift" */,
 				B586FE1F2E5845FF00CB31AF /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B556A6472E5CAEE8008BBEC9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B586FDB02E57EE9F00CB31AF /* Products */;
@@ -365,6 +369,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B556A6472E5CAEE8008BBEC9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
 		B586FE182E58402400CB31AF /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -384,6 +396,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B556A6482E5CAEE8008BBEC9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B556A6472E5CAEE8008BBEC9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		B586FE192E58402400CB31AF /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B586FE182E58402400CB31AF /* XCRemoteSwiftPackageReference "RxSwift" */;

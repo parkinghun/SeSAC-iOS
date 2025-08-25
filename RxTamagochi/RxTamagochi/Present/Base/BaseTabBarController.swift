@@ -1,0 +1,24 @@
+//
+//  File.swift
+//  RxTamagochi
+//
+//  Created by 박성훈 on 8/25/25.
+//
+
+import UIKit
+
+final class BaseTabBarController: UITabBarController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        
+        setTabBar()
+    }
+    
+    private func setTabBar() {
+//        self.viewControllers = TabBarType.allCases.map { $0.navigationController }
+        
+        self.tabBar.tintColor = .black
+        self.tabBar.unselectedItemTintColor = .gray
+    }
+}

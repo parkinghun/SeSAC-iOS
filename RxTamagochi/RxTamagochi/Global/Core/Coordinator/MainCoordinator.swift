@@ -27,7 +27,6 @@ final class MainCoordinator: Coordinator {
             HomeViewController(coder: coder, viewModel: vm)
         }
         
-        
         vm.routes
             .bind(with: self) { owner, route in
                 switch route {

@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class SelectTamagochiViewModel: ConfigureViewModelProtocol {
+    
     enum Route {
         case presentDetail(TamagochiType)
     }
@@ -25,7 +26,7 @@ final class SelectTamagochiViewModel: ConfigureViewModelProtocol {
     let routes = PublishRelay<Route>()
     
     private let store: TamagochiStore
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
         
     init(store: TamagochiStore) {
         self.store = store

@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class NameSettingViewController: UIViewController, ConfigureViewControllerProtocol {
+final class NameSettingViewController: UIViewController, ConfigureViewControllerProtocol, Storyboarded {
     
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var validLabel: UILabel!
