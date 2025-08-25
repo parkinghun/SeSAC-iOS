@@ -27,6 +27,8 @@ final class MainCoordinator: Coordinator {
             HomeViewController(coder: coder, viewModel: vm)
         }
         
+        vc.tabBarItem = TabBarType.tamagochi.tabBarItem
+        
         vm.routes
             .bind(with: self) { owner, route in
                 switch route {

@@ -18,6 +18,7 @@ final class LottoCooridnator: Coordinator {
     
     func start() {
         let vc = LottoViewController()
+        vc.tabBarItem = TabBarType.lotto.tabBarItem
         nav.setViewControllers([vc], animated: true)
     }
     

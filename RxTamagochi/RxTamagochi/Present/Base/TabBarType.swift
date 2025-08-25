@@ -34,7 +34,7 @@ enum TabBarType: Int, CaseIterable {
 //        }
 //    }
     
-    private var tabBarItem: UITabBarItem {
+    var tabBarItem: UITabBarItem {
         switch self {
         case .tamagochi:
             return UITabBarItem(title: title, image: itemImage, tag: 0)

@@ -25,6 +25,7 @@ final class TabBarCoordinator: Coordinator {
             switch type {
             case .tamagochi:
                 let coordinator = MainCoordinator(nav: nav, store: store)
+
                 childCoordinators.append(coordinator)
                 coordinator.start()
             case .lotto:
@@ -39,6 +40,7 @@ final class TabBarCoordinator: Coordinator {
             
             return nav
         }
+        
         
         tabBarController.setViewControllers(navs, animated: true)
         tabBarController.selectedIndex = TabBarType.tamagochi.rawValue

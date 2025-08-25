@@ -18,6 +18,7 @@ final class BoxOfficeCoordinator: Coordinator {
     
     func start() {
         let vc = BoxOfficeViewController()
+        vc.tabBarItem = TabBarType.boxOffice.tabBarItem
         nav.setViewControllers([vc], animated: true)
     }
     
