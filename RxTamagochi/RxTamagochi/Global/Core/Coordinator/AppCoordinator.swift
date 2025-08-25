@@ -30,9 +30,7 @@ final class AppCoordinator: Coordinator {
     func start() {
         window.rootViewController = nav
         window.makeKeyAndVisible()
-        
-//        switchFlow(.main)
-        
+                
         let output = store.transform(input: .init(action: .empty()))
         output.state
             .map { $0 == nil ? Flow.start : Flow.tab }
