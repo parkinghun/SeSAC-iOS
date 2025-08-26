@@ -17,6 +17,7 @@ final class BoxOfficeViewModel: ConfigureViewModelProtocol {
     }
     struct Output {
         let data: PublishSubject<[DailyBoxOffice]>
+        let showToast: Driver<Toast>
     }
     
     var disposeBag = DisposeBag()
@@ -29,18 +30,26 @@ final class BoxOfficeViewModel: ConfigureViewModelProtocol {
     
     func transform(input: Input) -> Output {
         let data = PublishSubject<[DailyBoxOffice]>()
-
+        let showToast = PublishRelay<Toast>()
         input.searchTapped
             .withLatestFrom(input.query)
             .withUnretained(self)
             .map { self.baseURL + $1 }
-            .flatMap { self.fetchData(url: $0) }
+            .flatMap { self.fetchData(url: $0)
+                    .catch { error in
+                        showToast.accept(Toast(status: .warning, message: "알 수 없는 에러"))
+                        
+                        return PublishSubject.never()
+                    }
+            }
             .bind(with: self) { owner, value in
                 data.onNext(value)
             }
             .disposed(by: disposeBag)
         
-        return Output(data: data)
+        return Output(data: data,
+                      showToast: showToast.asDriver(onErrorJustReturn: .init(status: .check, message: ""))
+        )
     }
 }
 

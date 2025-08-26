@@ -37,6 +37,13 @@ final class BoxOfficeViewController: BaseViewController {
                 cell.usernameLabel.text = element.movieNm
             }
             .disposed(by: disposeBag)
+        
+        output.showToast
+            .drive(with: self) { owner, toast in
+                owner.showToastMessage(toast)
+            }
+            .disposed(by: disposeBag)
+            
     }
     
     func configure() {
