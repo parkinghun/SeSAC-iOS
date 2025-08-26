@@ -59,6 +59,8 @@ private extension MainCoordinator {
                     owner.pushNameSetting()
                 case .goChangeTamagochi:
                     owner.pushChangeTamagochi()
+                case .reset:
+                    owner.popToRootVC()
                 }
             }
             .disposed(by: disposeBag)
@@ -125,5 +127,11 @@ private extension MainCoordinator {
             .disposed(by: disposeBag)
         
         nav.present(vc, animated: true)
+    }
+    
+    func popToRootVC() {
+        stop()
+        self.nav.popToRootViewController(animated: true)
+
     }
 }

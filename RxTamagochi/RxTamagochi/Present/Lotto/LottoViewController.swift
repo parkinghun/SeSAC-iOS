@@ -56,6 +56,12 @@ final class LottoViewController: BaseViewController {
             .drive(resultLabel.rx.text)
             .disposed(by: disposeBag)
         
+        output.showToast
+            .asDriver(onErrorJustReturn: .init(status: .check, message: ""))
+            .drive(with: self) { owner, value in
+                owner.showToastMessage(value)
+            }
+            .disposed(by: disposeBag)
     }
     
     func configureHierachy() {

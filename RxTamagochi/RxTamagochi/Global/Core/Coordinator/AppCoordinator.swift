@@ -53,6 +53,8 @@ private extension AppCoordinator {
         switch flow {
         case .start:
             let coordinator = StartCoordinator(nav: nav, store: store)
+            
+            window.rootViewController = nav
             nav.setViewControllers([], animated: false)
             current = coordinator
             coordinator.start()

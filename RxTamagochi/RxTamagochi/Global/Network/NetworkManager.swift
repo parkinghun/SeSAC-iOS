@@ -10,7 +10,7 @@ import Alamofire
 
 final class NetworkManager {
     
-    static let shated = NetworkManager()
+    static let shared = NetworkManager()
     
     private init() { }
     
@@ -32,4 +32,11 @@ final class NetworkManager {
 
 enum NetworkError: Error {
     case invalid
+    
+    var message: String {
+        switch self {
+        case .invalid:
+            return "알 수 없는 에러"
+        }
+    }
 }

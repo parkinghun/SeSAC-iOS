@@ -13,6 +13,7 @@ final class SettingViewModel: ConfigureViewModelProtocol {
     enum Route {
         case goNameSetting
         case goChangeTamagochi
+        case reset
     }
     struct Input {
         let selectedSetting: ControlEvent<SettingRow>
@@ -59,6 +60,7 @@ final class SettingViewModel: ConfigureViewModelProtocol {
                         ok: "웅",
                         cancel: "아냐!",
                         handler: {
+                            owner.routes.accept(.reset)
                             owner.sendReset()
                         }
                     ))

@@ -49,7 +49,7 @@ private extension BoxOfficeViewModel {
         
         return Observable<[DailyBoxOffice]>.create { observer in
             
-            NetworkManager.shated.callRequest(url: url) { (result: Result<BoxOfficeResult, NetworkError>) in
+            NetworkManager.shared.callRequest(url: url) { (result: Result<BoxOfficeResult, NetworkError>) in
                 
                 switch result {
                 case .success(let boxOfficeResult):
@@ -61,6 +61,5 @@ private extension BoxOfficeViewModel {
             
             return Disposables.create()
         }
-        
     }
 }

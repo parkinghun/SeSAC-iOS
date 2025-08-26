@@ -35,7 +35,6 @@ final class BoxOfficeViewController: BaseViewController {
             .bind(to: tableView.rx.items(cellIdentifier: BoxOfficeTableViewCell.identifier, cellType: BoxOfficeTableViewCell.self)) { row, element, cell in
                 
                 cell.usernameLabel.text = element.movieNm
-                
             }
             .disposed(by: disposeBag)
     }
@@ -53,6 +52,5 @@ final class BoxOfficeViewController: BaseViewController {
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-
     }
 }
