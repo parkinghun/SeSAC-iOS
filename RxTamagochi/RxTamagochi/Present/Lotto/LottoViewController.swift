@@ -51,6 +51,12 @@ final class LottoViewController: BaseViewController {
         )
         let output = viewModel.transform(input: input)
         
+        checkButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.view.endEditing(true)
+            }
+            .disposed(by: disposeBag)
+        
         output.result
             .asDriver(onErrorJustReturn: "")
             .drive(resultLabel.rx.text)
@@ -60,6 +66,13 @@ final class LottoViewController: BaseViewController {
             .asDriver(onErrorJustReturn: .init(status: .check, message: ""))
             .drive(with: self) { owner, value in
                 owner.showToastMessage(value)
+            }
+            .disposed(by: disposeBag)
+        
+        output.showAlert
+            .asDriver(onErrorJustReturn: .init(title: "", message: "", ok: ""))
+            .drive(with: self) { owner, value in
+                owner.showAlert(alertStyle: value)
             }
             .disposed(by: disposeBag)
     }

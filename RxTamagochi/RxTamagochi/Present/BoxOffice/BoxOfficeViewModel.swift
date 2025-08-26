@@ -18,6 +18,7 @@ final class BoxOfficeViewModel: ConfigureViewModelProtocol {
     struct Output {
         let data: PublishSubject<[DailyBoxOffice]>
         let showToast: Driver<Toast>
+        let showAlert: Driver<AlertStyle>
     }
     
     var disposeBag = DisposeBag()
@@ -31,13 +32,25 @@ final class BoxOfficeViewModel: ConfigureViewModelProtocol {
     func transform(input: Input) -> Output {
         let data = PublishSubject<[DailyBoxOffice]>()
         let showToast = PublishRelay<Toast>()
+        let showAlert = PublishRelay<AlertStyle>()
+        
         input.searchTapped
             .withLatestFrom(input.query)
             .withUnretained(self)
             .map { self.baseURL + $1 }
             .flatMap { self.fetchData(url: $0)
                     .catch { error in
-                        showToast.accept(Toast(status: .warning, message: "알 수 없는 에러"))
+                        guard let networkError = error as? NetworkError else {
+                            print("===== Network Error 아님 ======")
+                            return PublishSubject.never()
+                        }
+                        print("===== Network Error ======")
+                        switch networkError {
+                        case .unrechable:
+                            showAlert.accept(AlertStyle(title: "네트워크 연결 에러", message: networkError.message, ok: "확인"))
+                        default:
+                            showToast.accept(Toast(status: .warning, message: "알 수 없는 에러"))
+                        }
                         
                         return PublishSubject.never()
                     }
@@ -47,8 +60,10 @@ final class BoxOfficeViewModel: ConfigureViewModelProtocol {
             }
             .disposed(by: disposeBag)
         
+        
         return Output(data: data,
-                      showToast: showToast.asDriver(onErrorJustReturn: .init(status: .check, message: ""))
+                      showToast: showToast.asDriver(onErrorJustReturn: .init(status: .check, message: "")),
+                      showAlert: showAlert.asDriver(onErrorJustReturn: .init(title: "", message: "", ok: ""))
         )
     }
 }
@@ -63,8 +78,8 @@ private extension BoxOfficeViewModel {
                 switch result {
                 case .success(let boxOfficeResult):
                     observer.onNext(boxOfficeResult.boxOfficeResult.dailyBoxOfficeList)
-                case .failure(_):
-                    observer.onError(NetworkError.invalid)
+                case .failure(let error):
+                    observer.onError(error)
                 }
             }
             

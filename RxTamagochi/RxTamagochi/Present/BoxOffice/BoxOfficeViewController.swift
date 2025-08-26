@@ -31,6 +31,12 @@ final class BoxOfficeViewController: BaseViewController {
             searchTapped: searchBar.rx.searchButtonClicked)
         let output = viewModel.transform(input: input)
         
+        searchBar.rx.searchButtonClicked
+            .bind(with: self) { owner, _ in
+                owner.searchBar.resignFirstResponder()
+            }
+            .disposed(by: disposeBag)
+        
         output.data
             .bind(to: tableView.rx.items(cellIdentifier: BoxOfficeTableViewCell.identifier, cellType: BoxOfficeTableViewCell.self)) { row, element, cell in
                 
@@ -43,6 +49,12 @@ final class BoxOfficeViewController: BaseViewController {
                 owner.showToastMessage(toast)
             }
             .disposed(by: disposeBag)
+        
+        output.showAlert
+            .drive(with: self) { owner, alert in
+                owner.showAlert(alertStyle: alert)
+            }
+            .disposed(by: disposeBag)
             
     }
     
@@ -51,6 +63,8 @@ final class BoxOfficeViewController: BaseViewController {
         view.addSubview(searchBar)
         navigationItem.titleView = searchBar
 
+        searchBar.placeholder = "ex) 20250101"
+        
         tableView.register(BoxOfficeTableViewCell.self, forCellReuseIdentifier: BoxOfficeTableViewCell.identifier)
         tableView.backgroundColor = .systemGreen
         tableView.rowHeight = 100

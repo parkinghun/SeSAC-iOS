@@ -111,6 +111,6 @@ struct AlertStyle {
     var title: String
     var message: String
     var ok: String
-    var cancel: String
+    var cancel: String? = nil
     var handler: (() -> Void)?
 }

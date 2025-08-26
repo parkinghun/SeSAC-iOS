@@ -19,6 +19,7 @@ final class LottoViewModel: ConfigureViewModelProtocol {
     struct Output {
         let result: PublishSubject<String>
         let showToast: PublishRelay<Toast>
+        let showAlert: PublishRelay<AlertStyle>
     }
     
     typealias LottoResult = Result<LottoData, NetworkError>
@@ -28,10 +29,10 @@ final class LottoViewModel: ConfigureViewModelProtocol {
     
     init() { }
     
-    
     func transform(input: Input) -> Output {
         let resultSubject = PublishSubject<String>()
         let showToast = PublishRelay<Toast>()
+        let showAlert = PublishRelay<AlertStyle>()
         
         input.checkButtonTapped
             .withLatestFrom(input.query)
@@ -39,16 +40,22 @@ final class LottoViewModel: ConfigureViewModelProtocol {
             .map { self.baseUrl + $0.1 }
             .flatMap { return self.fetchData(url: $0) }
             .bind(with: self) { owner, response in
+                
                 switch response {
                 case .success(let data):
                     resultSubject.onNext(data.result)
                 case .failure(let error):
-                    showToast.accept(Toast(status: .warning, message: error.message))
+                    switch error {
+                    case .unrechable:
+                        showAlert.accept(AlertStyle(title: "네트워크 연결 에러", message: error.message, ok: "확인"))
+                    default:
+                        showToast.accept(Toast(status: .warning, message: error.message))
+                    }
                 }
             }
             .disposed(by: disposeBag)
         
-        return Output(result: resultSubject, showToast: showToast)
+        return Output(result: resultSubject, showToast: showToast, showAlert: showAlert)
     }
 }
 
@@ -68,23 +75,6 @@ private extension LottoViewModel {
             }
             return Disposables.create()
         }
-//        
-//        return Observable<String>.create { observer in
-//            
-//            NetworkManager.shared.callRequest(url: url) { (result: Result<Lotto, NetworkError>) in
-//                switch result {
-//                case .success(let lotto):
-//                    let lottoData = LottoData(lotto: lotto)
-//                    observer.onNext(lottoData.result)
-//                    observer.onCompleted()
-//                    
-//                case .failure(_):
-//                    observer.onError(NetworkError.invalid)
-//                }
-//            }
-//            return Disposables.create()
-//            
-//        }
     }
 }
 

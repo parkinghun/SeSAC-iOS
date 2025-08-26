@@ -14,10 +14,12 @@ extension UIViewController {
         let ok = UIAlertAction(title: alertStyle.ok, style: .default) { _ in 
             alertStyle.handler?()
         }
-        let cancel = UIAlertAction(title: alertStyle.cancel, style: .cancel)
-        
         alert.addAction(ok)
-        alert.addAction(cancel)
+        
+        if let _ = alertStyle.cancel {
+            let cancel = UIAlertAction(title: alertStyle.cancel, style: .cancel)
+            alert.addAction(cancel)
+        }
         
         present(alert, animated: true)
     }
