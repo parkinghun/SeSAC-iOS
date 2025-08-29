@@ -14,7 +14,7 @@ final class LottoViewController: BaseViewController {
     
     private let textField = {
         let tf = UITextField()
-        tf.placeholder = "회차를 입력해주세요"
+        tf.placeholder = "회차를 입력해주세요.(ex.1000)"
         tf.borderStyle = .roundedRect
         return tf
     }()

@@ -9,12 +9,14 @@ import Alamofire
 import RxSwift
 import Foundation
 
+// 네트워크 통신할 때마다 호출하게 함
 class Connectivity {
     static var isConnectedToInternet: Bool {
-        return NetworkReachabilityManager()?.isReachable ?? false
+        return NetworkReachabilityManager.default?.isReachable ?? false
     }
 }
 
+// 계속 감지할 때 쓰면 될듯
 enum NetworkSatusType {
     case disconnect
     case connect
