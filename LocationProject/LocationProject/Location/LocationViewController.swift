@@ -23,6 +23,7 @@ class LocationViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    //TODO: - 버튼 컴포넌트 만들기 + 그림자
     let locationButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "location.fill"), for: .normal)
@@ -112,35 +113,4 @@ class LocationViewController: UIViewController {
             $0.size.equalTo(44)
         }
     }
-    
-//    private func configureDelegate() {
-//        locationManager.delegate = self
-//    }
 }
-
-//extension LocationViewController: CLLocationManagerDelegate {
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        print(#function)
-//        
-//        guard let coordinate = locations.first?.coordinate else { return }
-//        print(locations)
-////        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-////        mapView.setRegion(region, animated: true)
-////        self.addPin(coordinate: coordinate)
-//        locationManager.stopUpdatingLocation()
-//    }
-//    
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
-//        print(#function)
-//    }
-//    
-//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//        print(#function)
-//        request()
-//    }
-//    
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        print(#function)
-//    }
-//}
-//
