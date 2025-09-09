@@ -9,15 +9,18 @@ import UIKit
 import SnapKit
 import MapKit
 import CoreLocation
+import RxSwift
+import RxCocoa
 
 class LocationViewController: UIViewController {
     
     private let mapView = MKMapView()
-    lazy var locationManager = CLLocationManager()
+    private lazy var mapHelper = MapViewHepler(mapView: mapView)
+    
     let weatherLabel = {
         let label = UILabel()
-        label.text = "날씨 정보를 불러오는 중..."
         label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     let locationButton = {
@@ -45,71 +48,40 @@ class LocationViewController: UIViewController {
     }()
     
     private let viewModel = LocationViewModel()
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureHierachy()
         configureLayout()
-        configureDelegate()
-        request()
         bind()
     }
     
     private func bind() {
-        let input = LocationViewModel.Input(locationButtonTapped: locationButton.rx.tap, resetButtonTapped: resetButton.rx.tap)
-        let output = viewModel.transform(intput: input)
+        // 현재 위치를 알 수 있는 방법
+        let input = LocationViewModel.Input(locationButtonTapped: locationButton.rx.tap,
+                                            resetButtonTapped: resetButton.rx.tap)
+        let output = viewModel.transform(input: input)
         
+        output.weatherData
+            .drive(weatherLabel.rx.text)
+            .disposed(by: disposeBag)
         
-    }
-    
-    private func request() {
-        DispatchQueue.global().async {
-            if CLLocationManager.locationServicesEnabled() {
-                print("1. 권한 허용, 사용 가능한 상태")
-                DispatchQueue.main.async {
-                    self.checkCurrentLocationAuthorization()
-                }
-            } else {
-                print("1. 아이폰의 위치 서비스가 꺼져있어서, 위치 권한 요청을 할 수 없습니다.")
+        output.mapCoordinate
+            .drive(with: self) { owner, coordinate in
+                owner.mapHelper.setRegion(lat: coordinate.lat, lon: coordinate.lon)
             }
-        }
-    }
-    
-    private func checkCurrentLocationAuthorization() {
+            .disposed(by: disposeBag)
         
-        var status: CLAuthorizationStatus = locationManager.authorizationStatus
-        
-        if #available(iOS 14.0, *) {
-            status = locationManager.authorizationStatus
-        } else {
-            status = CLLocationManager.authorizationStatus()
-        }
-        
-        switch status {
-        case .notDetermined:
-            print("2. 권한 설정 전")
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.requestWhenInUseAuthorization()
-        case .denied:
-            print("2. 시용자 거부 -> iOS 설정 창 이동 알럿")
-            let coordinate = MKCoordinateRegion(center: viewModel.sesacCoordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-            mapView.setRegion(coordinate, animated: true)
-            addPin(coordinate: viewModel.sesacCoordinate)
-        case .authorizedWhenInUse:
-            print("2. 사용자가 허용한 상태이기 때문에 위치 정보를 얻어오는 로직을 구성할 수 있음")
-            locationManager.startUpdatingLocation()
-        default: print(status)
-        }
+        output.showAlert
+            .emit(with: self) { owner, value in
+                owner.showAlert(value)
+            }
+            .disposed(by: disposeBag)
         
     }
-    
-    private func addPin(coordinate: CLLocationCoordinate2D) {
-        let pin = MKPointAnnotation()
-        pin.coordinate = coordinate
-        mapView.addAnnotation(pin)
-    }
-    
+
     private func configureHierachy() {
         view.backgroundColor = .white
         
@@ -141,34 +113,34 @@ class LocationViewController: UIViewController {
         }
     }
     
-    private func configureDelegate() {
-        locationManager.delegate = self
-    }
+//    private func configureDelegate() {
+//        locationManager.delegate = self
+//    }
 }
 
-extension LocationViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(#function)
-        
-        guard let coordinate = locations.first?.coordinate else { return }
-        print(locations)
-        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-        mapView.setRegion(region, animated: true)
-        self.addPin(coordinate: coordinate)
-        locationManager.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
-        print(#function)
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print(#function)
-        request()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print(#function)
-    }
-}
-
+//extension LocationViewController: CLLocationManagerDelegate {
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        print(#function)
+//        
+//        guard let coordinate = locations.first?.coordinate else { return }
+//        print(locations)
+////        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+////        mapView.setRegion(region, animated: true)
+////        self.addPin(coordinate: coordinate)
+//        locationManager.stopUpdatingLocation()
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+//        print(#function)
+//    }
+//    
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//        print(#function)
+//        request()
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        print(#function)
+//    }
+//}
+//

@@ -12,6 +12,12 @@ struct WeatherResultDTO: Decodable {
     let wind: WindDTO
 }
 
+extension WeatherResultDTO {
+    var toModel: Weather {
+        return Weather(self)
+    }
+}
+
 struct WeatherDTO: Decodable {
     let temp: Double
     let tempMin: Double

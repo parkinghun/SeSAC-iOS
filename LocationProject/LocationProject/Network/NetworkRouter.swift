@@ -6,15 +6,36 @@
 //
 
 import Foundation
+import Alamofire
 
 enum NetworkRouter {
-    case weather
+    case weather(lat: Double, lon: Double)
     
     var endPoint: URL? {
-        nil
+        return URL(string: baseURL)
     }
     
     private var baseURL: String {
-        ""
+        return "https://api.openweathermap.org/data/2.5/weather"
+    }
+    
+    var method: HTTPMethod {
+        return .get
+    }
+    
+    var parameters: Parameter {
+        switch self {
+        case let .weather(lat, lon):
+            return Parameter(lat: lat, lon: lon)
+        }
+    }
+    
+    struct Parameter: Encodable {
+        var lat: Double
+        var lon: Double
+        var appid: String = Bundle.getSecrets(for: .key)
+        var units: String = "metric"
+        var lang: String = "kr"
     }
 }
+
