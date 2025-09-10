@@ -25,7 +25,7 @@ final class LocationViewModel {
     private let disposeBag = DisposeBag()
     private let date: String = DateFormatter.basic.string(from: .now)
     private let networkManager = NetworkManager.shared
-    private let locatoinManager = LocationManager.shared
+    private let locationManager = LocationManager.shared
     
     init () { }
     
@@ -34,15 +34,14 @@ final class LocationViewModel {
         let showAlert = PublishRelay<AlertModel>()
         let mapCoordinate = PublishRelay<Coordinate>()
         
-        //TODO: - 지도 위치
         input.locationButtonTapped
-            .withLatestFrom(locatoinManager.updateLocationEvent)
+            .withLatestFrom(locationManager.updateLocationEvent)
             .map { $0.toCoordinate }
             .bind(to: mapCoordinate)
             .disposed(by: disposeBag)
         
         input.resetButtonTapped
-            .withLatestFrom(locatoinManager.updateLocationEvent)
+            .withLatestFrom(locationManager.updateLocationEvent)
             .map { $0.toCoordinate }
             .withUnretained(self)
             .flatMapLatest{ owner, coordinate in
@@ -64,11 +63,11 @@ final class LocationViewModel {
             }
             .disposed(by: disposeBag)
         
-        locatoinManager.statusEvent
+        locationManager.statusEvent
             .bind(with: self) { owner, event in
                 switch event {
                 case .denied:
-                    mapCoordinate.accept(owner.locatoinManager.sesacCordinate.toCoordinate)
+                    mapCoordinate.accept(owner.locationManager.sesacCordinate.toCoordinate)
                     showAlert.accept(AlertModel(title: "위치 권한 거절", message: "위치 권한을 허용해주세요", preferredStyle: .alert, type: .ok))
                     
                 case .locationServiceDisabled:
@@ -78,7 +77,7 @@ final class LocationViewModel {
             }
             .disposed(by: disposeBag)
         
-        locatoinManager.updateLocationEvent
+        locationManager.updateLocationEvent
             .bind(with: self) { owner, coordinate in
                 mapCoordinate.accept(coordinate.toCoordinate)
             }

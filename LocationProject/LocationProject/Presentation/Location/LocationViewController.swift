@@ -23,28 +23,15 @@ class LocationViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    //TODO: - 버튼 컴포넌트 만들기 + 그림자
     let locationButton = {
-        let button = UIButton()
+        let button = RoundedShadowButton()
         button.setImage(UIImage(systemName: "location.fill"), for: .normal)
-        button.layer.cornerRadius = 22
-        button.clipsToBounds = true
-        button.layer.borderWidth = 1
-        button.layer.shadowColor = UIColor.black.cgColor
-        // 현재 shadow는 view의 layer 테두리와 동일한 위치로 있는 상태이므로 offset을 통해 그림자를 이동시켜야 표출
-        button.layer.shadowOffset = CGSize(width: 0, height: 20)
-        /// shadow의 투명도 (0 ~ 1)
-        button.layer.shadowOpacity = 0.8
-        /// shadow의 corner radius
-        button.layer.shadowRadius = 5.0
-        
         return button
     }()
+    
     let resetButton = {
-        let button = UIButton()
+        let button = RoundedShadowButton()
         button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
-        button.layer.cornerRadius = 22
-        button.clipsToBounds = true
         return button
     }()
     
@@ -82,7 +69,7 @@ class LocationViewController: UIViewController {
             .disposed(by: disposeBag)
         
     }
-
+    
     private func configureHierachy() {
         view.backgroundColor = .white
         

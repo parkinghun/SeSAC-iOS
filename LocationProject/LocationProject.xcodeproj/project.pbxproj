@@ -23,7 +23,7 @@
 		B5BB77372E6FF88E00787947 /* Exceptions for "LocationProject" folder in "LocationProject" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Global/Resourse/Info.plist,
 			);
 			target = B5BB77242E6FF88C00787947 /* LocationProject */;
 		};
@@ -173,7 +173,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VDAQLM4XLQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LocationProject/Info.plist;
+				INFOPLIST_FILE = LocationProject/Global/Resourse/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -208,7 +208,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VDAQLM4XLQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LocationProject/Info.plist;
+				INFOPLIST_FILE = LocationProject/Global/Resourse/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
