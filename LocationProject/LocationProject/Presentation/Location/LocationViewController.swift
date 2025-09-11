@@ -28,7 +28,11 @@ class LocationViewController: UIViewController {
         button.setImage(UIImage(systemName: "location.fill"), for: .normal)
         return button
     }()
-    
+    let photoButton = {
+        let button = RoundedShadowButton()
+        button.setImage(UIImage(systemName: "photo.badge.plus"), for: .normal)
+        return button
+    }()
     let resetButton = {
         let button = RoundedShadowButton()
         button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
@@ -47,9 +51,9 @@ class LocationViewController: UIViewController {
     }
     
     private func bind() {
-        // 현재 위치를 알 수 있는 방법
         let input = LocationViewModel.Input(locationButtonTapped: locationButton.rx.tap,
-                                            resetButtonTapped: resetButton.rx.tap)
+                                            resetButtonTapped: resetButton.rx.tap,
+                                            photoButtonTapped: photoButton.rx.tap)
         let output = viewModel.transform(input: input)
         
         output.weatherData
@@ -68,6 +72,13 @@ class LocationViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        output.pushPhotoView
+            .drive(with: self) { owner, _ in
+                let vc = PhotoViewController()
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
     }
     
     private func configureHierachy() {
@@ -76,6 +87,7 @@ class LocationViewController: UIViewController {
         view.addSubview(mapView)
         view.addSubview(weatherLabel)
         view.addSubview(locationButton)
+        view.addSubview(photoButton)
         view.addSubview(resetButton)
     }
     
@@ -91,6 +103,11 @@ class LocationViewController: UIViewController {
         }
         locationButton.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-12)
+            $0.size.equalTo(44)
+        }
+        photoButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-12)
             $0.size.equalTo(44)
         }

@@ -3,4 +3,68 @@
    uuid = "C7C1D434-6D8B-4571-872A-FCB7454C919A"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "10CCFBAB-3A27-4DCB-A370-81BF3936C864"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LocationProject/Presentation/Photo/PhotoViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "bind()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8F576025-618D-4157-861E-16AEBCE6CFBE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LocationProject/Presentation/Photo/PhotoViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "picker(_:didFinishPicking:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8F576025-618D-4157-861E-16AEBCE6CFBE - dfa74c8503852675"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LocationProject.PhotoViewController.picker(_: __C.PHPickerViewController, didFinishPicking: Swift.Array&lt;PhotosUI.PHPickerResult&gt;) -&gt; ()"
+                  moduleName = "LocationProject.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huni/Desktop/SeSAC/%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6/SeSAC-iOS/LocationProject/LocationProject/Presentation/Photo/PhotoViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113">
+               </Location>
+               <Location
+                  uuid = "8F576025-618D-4157-861E-16AEBCE6CFBE - 6e3224d4db65f68d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in LocationProject.PhotoViewController.picker(_: __C.PHPickerViewController, didFinishPicking: Swift.Array&lt;PhotosUI.PHPickerResult&gt;) -&gt; ()"
+                  moduleName = "LocationProject.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huni/Desktop/SeSAC/%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6/SeSAC-iOS/LocationProject/LocationProject/Presentation/Photo/PhotoViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

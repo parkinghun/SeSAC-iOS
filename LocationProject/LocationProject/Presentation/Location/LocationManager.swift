@@ -28,7 +28,7 @@ final class LocationManager: NSObject {
     private override init() {
         super.init()
         
-        locationManager.delegate = self
+        locationManager.delegate = self  // 이것때문에 NSObject를 상속
         requestLocationAuthentication()
     }
     

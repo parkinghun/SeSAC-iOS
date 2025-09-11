@@ -14,12 +14,14 @@ final class LocationViewModel {
     struct Input {
         let locationButtonTapped: ControlEvent<Void>
         let resetButtonTapped: ControlEvent<Void>
+        let photoButtonTapped: ControlEvent<Void>
     }
     
     struct Output {
         let weatherData: Driver<String>
         let mapCoordinate: Driver<Coordinate>
         let showAlert: Signal<AlertModel>
+        let pushPhotoView: Driver<Void>
     }
     
     private let disposeBag = DisposeBag()
@@ -33,6 +35,7 @@ final class LocationViewModel {
         let weatherData = BehaviorRelay(value: "날씨 정보를 불러오는 중...")
         let showAlert = PublishRelay<AlertModel>()
         let mapCoordinate = PublishRelay<Coordinate>()
+        let pushPhotoView = PublishRelay<Void>()
         
         input.locationButtonTapped
             .withLatestFrom(locationManager.updateLocationEvent)
@@ -83,10 +86,14 @@ final class LocationViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.photoButtonTapped
+            .bind(to: pushPhotoView)
+            .disposed(by: disposeBag)
         
         return Output(weatherData: weatherData.asDriver(onErrorJustReturn: ""),
                       mapCoordinate: mapCoordinate.asDriver(onErrorDriveWith: .empty()),
-                      showAlert: showAlert.asSignal())
+                      showAlert: showAlert.asSignal(),
+                      pushPhotoView: pushPhotoView.asDriver(onErrorJustReturn: ()))
     }
 }
 
