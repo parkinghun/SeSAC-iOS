@@ -23,20 +23,20 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8F576025-618D-4157-861E-16AEBCE6CFBE"
+            uuid = "B5224283-5AF1-434D-B2DF-69D84EA95474"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LocationProject/Presentation/Photo/PhotoViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "picker(_:didFinishPicking:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "8F576025-618D-4157-861E-16AEBCE6CFBE - dfa74c8503852675"
+                  uuid = "B5224283-5AF1-434D-B2DF-69D84EA95474 - dfa74c850385290d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,22 +46,36 @@
                   urlString = "file:///Users/huni/Desktop/SeSAC/%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6/SeSAC-iOS/LocationProject/LocationProject/Presentation/Photo/PhotoViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "113"
-                  endingLineNumber = "113">
+                  startingLineNumber = "121"
+                  endingLineNumber = "121">
                </Location>
                <Location
-                  uuid = "8F576025-618D-4157-861E-16AEBCE6CFBE - 6e3224d4db65f68d"
+                  uuid = "B5224283-5AF1-434D-B2DF-69D84EA95474 - f7a72aa3a4ce9579"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in LocationProject.PhotoViewController.picker(_: __C.PHPickerViewController, didFinishPicking: Swift.Array&lt;PhotosUI.PHPickerResult&gt;) -&gt; ()"
+                  symbolName = "closure #2 () -&gt; () in LocationProject.PhotoViewController.picker(_: __C.PHPickerViewController, didFinishPicking: Swift.Array&lt;PhotosUI.PHPickerResult&gt;) -&gt; ()"
                   moduleName = "LocationProject.debug.dylib"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/huni/Desktop/SeSAC/%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6/SeSAC-iOS/LocationProject/LocationProject/Presentation/Photo/PhotoViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "113"
-                  endingLineNumber = "113">
+                  startingLineNumber = "98"
+                  endingLineNumber = "98">
+               </Location>
+               <Location
+                  uuid = "B5224283-5AF1-434D-B2DF-69D84EA95474 - f7a72aa3a4ce9870"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in LocationProject.PhotoViewController.picker(_: __C.PHPickerViewController, didFinishPicking: Swift.Array&lt;PhotosUI.PHPickerResult&gt;) -&gt; ()"
+                  moduleName = "LocationProject.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/huni/Desktop/SeSAC/%E1%84%80%E1%85%AA%E1%84%8C%E1%85%A6/SeSAC-iOS/LocationProject/LocationProject/Presentation/Photo/PhotoViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121">
                </Location>
             </Locations>
          </BreakpointContent>

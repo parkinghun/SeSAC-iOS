@@ -88,33 +88,40 @@ final class PhotoViewController: UIViewController {
     }
 }
 
+// 극단적으로 notification Center로 보내도 괜찮음
 extension PhotoViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+
+        let group = DispatchGroup()
+        let queue = DispatchQueue(label: "image.sync")
+        var images: [UIImage] = []
         
-        DispatchQueue.main.async {
-            picker.dismiss(animated: true)
-            var images: [UIImage] = []
-            // 이미지 전달
             results.forEach { result in
+                group.enter()
+
                 let itemProvider = result.itemProvider
                 
                 // itemProvider가 지정된 클래스의 객체를 로드할 수 있는지 여부를 나타내는 부울 값을 반환
                 if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                    itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-                        guard let image = image as? UIImage else { return }
-                        
-                        DispatchQueue.main.async {
-                            images.append(image)
+                    itemProvider.loadObject(ofClass: UIImage.self) { image, error in   // 비동기 작업
+//                        guard let image = image as? UIImage else { return }
+                        if let image = image as? UIImage {
+                            queue.sync { images.append(image) }
                         }
+                        group.leave()
                     }
+                } else {
+                    group.leave()
                 }
             }
-            
+        
+        
+        group.notify(queue: .main) {
             self.didFinishPicking.accept(images)
+
         }
     }
-    
-    
 }
 
 // PHPickerViewController 전용 Rx 확장
@@ -132,7 +139,7 @@ extension PhotoViewController: PHPickerViewControllerDelegate {
 //DelegateProtocol - PHPickerViewControllerDelegate
 //*/
 //final class PHPickerViewControllerDelegateProxy: DelegateProxy<PHPickerViewController, PHPickerViewControllerDelegate>, DelegateProxyType, PHPickerViewControllerDelegate {
-//    
+//
 //    let didFinishPickingSubject = PublishSubject<[UIImage]>()
 //    // 런타임에 이 ParentObject(=PHPickerViewController)에는 이 Proxy를 써라 라고 등록
 //    // 프레임워크가 proxy(for:) 호출 시 어떤 Proxy를 만들지 알게 해주는 필수 정적 메서드.
@@ -141,24 +148,24 @@ extension PhotoViewController: PHPickerViewControllerDelegate {
 //            PHPickerViewControllerDelegateProxy(parentObject: phpickerViewController, delegateProxy: self)
 //        }
 //    }
-//    
+//
 //    // 현재 ParentObject에 설정되어 있는 실제 delegate를 반환
 //    // Proxy가 생성/연결될 때, 기존 delegate를 알아두고 이벤트 포워딩(필요 시) 등에 사용된다.
 //    static func currentDelegate(for object: PHPickerViewController) -> (any PHPickerViewControllerDelegate)? {
 //        return object.delegate
 //    }
-//    
+//
 //    // ParentObject의 delegate를 바꾼다.
 //    // Proxy를 ParentObject에 장착하는 단계에서 호출되어 “이제부터 delegate는 Proxy야” 라고 설정하는 역할.
 //    static func setCurrentDelegate(_ delegate: (any PHPickerViewControllerDelegate)?, to object: PHPickerViewController) {
 //        return object.delegate = delegate
 //    }
-//    
+//
 //    // 원래 델리게이트 콜백
 //    // 여기서 결과를 가공(예: UIImage 로드)해서 Subject에 onNext
 //    // 이 순간 picker.rx.didFinishPicking을 구독 중인 모든 곳으로 이벤트가 흘러간다.
 //    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//        
+//
 //        didFinishPickingSubject.onNext(images)
 //    }
 //}

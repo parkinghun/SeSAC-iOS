@@ -26,6 +26,7 @@ final class PhotoViewModel {
     func transform(input: Input) -> Output {
         let presentPhotoView = PublishRelay<Void>()
         let images = PublishRelay<[UIImage]>()
+        
         input.addButtonTapped
             .bind(to: presentPhotoView)
             .disposed(by: disposeBag)
