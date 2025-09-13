@@ -104,7 +104,7 @@ extension PhotoViewController: PHPickerViewControllerDelegate {
                 
                 // itemProvider가 지정된 클래스의 객체를 로드할 수 있는지 여부를 나타내는 부울 값을 반환
                 if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                    itemProvider.loadObject(ofClass: UIImage.self) { image, error in   // 비동기 작업
+                    itemProvider.loadObject(ofClass: UIImage.self) { image, error in   // 비동기 작업 DispatchQueue.global
 //                        guard let image = image as? UIImage else { return }
                         if let image = image as? UIImage {
                             queue.sync { images.append(image) }
