@@ -21,10 +21,16 @@ final class PhotoViewController: UIViewController {
     private let addButtonItem = UIBarButtonItem(systemItem: .add)
     let didFinishPicking = PublishRelay<[UIImage]>()
     
+    private var selections = [String: PHPickerResult]()
+    private var selectedAssetIdentifiers = [String]()
+    
     private lazy var pickerViewController = {
-        var config = PHPickerConfiguration()  // 상속 불가
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.filter = PHPickerFilter.any(of: [.images])
         config.selectionLimit = 3
-        config.filter = .images
+        config.selection = .ordered  // 선택한 순서대로 숫자로 표현
+        config.preferredAssetRepresentationMode = .current
+        config.preselectedAssetIdentifiers = selectedAssetIdentifiers
         
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = self
@@ -93,34 +99,58 @@ extension PhotoViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
 
-        let group = DispatchGroup()
-        let queue = DispatchQueue(label: "image.sync")
+        let queue = DispatchQueue(label: "image.sync")  // 커스텀 -> serial
         var images: [UIImage] = []
-        
-            results.forEach { result in
-                group.enter()
 
-                let itemProvider = result.itemProvider
-                
-                // itemProvider가 지정된 클래스의 객체를 로드할 수 있는지 여부를 나타내는 부울 값을 반환
-                if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                    itemProvider.loadObject(ofClass: UIImage.self) { image, error in   // 비동기 작업 DispatchQueue.global
-//                        guard let image = image as? UIImage else { return }
-                        if let image = image as? UIImage {
-                            queue.sync { images.append(image) }
-                        }
-                        group.leave()
-                    }
-                } else {
-                    group.leave()
+        var newSelections = [String: PHPickerResult]()  // picker 작업이 끝난 후 새로 만들어진 selection을 담을 변수 생성
+        
+        for result in results {
+            let identifier = result.assetIdentifier!
+            newSelections[identifier] = selections[identifier] ?? result
+        }
+        
+        selections = newSelections
+        selectedAssetIdentifiers = results.compactMap { $0.assetIdentifier }
+        
+        for (_, result) in selections {
+            let itemProvider = result.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    guard let self = self,
+                          let image = image as? UIImage else { return }
+                    
+                    queue.async { images.append(image) }
                 }
             }
-        
-        
-        group.notify(queue: .main) {
-            self.didFinishPicking.accept(images)
-
         }
+        
+//        let group = DispatchGroup()
+//        let queue = DispatchQueue(label: "image.sync")  // 커스텀 -> serial
+//        var images: [UIImage] = []
+//        
+//            results.forEach { result in
+//                group.enter()
+//
+//                let itemProvider = result.itemProvider
+//                
+//                // itemProvider가 지정된 클래스의 객체를 로드할 수 있는지 여부를 나타내는 부울 값을 반환
+//                if itemProvider.canLoadObject(ofClass: UIImage.self) {
+//                    itemProvider.loadObject(ofClass: UIImage.self) { image, error in   // 비동기 작업
+//                        if let image = image as? UIImage {
+//                            queue.sync { images.append(image) }
+//                        }
+//                        group.leave()
+//                    }
+//                } else {
+//                    group.leave()
+//                }
+//            }
+//        
+//        
+//        group.notify(queue: .main) {
+//            self.didFinishPicking.accept(images)
+//
+//        }
     }
 }
 
