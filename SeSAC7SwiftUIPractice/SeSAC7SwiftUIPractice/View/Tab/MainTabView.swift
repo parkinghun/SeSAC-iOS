@@ -32,6 +32,8 @@ struct MainTabView: View {
                 AllView()
             }
         }
+        .tint(.white)
+        
     }
 }
 
