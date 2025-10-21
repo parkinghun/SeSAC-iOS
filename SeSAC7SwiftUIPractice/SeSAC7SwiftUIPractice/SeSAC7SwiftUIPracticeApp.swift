@@ -11,8 +11,7 @@ import SwiftUI
 struct SeSAC7SwiftUIPracticeApp: App {
     var body: some Scene {
         WindowGroup {
-            
-            ContentView()
+            MainTabView()
         }
     }
 }
