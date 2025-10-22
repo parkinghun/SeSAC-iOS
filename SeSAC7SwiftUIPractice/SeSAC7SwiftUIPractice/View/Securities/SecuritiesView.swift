@@ -11,8 +11,10 @@ struct SecuritiesView: View {
     @State private var selectedTab = 0
     private let tabs = ["모두", "국내", "해외"]
     private let cityList = CityInfo().city
-    
-    let rows = Array(repeating: GridItem(.fixed(120), spacing: 12), count: 2)
+    private let columns = [
+        GridItem(.flexible(), spacing: 12),
+        GridItem(.flexible(), spacing: 12)
+    ]
     
     var filteredCities: [City] {
         switch selectedTab {
@@ -25,7 +27,6 @@ struct SecuritiesView: View {
         }
     }
     
-    
     var body: some View {
         NavigationStack {
             VStack(spacing: 22) {
@@ -34,7 +35,7 @@ struct SecuritiesView: View {
                     CategoryPickerView(tabs: tabs, selectedTab: $selectedTab)
                     
                     ScrollView {
-                        LazyVGrid(columns: GridLayout.columns, spacing: 16) {
+                        LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(filteredCities) { city in
                                 CityInfoView(city: city)
                                     .frame(height: 220)
@@ -49,15 +50,6 @@ struct SecuritiesView: View {
             }
         }
         .background(.white)
-    }
-}
-
-private extension SecuritiesView {
-    enum GridLayout {
-        static let columns = [
-            GridItem(.flexible(), spacing: 12),
-            GridItem(.flexible(), spacing: 12)
-        ]
     }
 }
 
