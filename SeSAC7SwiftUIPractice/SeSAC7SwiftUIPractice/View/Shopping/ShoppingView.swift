@@ -33,7 +33,7 @@ struct ShoppingView: View {
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 12) {
-                                    ForEach(section.imageURLs, id: \.self) { urlString in
+                                    ForEach(section.imageURLs, id: \.self) { urlString in  // id 중복 ~
                                         AsyncImage(url: URL(string: urlString))
                                             .frame(width: 120, height: 150)
                                             .clipShape(RoundedRectangle(cornerRadius: 16))
